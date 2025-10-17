@@ -8,15 +8,9 @@ import {
   Volume2,
   VolumeX,
   Maximize,
-  Star,
   Share2,
   Bookmark,
   Plus,
-  RotateCcw,
-  MessageSquare,
-  FileText,
-  BookOpen,
-  ArrowRight,
   Menu,
   X
 } from 'lucide-react';
@@ -42,7 +36,6 @@ export default function VideoPlayerPage({ courseId, onBack }) {
   const [availableQualities, setAvailableQualities] = useState([]);
   const [playbackQuality, setPlaybackQuality] = useState('auto');
   const [isPlayerReady, setIsPlayerReady] = useState(false);
-  const [lockedPlayerHeight, setLockedPlayerHeight] = useState(null);
   const [isDesktop, setIsDesktop] = useState(false);
 
   const videoContainerRef = useRef(null);
@@ -80,43 +73,22 @@ export default function VideoPlayerPage({ courseId, onBack }) {
     setShowControls(true);
   };
 
-  // useEffect(() => {
-  //   const resetControlsTimeout = () => {
-  //     if (controlsTimeoutRef.current) {
-  //       clearTimeout(controlsTimeoutRef.current);
-  //     }
-  //     if (playing) {
-  //       controlsTimeoutRef.current = setTimeout(() => {
-  //         setShowControls(false);
-  //       }, 3000);
-  //     }
-  //   };
-  //   resetControlsTimeout();
-  //   return () => {
-  //     if (controlsTimeoutRef.current) {
-  //       clearTimeout(controlsTimeoutRef.current);
-  //     }
-  //   };
-  // }, [playing, showControls]);
-
   useEffect(() => {
-  if (controlsTimeoutRef.current) {
-    clearTimeout(controlsTimeoutRef.current);
-  }
+    if (controlsTimeoutRef.current) {
+      clearTimeout(controlsTimeoutRef.current);
+    }
 
-  // ✅ Always show controls when paused
-  if (!playing) {
-    setShowControls(true);
-    return;
-  }
+    if (!playing) {
+      setShowControls(true);
+      return;
+    }
 
-  // ⏳ Hide controls after 3s when playing
-  controlsTimeoutRef.current = setTimeout(() => {
-    setShowControls(false);
-  }, 3000);
+    controlsTimeoutRef.current = setTimeout(() => {
+      setShowControls(false);
+    }, 3000);
 
-  return () => clearTimeout(controlsTimeoutRef.current);
-}, [playing, showControls]);
+    return () => clearTimeout(controlsTimeoutRef.current);
+  }, [playing, showControls]);
 
   const QUALITY_ORDER = ['highres', 'hd2160', 'hd1440', 'hd1080', 'hd720', 'large', 'medium', 'small', 'tiny'];
 
@@ -206,10 +178,8 @@ export default function VideoPlayerPage({ courseId, onBack }) {
       return [];
     }
     const rawQualities = playerRef.current.getAvailableQualityLevels() || [];
-    console.log('Raw YouTube qualities:', rawQualities);
     const qualityOptions = sortQualities(rawQualities);
     const uniqueOptions = Array.from(new Set(qualityOptions));
-    console.log('Normalized quality options:', uniqueOptions);
     setAvailableQualities(uniqueOptions);
     return uniqueOptions;
   };
@@ -234,7 +204,6 @@ export default function VideoPlayerPage({ courseId, onBack }) {
     return Array.from(options);
   }, [availableQualities, playbackQuality]);
   
-  // Apply quality change and sync state
   const applyQuality = (quality, attempts = 5) => {
     if (!playerRef.current) return;
 
@@ -267,7 +236,6 @@ export default function VideoPlayerPage({ courseId, onBack }) {
           userSelectedQualityRef.current === quality &&
           playerRef.current.getAvailableQualityLevels().map(normalizeQuality).includes(quality)
         ) {
-          console.log(`Retrying quality change to ${quality}. Current: ${actual}. Attempts left: ${attempts - 1}`);
           qualitySyncTimeoutRef.current = null;
           applyQuality(quality, attempts - 1);
           return;
@@ -299,7 +267,6 @@ export default function VideoPlayerPage({ courseId, onBack }) {
   };
 
   const handleOnReady = (event) => {
-    console.log('Player ready');
     playerRef.current = event.target;
     setIsPlayerReady(true);
     
@@ -310,7 +277,6 @@ export default function VideoPlayerPage({ courseId, onBack }) {
 
     const actualQuality = normalizeQuality(playerRef.current.getPlaybackQuality());
 
-    // If user hasn't chosen a quality yet, prefer the highest available option.
     if (userSelectedQualityRef.current === 'auto' && qualityOptions.length > 0) {
       const preferredQuality = getHighestQuality(qualityOptions);
       userSelectedQualityRef.current = preferredQuality;
@@ -329,10 +295,8 @@ export default function VideoPlayerPage({ courseId, onBack }) {
     }
   };
 
-  // onPlaybackQualityChange is no longer needed because our applyQuality function handles monitoring
   const handleOnPlaybackQualityChange = (event) => {
     const normalizedQuality = normalizeQuality(event.data);
-    console.log('Quality changed by player:', event.data, `(normalized: ${normalizedQuality})`);
     setPlaybackQuality(normalizedQuality);
     const options = updateAvailableQualities();
 
@@ -342,7 +306,6 @@ export default function VideoPlayerPage({ courseId, onBack }) {
       normalizedQuality !== desiredQuality &&
       options.map(normalizeQuality).includes(desiredQuality)
     ) {
-      console.log(`Player dropped quality to ${normalizedQuality}, reapplying desired ${desiredQuality}`);
       applyQuality(desiredQuality);
     }
   };
@@ -392,31 +355,6 @@ export default function VideoPlayerPage({ courseId, onBack }) {
     }
   }, [isDesktop]);
 
-  useEffect(() => {
-    if (!isSidebarOpen || isFullscreen) {
-      return undefined;
-    }
-
-    if (typeof ResizeObserver === 'undefined') {
-      return undefined;
-    }
-
-    const container = videoContainerRef.current;
-    if (!container) {
-      return undefined;
-    }
-
-    const observer = new ResizeObserver((entries) => {
-      const entry = entries[0];
-      if (entry) {
-        setLockedPlayerHeight(entry.contentRect.height);
-      }
-    });
-
-    observer.observe(container);
-    return () => observer.disconnect();
-  }, [isSidebarOpen, isFullscreen]);
-
   const selectLesson = (lessonId) => {
     const allLessons = course.chapters.flatMap(c => c.lessons);
     const foundLesson = allLessons.find(l => l.id === lessonId);
@@ -447,22 +385,6 @@ export default function VideoPlayerPage({ courseId, onBack }) {
       } else {
         playerRef.current.playVideo();
       }
-    }
-  };
-
-  const handleSkipBackward = () => {
-    if (playerRef.current) {
-      const newTime = Math.max(0, playerRef.current.getCurrentTime() - 10);
-      playerRef.current.seekTo(newTime);
-      setCurrentTime(newTime);
-    }
-  };
-
-  const handleSkipForward = () => {
-    if (playerRef.current) {
-      const newTime = Math.min(playerRef.current.getDuration(), playerRef.current.getCurrentTime() + 10);
-      playerRef.current.seekTo(newTime);
-      setCurrentTime(newTime);
     }
   };
 
@@ -503,26 +425,16 @@ export default function VideoPlayerPage({ courseId, onBack }) {
     applyQuality(newQuality);
   };
 
-  const hideSidebar = () => {
-    if (videoContainerRef.current) {
-      const { height } = videoContainerRef.current.getBoundingClientRect();
-      if (height > 0) {
-        setLockedPlayerHeight(height);
-      }
-    }
-    setIsSidebarOpen(false);
-  };
-
   const renderSidebarContent = (showCloseButton = true) => (
     <div className="flex h-full flex-col bg-gray-800 text-white">
-      <div className="flex items-center justify-between border-b border-gray-700 px-4 py-3">
+      <div className="flex items-center justify-between border-b border-gray-700 px-4 py-3 flex-shrink-0">
         <div className="flex items-center gap-2">
           <Menu className="h-4 w-4 text-gray-300" />
           <h2 className="text-sm font-semibold text-gray-100">Contents</h2>
         </div>
         {showCloseButton && (
           <button
-            onClick={hideSidebar}
+            onClick={() => setIsSidebarOpen(false)}
             className="p-1 text-gray-300 transition-colors duration-200 hover:text-white"
             aria-label="Close contents"
           >
@@ -571,7 +483,7 @@ export default function VideoPlayerPage({ courseId, onBack }) {
                     </p>
                     <p className="text-xs text-gray-400">{lesson.duration}</p>
                   </div>
-                  <button className="text-gray-400 transition-colors duration-200 hover:text-white">
+                  <button className="text-gray-400 transition-colors duration-200 hover:text-white flex-shrink-0">
                     <Bookmark className="h-4 w-4" />
                   </button>
                 </div>
@@ -635,24 +547,26 @@ export default function VideoPlayerPage({ courseId, onBack }) {
   };
 
   return (
-    <div className="relative flex h-[calc(100vh-64px)] flex-col bg-gray-900 lg:flex-row">
-      {/* Sidebar */}
+    <div className="relative flex h-[calc(100vh-64px)] flex-col bg-gray-900 lg:flex-row overflow-hidden">
+      {/* Sidebar - Desktop */}
       {isDesktop ? (
         <div
-          className={`hidden h-full min-h-[calc(100vh-64px)] flex-shrink-0 border-r border-gray-800 transition-[margin,width] duration-300 lg:flex ${
-            isSidebarOpen ? 'lg:w-[350px]' : 'lg:w-0 lg:-ml-[350px]'
+          className={`flex-shrink-0 border-r border-gray-800 transition-all duration-300 overflow-hidden ${
+            isSidebarOpen ? 'w-80' : 'w-0'
           }`}
         >
-          {isSidebarOpen && renderSidebarContent(false)}
+          {isSidebarOpen && renderSidebarContent(true)}
         </div>
       ) : (
         <>
+          {/* Mobile Sidebar Overlay */}
           <div
             className={`fixed inset-0 z-40 bg-black/60 transition-opacity duration-300 lg:hidden ${
               isSidebarOpen ? 'opacity-100 pointer-events-auto' : 'pointer-events-none opacity-0'
             }`}
             onClick={() => setIsSidebarOpen(false)}
           />
+          {/* Mobile Sidebar */}
           <div
             className={`fixed top-16 bottom-0 left-0 z-50 flex h-full w-72 max-w-[85%] transform transition-all duration-300 lg:hidden ${
               isSidebarOpen ? 'translate-x-0 ease-out' : '-translate-x-full ease-in'
@@ -662,276 +576,258 @@ export default function VideoPlayerPage({ courseId, onBack }) {
           </div>
         </>
       )}
+
       {/* Vertical Divider */}
       {isDesktop && isSidebarOpen && <div className="hidden w-px bg-black lg:block" />}
-      {/* Main Content */}
-      <div className="flex-1 flex flex-col overflow-y-auto transition-all duration-300">
-        {/* Video Header */}
-        
 
-        {/* Video Player */}
-        <div
-          ref={videoContainerRef}
-          className={`relative bg-black w-full overflow-hidden flex-shrink-0 transition-all duration-300 ${isSidebarOpen ? 'aspect-video' : ''} ${isFullscreen ? 'fixed inset-0 z-50' : ''}`}
-          style={
-            !isFullscreen && !isSidebarOpen && lockedPlayerHeight
-              ? { height: `${lockedPlayerHeight}px` }
-              : undefined
-          }
-          onMouseMove={handleMouseMove}
-          onMouseLeave={() => {
-  if (playing) setShowControls(false);
-}}
-
-        >
-          {/* Use react-youtube component */}
-          {currentLesson && videoId && (
-            <YouTube
-              key={videoId} // Force remount when video changes
-              videoId={videoId}
-              opts={opts}
-              onReady={handleOnReady}
-              onStateChange={handleOnStateChange}
-              onPlaybackQualityChange={handleOnPlaybackQualityChange}
-              className="w-full h-full"
-              containerClassName="relative w-full h-full"
-            />
-          )}
-          
-          {/* Custom Controls Overlay */}
-          <div className={`absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent transition-opacity duration-300 pointer-events-none ${showControls ? 'opacity-100' : 'opacity-0'}`}>
+      {/* Main Content - Scrollable Container */}
+      <div className="flex-1 flex flex-col overflow-hidden">
+        {/* Scrollable area */}
+        <div className="flex-1 overflow-y-auto">
+          {/* Video Player Container - Fixed Aspect Ratio */}
+          <div
+            ref={videoContainerRef}
+            className={`relative bg-black w-full overflow-hidden transition-all duration-300 ${
+              isFullscreen ? 'fixed inset-0 z-50 h-screen' : 'h-[430px] md:h-[480px] lg:h-[530px]'
+            }`}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={() => {
+              if (playing) setShowControls(false);
+            }}
+          >
+            {currentLesson && videoId && (
+              <YouTube
+                key={videoId}
+                videoId={videoId}
+                opts={opts}
+                onReady={handleOnReady}
+                onStateChange={handleOnStateChange}
+                onPlaybackQualityChange={handleOnPlaybackQualityChange}
+                className="w-full h-full"
+                containerClassName="relative w-full h-full"
+              />
+            )}
             
-            {/* Center Play/Pause Button */}
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-auto">
-              <button
-                onClick={handlePlayPause}
-                className="bg-black/50 hover:bg-black/70 rounded-full p-4 transition-all duration-200 backdrop-blur-sm"
-              >
-                {playing ? (
-                  <Pause className="w-12 h-12 text-white" />
-                ) : (
-                  <Play className="w-12 h-12 text-white ml-1" />
-                )}
-              </button>
-            </div>
-
-            {/* Bottom Controls Bar */}
-            <div className="absolute bottom-0 left-0 right-0 p-4 pointer-events-auto">
-              {/* Progress Bar */}
-              <div className="mb-4">
-                <div className="relative w-full h-2 bg-white/20 rounded-lg backdrop-blur-sm">
-                  <div 
-                    className="absolute top-0 left-0 h-full bg-blue-600 rounded-lg transition-all duration-200"
-                    style={{ width: `${progress}%` }}
-                  />
-                  <input
-                    type="range"
-                    min={0}
-                    max={duration || 100}
-                    value={currentTime}
-                    onChange={handleSeekChange}
-                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                    style={{
-                      background: 'none',
-                    }}
-                  />
-                </div>
+            {/* Custom Controls Overlay */}
+            <div className={`absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/40 transition-opacity duration-300 pointer-events-none ${showControls ? 'opacity-100' : 'opacity-0'}`}>
+              
+              {/* Center Play/Pause Button */}
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-auto">
+                <button
+                  onClick={handlePlayPause}
+                  className="bg-black/50 hover:bg-black/70 rounded-full p-4 transition-all duration-200 backdrop-blur-sm"
+                >
+                  {playing ? (
+                    <Pause className="w-12 h-12 text-white" />
+                  ) : (
+                    <Play className="w-12 h-12 text-white ml-1" />
+                  )}
+                </button>
               </div>
 
-              {/* Control Buttons */}
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-4">
-                  {/* Play/Pause */}
-                  <button
-                    onClick={handlePlayPause}
-                    className="text-white hover:text-gray-300 transition-colors p-1 rounded-full hover:bg-white/10"
-                  >
-                    {playing ? <Pause className="w-6 h-6" /> : <Play className="w-6 h-6 ml-0.5" />}
-                  </button>
+              {/* Bottom Controls Bar */}
+              <div className="absolute bottom-0 left-0 right-0 p-4 pointer-events-auto">
+                {/* Progress Bar */}
+                <div className="mb-4">
+                  <div className="relative w-full h-2 bg-white/20 rounded-lg backdrop-blur-sm">
+                    <div 
+                      className="absolute top-0 left-0 h-full bg-blue-600 rounded-lg transition-all duration-200"
+                      style={{ width: `${progress}%` }}
+                    />
+                    <input
+                      type="range"
+                      min={0}
+                      max={duration || 100}
+                      value={currentTime}
+                      onChange={handleSeekChange}
+                      className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                    />
+                  </div>
+                </div>
 
-                  {/* Skip Backward (Previous Lesson) */}
-                  <button
-                    onClick={() => {
-                      const allLessons = course.chapters.flatMap(c => c.lessons);
-                      const currentIndex = allLessons.findIndex(l => l.id === currentLesson.id);
-                      if (currentIndex > 0) {
-                        selectLesson(allLessons[currentIndex - 1].id);
-                      }
-                    }}
-                    className="text-white hover:text-gray-300 transition-colors p-1 rounded-full hover:bg-white/10 disabled:opacity-50 disabled:cursor-not-allowed"
-                    disabled={(() => {
-                      const allLessons = course.chapters.flatMap(c => c.lessons);
-                      const currentIndex = allLessons.findIndex(l => l.id === currentLesson.id);
-                      return currentIndex <= 0;
-                    })()}
-                    title="Previous Lesson"
-                  >
-                    <SkipBack className="w-6 h-6" />
-                  </button>
-
-                  {/* Skip Forward (Next Lesson) */}
-                  <button
-                    onClick={() => {
-                      const allLessons = course.chapters.flatMap(c => c.lessons);
-                      const currentIndex = allLessons.findIndex(l => l.id === currentLesson.id);
-                      if (currentIndex < allLessons.length - 1) {
-                        selectLesson(allLessons[currentIndex + 1].id);
-                      }
-                    }}
-                    className="text-white hover:text-gray-300 transition-colors p-1 rounded-full hover:bg-white/10 disabled:opacity-50 disabled:cursor-not-allowed"
-                    disabled={(() => {
-                      const allLessons = course.chapters.flatMap(c => c.lessons);
-                      const currentIndex = allLessons.findIndex(l => l.id === currentLesson.id);
-                      return currentIndex >= allLessons.length - 1;
-                    })()}
-                    title="Next Lesson"
-                  >
-                    <SkipForward className="w-6 h-6" />
-                  </button>
-
-                  {/* Volume Controls */}
-                  <div className="flex items-center space-x-2">
+                {/* Control Buttons */}
+                <div className="flex items-center justify-between gap-2 flex-wrap">
+                  <div className="flex items-center gap-2">
+                    {/* Play/Pause */}
                     <button
-                      onClick={handleToggleMute}
-                      className="text-white hover:text-gray-300 transition-colors p-1 rounded-full hover:bg-white/10"
-                      title="Volume"
+                      onClick={handlePlayPause}
+                      className="text-white hover:text-gray-300 transition-colors p-1 rounded-full hover:bg-white/10 flex-shrink-0"
                     >
-                      {muted || volume === 0 ? <VolumeX className="w-6 h-6" /> : <Volume2 className="w-6 h-6" />}
+                      {playing ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5 ml-0.5" />}
                     </button>
-                    <div className="relative w-20 h-1 bg-white/20 rounded-lg backdrop-blur-sm">
-                      <div 
-                        className="absolute top-0 left-0 h-full bg-white rounded-lg transition-all duration-200"
-                        style={{ width: `${muted ? 0 : volume * 100}%` }}
-                      />
-                      <input
-                        type="range"
-                        min={0}
-                        max={1}
-                        step={0.05}
-                        value={muted ? 0 : volume}
-                        onChange={handleVolumeChange}
-                        className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+
+                    {/* Skip Backward (Previous Lesson) */}
+                    <button
+                      onClick={() => {
+                        const allLessons = course.chapters.flatMap(c => c.lessons);
+                        const currentIndex = allLessons.findIndex(l => l.id === currentLesson.id);
+                        if (currentIndex > 0) {
+                          selectLesson(allLessons[currentIndex - 1].id);
+                        }
+                      }}
+                      className="text-white hover:text-gray-300 transition-colors p-1 rounded-full hover:bg-white/10 disabled:opacity-50 disabled:cursor-not-allowed flex-shrink-0"
+                      disabled={(() => {
+                        const allLessons = course.chapters.flatMap(c => c.lessons);
+                        const currentIndex = allLessons.findIndex(l => l.id === currentLesson.id);
+                        return currentIndex <= 0;
+                      })()}
+                      title="Previous Lesson"
+                    >
+                      <SkipBack className="w-5 h-5" />
+                    </button>
+
+                    {/* Skip Forward (Next Lesson) */}
+                    <button
+                      onClick={() => {
+                        const allLessons = course.chapters.flatMap(c => c.lessons);
+                        const currentIndex = allLessons.findIndex(l => l.id === currentLesson.id);
+                        if (currentIndex < allLessons.length - 1) {
+                          selectLesson(allLessons[currentIndex + 1].id);
+                        }
+                      }}
+                      className="text-white hover:text-gray-300 transition-colors p-1 rounded-full hover:bg-white/10 disabled:opacity-50 disabled:cursor-not-allowed flex-shrink-0"
+                      disabled={(() => {
+                        const allLessons = course.chapters.flatMap(c => c.lessons);
+                        const currentIndex = allLessons.findIndex(l => l.id === currentLesson.id);
+                        return currentIndex >= allLessons.length - 1;
+                      })()}
+                      title="Next Lesson"
+                    >
+                      <SkipForward className="w-5 h-5" />
+                    </button>
+
+                    {/* Volume Controls */}
+                    <div className="flex items-center gap-2 ml-1">
+                      <button
+                        onClick={handleToggleMute}
+                        className="text-white hover:text-gray-300 transition-colors p-1 rounded-full hover:bg-white/10 flex-shrink-0"
                         title="Volume"
-                      />
+                      >
+                        {muted || volume === 0 ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
+                      </button>
+                      <div className="relative w-16 h-1 bg-white/20 rounded-lg backdrop-blur-sm">
+                        <div 
+                          className="absolute top-0 left-0 h-full bg-white rounded-lg transition-all duration-200"
+                          style={{ width: `${muted ? 0 : volume * 100}%` }}
+                        />
+                        <input
+                          type="range"
+                          min={0}
+                          max={1}
+                          step={0.05}
+                          value={muted ? 0 : volume}
+                          onChange={handleVolumeChange}
+                          className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                          title="Volume"
+                        />
+                      </div>
                     </div>
+
+                    {/* Time Display */}
+                    <span className="text-white text-xs font-mono bg-black/30 px-2 py-1 rounded backdrop-blur-sm ml-2 flex-shrink-0">
+                      {formatTime(currentTime)} / {formatTime(duration || 0)}
+                    </span>
                   </div>
 
-                  {/* Time Display */}
-                  <span className="text-white text-sm font-mono bg-black/30 px-2 py-1 rounded backdrop-blur-sm">
-                    {formatTime(currentTime)} / {formatTime(duration || 0)}
-                  </span>
-                </div>
-
-                <div className="flex items-center space-x-4">
-                  {/* Playback Speed */}
-                  <select
-                    value={playbackRate}
-                    onChange={(e) => {
-                      const newRate = parseFloat(e.target.value);
-                      setPlaybackRate(newRate);
-                      if (playerRef.current) {
+                  <div className="flex items-center gap-2">
+                    {/* Playback Speed */}
+                    <select
+                      value={playbackRate}
+                      onChange={(e) => {
+                        const newRate = parseFloat(e.target.value);
+                        setPlaybackRate(newRate);
+                        if (playerRef.current) {
                           playerRef.current.setPlaybackRate(newRate);
-                      }
-                    }}
-                    className="bg-black/50 text-white text-sm rounded px-2 py-1 border border-white/20 backdrop-blur-sm hover:bg-black/70 transition-colors"
-                    title="Playback speed"
-                  >
-                    <option value={0.5}>0.5×</option>
-                    <option value={0.75}>0.75×</option>
-                    <option value={1}>1×</option>
-                    <option value={1.25}>1.25×</option>
-                    <option value={1.5}>1.5×</option>
-                    <option value={2}>2×</option>
-                  </select>
+                        }
+                      }}
+                      className="bg-black/50 text-white text-xs rounded px-2 py-1 border border-white/20 backdrop-blur-sm hover:bg-black/70 transition-colors flex-shrink-0"
+                      title="Playback speed"
+                    >
+                      <option value={0.5}>0.5×</option>
+                      <option value={0.75}>0.75×</option>
+                      <option value={1}>1×</option>
+                      <option value={1.25}>1.25×</option>
+                      <option value={1.5}>1.5×</option>
+                      <option value={2}>2×</option>
+                    </select>
 
-                  {/* Playback Quality - Fixed implementation */}
-                  <select
-                    value={playbackQuality}
-                    onChange={(e) => handleQualityChange(e.target.value)}
-                    className="bg-black/50 text-white text-sm rounded px-2 py-1 border border-white/20 backdrop-blur-sm hover:bg-black/70 transition-colors"
-                    title="Video Quality"
-                  >
-                    <option value="auto">Auto</option>
-                    {qualityOptionsForSelect.map((quality) => (
-                      <option key={quality} value={quality}>
-                        {formatQualityLabel(quality)}
-                      </option>
-                    ))}
-                  </select>
+                    {/* Playback Quality */}
+                    <select
+                      value={playbackQuality}
+                      onChange={(e) => handleQualityChange(e.target.value)}
+                      className="bg-black/50 text-white text-xs rounded px-2 py-1 border border-white/20 backdrop-blur-sm hover:bg-black/70 transition-colors flex-shrink-0"
+                      title="Video Quality"
+                    >
+                      <option value="auto">Auto</option>
+                      {qualityOptionsForSelect.map((quality) => (
+                        <option key={quality} value={quality}>
+                          {formatQualityLabel(quality)}
+                        </option>
+                      ))}
+                    </select>
 
-                  {/* Fullscreen */}
-                  <button
-                    onClick={toggleFullscreen}
-                    className="text-white hover:text-gray-300 transition-colors p-1 rounded-full hover:bg-white/10"
-                    title="Toggle Fullscreen"
-                  >
-                    <Maximize className="w-6 h-6" />
-                  </button>
+                    {/* Fullscreen */}
+                    <button
+                      onClick={toggleFullscreen}
+                      className="text-white hover:text-gray-300 transition-colors p-1 rounded-full hover:bg-white/10 flex-shrink-0"
+                      title="Toggle Fullscreen"
+                    >
+                      <Maximize className="w-5 h-5" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Top Info Bar */}
+              <div className="absolute top-0 left-0 right-0 px-4 pt-3 pb-2 pointer-events-auto">
+                <div className="flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-3 min-w-0">
+                    {!isSidebarOpen && isDesktop && (
+                      <button
+                        onClick={() => setIsSidebarOpen(true)}
+                        className="flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white text-xs font-medium uppercase tracking-wide px-3 py-1 rounded-full transition-colors flex-shrink-0"
+                        aria-label="Show contents"
+                      >
+                        <Menu className="w-4 h-4" />
+                        <span className="hidden sm:inline">Contents</span>
+                      </button>
+                    )}
+                    <div className="flex flex-col min-w-0">
+                      <h1 className="text-sm font-semibold text-white truncate">{course.title}</h1>
+                      <p className="text-xs text-gray-300 truncate">{currentLesson?.title}</p>
+                    </div>
+                  </div>
+                  <div className="hidden md:flex items-center gap-3 flex-shrink-0">
+                    <div className="flex items-center gap-1 text-sm text-gray-200">
+                      <Share2 className="w-4 h-4" />
+                      <span>166</span>
+                    </div>
+                    <div className="flex items-center gap-1 text-sm text-gray-200">
+                      <Bookmark className="w-4 h-4" />
+                      <span>731</span>
+                    </div>
+                    <button className="text-gray-200 hover:text-white">
+                      <Plus className="w-5 h-5" />
+                    </button>
+                    <button className="text-gray-200 hover:text-white">
+                      <Share2 className="w-5 h-5" />
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
-
-            {/* Top Info Bar */}
-<div className="absolute top-0 left-0 right-0 px-4 pt-3 pb-2 bg-gradient-to-b from-black/70 to-transparent border-b border-white/20 pointer-events-auto transition-opacity duration-300">
-  <div className="flex items-center justify-between">
-    <div className="flex items-center space-x-3">
-      {!isSidebarOpen && (
-        <button
-          onClick={() => setIsSidebarOpen(true)}
-          className="flex items-center space-x-2 bg-white/10 hover:bg-white/20 text-white text-xs font-medium uppercase tracking-wide px-3 py-1 rounded-full transition-colors"
-          aria-label="Show contents"
-        >
-          <Menu className="w-4 h-4" />
-          <span className="hidden sm:inline">Contents</span>
-        </button>
-      )}
-      <div className="flex flex-col">
-        <h1 className="text-sm font-semibold text-white">{course.title}</h1>
-        <p className="text-xs text-gray-300 mt-1">{currentLesson?.title}</p>
-      </div>
-    </div>
-    <div className="hidden md:flex items-center space-x-4">
-      <div className="flex items-center space-x-1 text-sm text-gray-200">
-        <Share2 className="w-4 h-4" />
-        <span>166</span>
-      </div>
-      <div className="flex items-center space-x-1 text-sm text-gray-200">
-        <Bookmark className="w-4 h-4" />
-        <span>731</span>
-      </div>
-      <button className="text-gray-200 hover:text-white">
-        <Plus className="w-5 h-5" />
-      </button>
-      <button className="text-gray-200 hover:text-white">
-        <Share2 className="w-5 h-5" />
-      </button>
-    </div>
-  </div>
-</div>
-
           </div>
 
-          {/* Debug info (remove in production) */}
-          {/* {process.env.NODE_ENV === 'development' && (
-            <div className="absolute top-20 left-4 bg-black/80 text-white p-2 rounded text-xs">
-              <div>Player Ready: {isPlayerReady ? 'Yes' : 'No'}</div>
-              <div>Current Quality: {playbackQuality}</div>
-              <div>Available: {availableQualities.join(', ') || 'None'}</div>
-              <div>User Selected Quality: {userSelectedQualityRef.current}</div>
-              <div>Actual Quality: {playerRef.current ? playerRef.current.getPlaybackQuality() : 'N/A'}</div>
-            </div>
-          )} */}
+          {/* Video Tabs - Below Player */}
+          <VideoTabs
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
+            currentLesson={currentLesson}
+            getVideoDescription={getVideoDescription}
+            getLearningObjectives={getLearningObjectives}
+            getTranscriptSegments={getTranscriptSegments}
+          />
         </div>
-
-        <VideoTabs
-  activeTab={activeTab}
-  setActiveTab={setActiveTab}
-  currentLesson={currentLesson}
-  getVideoDescription={getVideoDescription}
-  getLearningObjectives={getLearningObjectives}
-  getTranscriptSegments={getTranscriptSegments}
-/>
-
       </div>
     </div>
   );
