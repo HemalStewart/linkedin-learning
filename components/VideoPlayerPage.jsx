@@ -568,7 +568,7 @@ export default function VideoPlayerPage({ courseId, onBack }) {
           />
           {/* Mobile Sidebar */}
           <div
-            className={`fixed top-16 bottom-0 left-0 z-50 flex h-full w-72 max-w-[85%] transform transition-all duration-300 lg:hidden ${
+            className={`fixed top-0 bottom-0 left-0 z-50 w-72 max-w-[85%] transform transition-all duration-300 lg:hidden ${
               isSidebarOpen ? 'translate-x-0 ease-out' : '-translate-x-full ease-in'
             }`}
           >
