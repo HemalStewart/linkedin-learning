@@ -782,7 +782,7 @@ export default function VideoPlayerPage({ courseId, onBack }) {
               <div className="absolute top-0 left-0 right-0 px-4 pt-3 pb-2 pointer-events-auto">
                 <div className="flex items-center justify-between gap-2">
                   <div className="flex items-center gap-3 min-w-0">
-                    {!isSidebarOpen && isDesktop && (
+                    {!isSidebarOpen && (
                       <button
                         onClick={() => setIsSidebarOpen(true)}
                         className="flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white text-xs font-medium uppercase tracking-wide px-3 py-1 rounded-full transition-colors flex-shrink-0"
