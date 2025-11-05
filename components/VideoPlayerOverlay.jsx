@@ -206,7 +206,7 @@ export default function VideoPlayerOverlay({
             </div>
           </div>
         </div>
-        <div className="mt-[5px] h-px bg-white/30 -mx-4" />
+        <div className="mt-[17px] h-px bg-white/30 -mx-4" />
       </div>
     </div>
   );
