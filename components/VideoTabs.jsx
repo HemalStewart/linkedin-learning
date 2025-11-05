@@ -24,7 +24,7 @@ export default function VideoTabs({
     <div className="flex-1 bg-white border-t">
       {/* Tabs Header */}
       <div className="sticky top-0 z-10 border-b bg-white">
-        <div className="flex flex-wrap justify-center gap-3 px-4 py-2 sm:gap-4 sm:px-6">
+        <div className="flex flex-wrap justify-center gap-3 px-4 py-3.5 sm:gap-4 sm:px-6">
           {tabs.map(({ id, label, icon: Icon }) => {
             const isActive = activeTab === id;
             return (
