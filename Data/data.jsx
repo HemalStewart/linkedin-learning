@@ -1,48 +1,287 @@
 export const allCourses = {
-  1: { 
-    id: 1, 
-    title: "What Is Generative Artificial Intelligence?", 
-    instructor: "Pinar Seyhan Demirdag", 
-    duration: "1h 3m", 
-    badge: "Popular", 
-    badgeColor: "bg-purple-100 text-purple-800", 
+  1: {
+    id: 1,
+    title: "What Is Generative Artificial Intelligence?",
+    instructor: "Pinar Seyhan Demirdag",
+    duration: "1h 3m",
+    badge: "Popular",
+    badgeColor: "bg-purple-100 text-purple-800",
     image: "bg-gradient-to-br from-purple-500 to-pink-500",
     preview: "Learn the fundamentals of generative AI and how it's transforming industries...",
     chapters: [
-      { id: 1, title: "Introduction", lessons: [
-        { id: 1, title: "What is Generative AI?", duration: "5m 23s", completed: false, videoUrl: "https://www.youtube.com/watch?v=Vped7Y8Caa8" },
-        { id: 2, title: "Understanding Foundation Models", duration: "8m 45s", completed: false, videoUrl: "https://www.youtube.com/watch?v=_zb7WgYfyDs" }
-      ]},
-      { id: 2, title: "Core Concepts", lessons: [
-        { id: 3, title: "Training AI Models", duration: "12m 30s", completed: false, videoUrl: "https://www.youtube.com/watch?v=B5Na9Ehd0QU" },
-        { id: 4, title: "Generative vs. Discriminative", duration: "15m 22s", completed: false, videoUrl: "https://www.youtube.com/watch?v=0OI2CKbneHc" },
-        { id: 5, title: "Ethical Considerations", duration: "9m 18s", completed: false, videoUrl: "https://www.youtube.com/watch?v=pidy886cj9I" }
-      ]},
-      { id: 6, title: "Introduction", lessons: [
-        { id: 7, title: "What is Generative AI?", duration: "5m 23s", completed: false, videoUrl: "https://www.youtube.com/watch?v=Vped7Y8Caa8" },
-        { id: 8, title: "Understanding Foundation Models", duration: "8m 45s", completed: false, videoUrl: "https://www.youtube.com/watch?v=_zb7WgYfyDs" }
-      ]},
-      { id: 9, title: "Core Concepts", lessons: [
-        { id: 10, title: "Training AI Models", duration: "12m 30s", completed: false, videoUrl: "https://www.youtube.com/watch?v=B5Na9Ehd0QU" },
-        { id: 11, title: "Generative vs. Discriminative", duration: "15m 22s", completed: false, videoUrl: "https://www.youtube.com/watch?v=0OI2CKbneHc" },
-        { id: 12, title: "Ethical Considerations", duration: "9m 18s", completed: false, videoUrl: "https://www.youtube.com/watch?v=pidy886cj9I" },
-        { id: 13, title: "Generative vs. Discriminative", duration: "15m 22s", completed: false, videoUrl: "https://www.youtube.com/watch?v=0OI2CKbneHc" },
-        { id: 14, title: "Ethical Considerations", duration: "9m 18s", completed: false, videoUrl: "https://www.youtube.com/watch?v=pidy886cj9I" }
-      ]}
+      {
+        id: 1,
+        title: "Introduction",
+        lessons: [
+          {
+            id: 1,
+            title: "What is Generative AI?",
+            duration: "5m 23s",
+            completed: false,
+            videoUrl: "https://www.youtube.com/watch?v=Vped7Y8Caa8"
+          },
+          {
+            id: 2,
+            title: "Understanding Foundation Models",
+            duration: "8m 45s",
+            completed: false,
+            videoUrl: "https://www.youtube.com/watch?v=_zb7WgYfyDs"
+          },
+          {
+            id: 3,
+            title: "Generative AI Use Cases",
+            duration: "7m 12s",
+            completed: false,
+            videoUrl: "https://www.youtube.com/watch?v=4s86A4y1d7A"
+          },
+          {
+            id: 4,
+            title: "Model Capabilities and Limits",
+            duration: "6m 54s",
+            completed: false,
+            videoUrl: "https://www.youtube.com/watch?v=QzNxxC8N08s"
+          },
+          {
+            id: 5,
+            title: "Getting Started Toolkit",
+            duration: "4m 48s",
+            completed: false,
+            videoUrl: "https://www.youtube.com/watch?v=G7mavP9zxqI"
+          }
+        ]
+      },
+      {
+        id: 2,
+        title: "Core Concepts",
+        lessons: [
+          {
+            id: 6,
+            title: "Training AI Models",
+            duration: "12m 30s",
+            completed: false,
+            videoUrl: "https://www.youtube.com/watch?v=B5Na9Ehd0QU"
+          },
+          {
+            id: 7,
+            title: "Generative vs. Discriminative",
+            duration: "15m 22s",
+            completed: false,
+            videoUrl: "https://www.youtube.com/watch?v=0OI2CKbneHc"
+          },
+          {
+            id: 8,
+            title: "Ethical Considerations",
+            duration: "9m 18s",
+            completed: false,
+            videoUrl: "https://www.youtube.com/watch?v=pidy886cj9I"
+          },
+          {
+            id: 9,
+            title: "Data Curation Essentials",
+            duration: "11m 06s",
+            completed: false,
+            videoUrl: "https://www.youtube.com/watch?v=eMvo2i_Q4N8"
+          },
+          {
+            id: 10,
+            title: "Prompt Patterns",
+            duration: "8m 19s",
+            completed: false,
+            videoUrl: "https://www.youtube.com/watch?v=5Q1phdX5GxY"
+          }
+        ]
+      },
+      {
+        id: 3,
+        title: "Advanced Techniques",
+        lessons: [
+          {
+            id: 11,
+            title: "Prompt Engineering Deep Dive",
+            duration: "11m 04s",
+            completed: false,
+            videoUrl: "https://www.youtube.com/watch?v=67HM9d1gjpY"
+          },
+          {
+            id: 12,
+            title: "Fine-Tuning Foundation Models",
+            duration: "13m 18s",
+            completed: false,
+            videoUrl: "https://www.youtube.com/watch?v=dPrs8Uz0wzE"
+          },
+          {
+            id: 13,
+            title: "Evaluating Generative Outputs",
+            duration: "10m 42s",
+            completed: false,
+            videoUrl: "https://www.youtube.com/watch?v=Lt9-7Y_KZs0"
+          },
+          {
+            id: 14,
+            title: "Reinforcement Learning from Human Feedback",
+            duration: "14m 05s",
+            completed: false,
+            videoUrl: "https://www.youtube.com/watch?v=3PjO1qX8kUo"
+          },
+          {
+            id: 15,
+            title: "Optimizing Inference Pipelines",
+            duration: "9m 56s",
+            completed: false,
+            videoUrl: "https://www.youtube.com/watch?v=Yr1yIgiZHiM"
+          }
+        ]
+      },
+      {
+        id: 4,
+        title: "Building With GenAI",
+        lessons: [
+          {
+            id: 16,
+            title: "Designing Conversational Agents",
+            duration: "12m 12s",
+            completed: false,
+            videoUrl: "https://www.youtube.com/watch?v=1d9kA0v1iW0"
+          },
+          {
+            id: 17,
+            title: "Workflow Automation with AI",
+            duration: "8m 58s",
+            completed: false,
+            videoUrl: "https://www.youtube.com/watch?v=ISp8pPYfacs"
+          },
+          {
+            id: 18,
+            title: "Integrating GenAI into Products",
+            duration: "16m 11s",
+            completed: false,
+            videoUrl: "https://www.youtube.com/watch?v=dW7Z2I9srJs"
+          },
+          {
+            id: 19,
+            title: "Responsible Deployment Checklist",
+            duration: "7m 47s",
+            completed: false,
+            videoUrl: "https://www.youtube.com/watch?v=0Thw5Z3n6zA"
+          },
+          {
+            id: 20,
+            title: "Monitoring Model Performance",
+            duration: "9m 02s",
+            completed: false,
+            videoUrl: "https://www.youtube.com/watch?v=9lMG-tgRNi0"
+          }
+        ]
+      }
     ],
     videoDescriptions: {
-      "What is Generative AI?": "Understand the fundamentals of generative artificial intelligence and its applications across various fields.",
-      "Understanding Foundation Models": "Explore the concept of foundation models and their role as the building blocks of modern GenAI systems.",
-      "Training AI Models": "Learn the process of training generative AI models, from data preparation to fine-tuning.",
-      "Generative vs. Discriminative": "Differentiate between generative and discriminative AI models and their specific use cases.",
-      "Ethical Considerations": "Examine the ethical challenges and societal impacts of widespread generative AI adoption."
+      "What is Generative AI?":
+        "Understand the fundamentals of generative artificial intelligence and its applications across various fields.",
+      "Understanding Foundation Models":
+        "Explore the concept of foundation models and their role as the building blocks of modern GenAI systems.",
+      "Training AI Models":
+        "Learn the process of training generative AI models, from data preparation to fine-tuning.",
+      "Generative vs. Discriminative":
+        "Differentiate between generative and discriminative AI models and their specific use cases.",
+      "Ethical Considerations":
+        "Examine the ethical challenges and societal impacts of widespread generative AI adoption.",
+      "Prompt Engineering Deep Dive":
+        "Master prompt structures and troubleshooting tactics to reliably steer large language models.",
+      "Fine-Tuning Foundation Models":
+        "See how transfer learning and parameter-efficient methods adapt large models to niche domains.",
+      "Evaluating Generative Outputs":
+        "Combine automated metrics and human review to assess the quality of generative results.",
+      "Reinforcement Learning from Human Feedback":
+        "Understand how RLHF aligns model behaviour with human expectations and safety guardrails.",
+      "Optimizing Inference Pipelines":
+        "Reduce cost and latency of GenAI workloads with hardware, batching, and caching strategies.",
+      "Designing Conversational Agents":
+        "Plan natural, on-brand conversational flows that keep users engaged and supported.",
+      "Workflow Automation with AI":
+        "Automate repetitive knowledge work by chaining GenAI capabilities with existing tools.",
+      "Integrating GenAI into Products":
+        "Partner with cross-functional teams to ship generative experiences users love.",
+      "Responsible Deployment Checklist":
+        "Follow a clear checklist covering privacy, transparency, and support before launch.",
+      "Monitoring Model Performance":
+        "Track quality, safety, and usage signals so deployed models keep getting better."
     },
     learningObjectives: {
-      "What is Generative AI?": ["Define generative AI and its key characteristics.", "Identify common applications of generative AI.", "Distinguish GenAI from traditional AI."],
-      "Understanding Foundation Models": ["Explain what a foundation model is.", "Describe the multi-tasking capabilities of foundation models.", "Recognize the importance of minimal training for targeted use cases."],
-      "Training AI Models": ["Outline the steps involved in training an AI model.", "Understand the role of supervised and unsupervised learning.", "Discuss the importance of data quality."],
-      "Generative vs. Discriminative": ["Articulate the core difference between generative and discriminative models.", "Provide examples for both model types.", "Select the appropriate model for a given problem."],
-      "Ethical Considerations": ["Recognize potential biases in AI training data.", "Discuss the concept of intellectual property in GenAI.", "Evaluate the societal impact of automation and misinformation."]
+      "What is Generative AI?": [
+        "Define generative AI and its key characteristics.",
+        "Identify common applications of generative AI.",
+        "Distinguish GenAI from traditional AI."
+      ],
+      "Understanding Foundation Models": [
+        "Explain what a foundation model is.",
+        "Describe the multi-tasking capabilities of foundation models.",
+        "Recognize the importance of minimal training for targeted use cases."
+      ],
+      "Training AI Models": [
+        "Outline the steps involved in training an AI model.",
+        "Understand the role of supervised and unsupervised learning.",
+        "Discuss the importance of data quality."
+      ],
+      "Generative vs. Discriminative": [
+        "Articulate the core difference between generative and discriminative models.",
+        "Provide examples for both model types.",
+        "Select the appropriate model for a given problem."
+      ],
+      "Ethical Considerations": [
+        "Recognize potential biases in AI training data.",
+        "Discuss the concept of intellectual property in GenAI.",
+        "Evaluate the societal impact of automation and misinformation."
+      ],
+      "Prompt Engineering Deep Dive": [
+        "Spot prompt patterns that produce inconsistent outputs.",
+        "Apply role, context, and constraint prompting for complex tasks.",
+        "Iterate prompts efficiently using model feedback."
+      ],
+      "Fine-Tuning Foundation Models": [
+        "Compare full fine-tuning with adapter-based techniques like LoRA.",
+        "Set up a reproducible fine-tuning workflow.",
+        "Validate fine-tuned models against domain-specific metrics."
+      ],
+      "Evaluating Generative Outputs": [
+        "Select qualitative and quantitative evaluation methods.",
+        "Design human review workflows for generative content.",
+        "Build scorecards that track model regressions over time."
+      ],
+      "Reinforcement Learning from Human Feedback": [
+        "Summarize the RLHF training loop.",
+        "Collect preference data to train reward models.",
+        "Integrate feedback updates into iterative model releases."
+      ],
+      "Optimizing Inference Pipelines": [
+        "Profile inference bottlenecks across hardware choices.",
+        "Apply batching, caching, and streaming to reduce latency.",
+        "Estimate serving costs and plan autoscaling policies."
+      ],
+      "Designing Conversational Agents": [
+        "Map user intents into conversational flows.",
+        "Craft prompt templates that maintain context and tone.",
+        "Measure and improve bot satisfaction metrics."
+      ],
+      "Workflow Automation with AI": [
+        "Identify high-value automation candidates.",
+        "Orchestrate GenAI services within existing tools.",
+        "Monitor automations for drift and compliance."
+      ],
+      "Integrating GenAI into Products": [
+        "Define product principles for generative experiences.",
+        "Collaborate with legal, design, and engineering stakeholders.",
+        "Plan rollout strategies with user feedback loops."
+      ],
+      "Responsible Deployment Checklist": [
+        "Audit datasets and licensing before launch.",
+        "Create transparent user communications.",
+        "Establish review cadences for post-launch oversight."
+      ],
+      "Monitoring Model Performance": [
+        "Set up telemetry for quality, usage, and safety signals.",
+        "Alert teams when anomalies occur.",
+        "Capture user feedback to drive model improvements."
+      ]
     },
     transcripts: {
       "What is Generative AI?": [
@@ -56,312 +295,70 @@ export const allCourses = {
         { timestamp: "0:25", text: "This allows them to perform a wide variety of tasks with minimal fine-tuning." }
       ],
       "Training AI Models": [
-        { timestamp: "0:00", text: "Training a generative AI model can be a complex process." },
-        { timestamp: "0:12", text: "It begins with curating a high-quality, unbiased dataset." },
-        { timestamp: "0:30", text: "The model then learns the patterns and relationships within that data." }
+        { timestamp: "0:00", text: "Training a generative AI model can be broken down into several key steps." },
+        { timestamp: "0:15", text: "We'll explore data collection and preprocessing in detail." },
+        { timestamp: "0:30", text: "You'll see how training and evaluation metrics are chosen." }
       ],
       "Generative vs. Discriminative": [
-        { timestamp: "0:00", text: "A simple way to think about the difference is creation versus classification." },
-        { timestamp: "0:15", text: "Generative models create new data, while discriminative models classify existing data." },
-        { timestamp: "0:35", text: "For example, a generative model can write a story, while a discriminative model can tell you if an email is spam." }
+        { timestamp: "0:00", text: "What's the real difference between generative and discriminative models?" },
+        { timestamp: "0:12", text: "Generative models focus on how the data is generated." },
+        { timestamp: "0:24", text: "Discriminative models focus on drawing boundaries between classes." }
       ],
       "Ethical Considerations": [
-        { timestamp: "0:00", text: "As GenAI becomes more powerful, so do the ethical considerations." },
-        { timestamp: "0:10", text: "Bias in training data can lead to unfair or discriminatory outputs." },
-        { timestamp: "0:25", text: "We must also consider the impact on job markets and the potential for misinformation." }
-      ]
-    }
-  },
-  2: { 
-    id: 2, 
-    title: "10-in-10 Artificial Intelligence Challenge", 
-    instructor: "Ray Villalobos", 
-    duration: "22m", 
-    badge: "New", 
-    badgeColor: "bg-green-100 text-green-800", 
-    image: "bg-gradient-to-br from-blue-500 to-teal-500",
-    preview: "Master 10 AI tools in just 10 minutes each with practical hands-on exercises...",
-    chapters: [
-      { id: 1, title: "Introduction", lessons: [
-        { id: 1, title: "Challenge yourself to daily AI projects", duration: "42s", completed: false, videoUrl: "https://www.youtube.com/watch?v=uXfNQH_i6H4" }
-      ]},
-      { id: 2, title: "10 Daily Challenges", lessons: [
-        { id: 2, title: "Use an interactive voice podcast", duration: "7m 13s", completed: false, videoUrl: "https://www.youtube.com/watch?v=A4rtmmqcb_Q" },
-        { id: 3, title: "Vibe code a data dashboard", duration: "2m 57s", completed: false, videoUrl: "https://www.youtube.com/watch?v=eRLbZNiC70M" },
-        { id: 4, title: "Create a custom question and answer agent", duration: "6m 58s", completed: false, videoUrl: "https://www.youtube.com/watch?v=UxEza8wLcS0" },
-        { id: 5, title: "Build websites from Deep Research", duration: "3m 28s", completed: false, videoUrl: "https://www.youtube.com/watch?v=eaf2CsCm-Zo" }
-      ]}
-    ],
-    videoDescriptions: {
-      "Challenge yourself to daily AI projects": "Learn why consistent practice with AI tools is essential for staying current in today's rapidly evolving technology landscape.",
-      "Use an interactive voice podcast": "Discover how to create engaging voice-based content using AI tools like ElevenLabs and Descript.",
-      "Vibe code a data dashboard": "Build responsive data visualizations using AI-assisted coding tools and modern web frameworks.",
-      "Create a custom question and answer agent": "Develop intelligent chatbots using OpenAI's API and custom training data.",
-      "Build websites from Deep Research": "Transform research documents into fully functional websites using AI-powered development tools."
-    },
-    learningObjectives: {
-      "Challenge yourself to daily AI projects": ["Understand the importance of daily AI practice", "Set up a personal AI learning routine", "Identify key AI tools for different tasks"],
-      "Use an interactive voice podcast": ["Create voice content using AI tools", "Master audio editing with AI assistance", "Distribute podcasts across platforms"],
-      "Vibe code a data dashboard": ["Build interactive data visualizations", "Use AI coding assistants effectively", "Implement responsive design patterns"],
-      "Create a custom question and answer agent": ["Integrate OpenAI API into applications", "Design conversational AI flows", "Handle edge cases in chatbot responses"],
-      "Build websites from Deep Research": ["Transform research documents into websites", "Use AI to analyze and structure content", "Streamline the web development workflow"]
-    },
-    transcripts: {
-      "Challenge yourself to daily AI projects": [
-        { timestamp: "0:00", text: "Welcome to the 10-in-10 AI Challenge. I'm Ray Villalobos, and I'll be your guide through this exciting journey." },
-        { timestamp: "0:08", text: "To stay afloat in today's rapidly changing tech landscape, you need to make practicing with AI tools a daily habit." }
+        { timestamp: "0:00", text: "Ethics in AI is more important than ever." },
+        { timestamp: "0:08", text: "We'll discuss data privacy and algorithmic transparency." },
+        { timestamp: "0:18", text: "You'll also see real-world case studies." }
       ],
-      "Use an interactive voice podcast": [
-        { timestamp: "0:00", text: "In this challenge, we're going to create an interactive voice podcast using AI tools." },
-        { timestamp: "0:10", text: "We'll start by using ElevenLabs to generate realistic voice narration from our script." },
-        { timestamp: "0:25", text: "Next, we'll use Descript to edit our audio content and add interactive elements." }
+      "Prompt Engineering Deep Dive": [
+        { timestamp: "0:00", text: "Prompt engineering is the craft of steering models intentionally." },
+        { timestamp: "0:20", text: "We will cover role prompting, constraints, and examples." },
+        { timestamp: "0:45", text: "Finally, we'll fix common prompt failure modes." }
       ],
-      "Vibe code a data dashboard": [
-        { timestamp: "0:00", text: "Today, we're going to build a data dashboard with the help of AI." },
-        { timestamp: "0:15", text: "AI coding assistants can help you write boilerplate code and complex functions quickly." },
-        { timestamp: "0:30", text: "We'll focus on creating a responsive and visually appealing dashboard." }
+      "Fine-Tuning Foundation Models": [
+        { timestamp: "0:00", text: "Fine-tuning adapts a general model to your specific domain." },
+        { timestamp: "0:18", text: "We'll compare full fine-tuning with parameter-efficient techniques." },
+        { timestamp: "0:40", text: "Evaluation ensures the tuned model meets quality goals." }
       ],
-      "Create a custom question and answer agent": [
-        { timestamp: "0:00", text: "In this lesson, we'll build a custom Q&A agent." },
-        { timestamp: "0:12", text: "Using a pre-trained model like OpenAI, we can teach it to answer questions about a specific topic." },
-        { timestamp: "0:25", text: "The key is to fine-tune the model with your own dataset." }
+      "Evaluating Generative Outputs": [
+        { timestamp: "0:00", text: "Evaluation protects against regressions in generative quality." },
+        { timestamp: "0:14", text: "Blend automatable metrics with expert human reviews." },
+        { timestamp: "0:32", text: "We'll close with a sample evaluation checklist." }
       ],
-      "Build websites from Deep Research": [
-        { timestamp: "0:00", text: "Can AI build a website from a research paper? Let's find out." },
-        { timestamp: "0:10", text: "We'll use an AI tool to extract key information and structure it into a website layout." },
-        { timestamp: "0:20", text: "This approach can save countless hours of manual work." }
-      ]
-    }
-  },
-  3: { 
-    id: 3, 
-    title: "Introduction to Artificial Intelligence Guide", 
-    instructor: "Doug Rose", 
-    duration: "2h 26m", 
-    badge: "Popular", 
-    badgeColor: "bg-blue-100 text-blue-800", 
-    image: "bg-gradient-to-br from-blue-400 to-cyan-400",
-    preview: "Comprehensive introduction to AI concepts, machine learning, and practical applications...",
-    chapters: [
-      { id: 1, title: "Foundations of AI", lessons: [
-        { id: 1, title: "What is AI?", duration: "6m 10s", completed: false, videoUrl: "https://www.youtube.com/watch?v=R7nfVoiC8f8" },
-        { id: 2, title: "A Brief History of AI", duration: "10m 5s", completed: false, videoUrl: "https://www.youtube.com/watch?v=ZSAx12d3Rho" }
-      ]},
-      { id: 2, title: "Machine Learning Concepts", lessons: [
-        { id: 3, title: "Supervised Learning", duration: "14m 30s", completed: false, videoUrl: "https://www.youtube.com/watch?v=FfE8LC_FVLA" },
-        { id: 4, title: "Unsupervised Learning", duration: "11m 45s", completed: false, videoUrl: "https://www.youtube.com/watch?v=03u4xyj0TH4" }
-      ]}
-    ],
-    videoDescriptions: {
-      "What is AI?": "An overview of what artificial intelligence is and its different forms.",
-      "A Brief History of AI": "A look at the key milestones and figures in the history of artificial intelligence.",
-      "Supervised Learning": "Introduction to supervised learning, a core concept in machine learning.",
-      "Unsupervised Learning": "Explore unsupervised learning and how models can find patterns in unlabeled data."
-    },
-    learningObjectives: {
-      "What is AI?": ["Define artificial intelligence.", "Identify different types of AI.", "Understand the scope of AI applications."],
-      "A Brief History of AI": ["Recall key historical periods in AI research.", "Name important AI pioneers.", "Trace the evolution of AI technology."],
-      "Supervised Learning": ["Explain the concept of supervised learning.", "Identify problems solvable with supervised learning.", "Discuss common algorithms like linear regression and classification."],
-      "Unsupervised Learning": ["Describe the goal of unsupervised learning.", "Provide examples of unsupervised learning algorithms.", "Analyze use cases like clustering and association." ]
-    },
-    transcripts: {
-      "What is AI?": [
-        { timestamp: "0:00", text: "Hello and welcome to the Introduction to AI guide." },
-        { timestamp: "0:15", text: "Artificial intelligence is a broad field of computer science." }
+      "Reinforcement Learning from Human Feedback": [
+        { timestamp: "0:00", text: "RLHF teaches models to follow human preferences." },
+        { timestamp: "0:22", text: "We'll gather comparison data to train a reward model." },
+        { timestamp: "0:48", text: "Policy optimization aligns the base model with the reward." }
       ],
-      "A Brief History of AI": [
-        { timestamp: "0:00", text: "AI is not a new concept; its roots go back decades." },
-        { timestamp: "0:10", text: "From the early days of symbolic AI to the modern deep learning revolution." }
+      "Optimizing Inference Pipelines": [
+        { timestamp: "0:00", text: "Serving GenAI models efficiently is a cost challenge." },
+        { timestamp: "0:16", text: "We'll profile hardware choices and batching strategies." },
+        { timestamp: "0:34", text: "Monitoring helps you react to spikes in demand." }
       ],
-      "Supervised Learning": [
-        { timestamp: "0:00", text: "Supervised learning is perhaps the most common form of machine learning." },
-        { timestamp: "0:15", text: "In this approach, the model learns from labeled data." }
+      "Designing Conversational Agents": [
+        { timestamp: "0:00", text: "Conversational design starts with intent mapping." },
+        { timestamp: "0:18", text: "We'll balance automation with human hand-offs." },
+        { timestamp: "0:37", text: "Tone and personality matter for user trust." }
       ],
-      "Unsupervised Learning": [
-        { timestamp: "0:00", text: "Unlike supervised learning, unsupervised learning works with unlabeled data." },
-        { timestamp: "0:10", text: "The goal is to find hidden patterns or groupings in the data on its own." }
-      ]
-    }
-  },
-  4: { 
-    id: 4, 
-    title: "Make the Move from Middle Manager to Director", 
-    instructor: "Chelsea Jay", 
-    duration: "1h 29m", 
-    badge: "New", 
-    badgeColor: "bg-green-100 text-green-800", 
-    image: "bg-gradient-to-br from-red-400 to-orange-400",
-    preview: "Strategic leadership skills to advance your career to the next level...",
-    chapters: [
-      { id: 1, title: "From Manager to Leader", lessons: [
-        { id: 1, title: "Thinking Strategically", duration: "10m 2s", completed: false, videoUrl: "https://www.youtube.com/watch?v=fPV0JsAnA6s" },
-        { id: 2, title: "Developing Executive Presence", duration: "12m 45s", completed: false, videoUrl: "https://www.youtube.com/watch?v=00JaPxoZxiY" }
-      ]}
-    ],
-    videoDescriptions: {
-      "Thinking Strategically": "Learn how to shift your mindset from day-to-day management to long-term strategic planning.",
-      "Developing Executive Presence": "Cultivate the communication and leadership skills needed to command respect and influence at a higher level."
-    },
-    learningObjectives: {
-      "Thinking Strategically": ["Transition from tactical to strategic thinking.", "Identify key business drivers and opportunities.", "Develop a long-term vision for your team and organization."],
-      "Developing Executive Presence": ["Articulate your ideas with confidence and clarity.", "Master non-verbal communication and body language.", "Build strong relationships with senior leaders and stakeholders."]
-    },
-    transcripts: {
-      "Thinking Strategically": [
-        { timestamp: "0:00", text: "The leap from manager to director requires a significant shift in perspective." },
-        { timestamp: "0:15", text: "You must start thinking beyond your team's daily tasks and focus on the bigger picture." }
+      "Workflow Automation with AI": [
+        { timestamp: "0:00", text: "Automation frees teams to focus on creative work." },
+        { timestamp: "0:15", text: "We'll orchestrate GenAI calls inside business workflows." },
+        { timestamp: "0:33", text: "Auditing ensures automations stay compliant." }
       ],
-      "Developing Executive Presence": [
-        { timestamp: "0:00", text: "Executive presence is not just about confidence; it's about influence and impact." },
-        { timestamp: "0:10", text: "It’s about how you carry yourself, how you communicate, and how you inspire trust in others." }
-      ]
-    }
-  },
-  5: { 
-    id: 5, 
-    title: "Determining Marketing Strategy: Platforms", 
-    instructor: "Rashim Mogha", 
-    duration: "45m", 
-    badge: "New", 
-    badgeColor: "bg-green-100 text-green-800", 
-    image: "bg-gradient-to-br from-purple-400 to-indigo-500",
-    preview: "Choose the right marketing platforms for maximum ROI and audience engagement...",
-    chapters: [
-      { id: 1, title: "Choosing the Right Channels", lessons: [
-        { id: 1, title: "Digital vs. Traditional Marketing", duration: "8m 10s", completed: false, videoUrl: "https://www.youtube.com/watch?v=IG1p9fhNIks" },
-        { id: 2, title: "Social Media Platform Analysis", duration: "15m 55s", completed: false, videoUrl: "https://www.youtube.com/watch?v=0LcKrmSNElE" }
-      ]}
-    ],
-    videoDescriptions: {
-      "Digital vs. Traditional Marketing": "Compare the strengths and weaknesses of digital and traditional marketing channels to inform your strategy.",
-      "Social Media Platform Analysis": "Deep dive into major social media platforms and learn how to select the best ones for your target audience."
-    },
-    learningObjectives: {
-      "Digital vs. Traditional Marketing": ["Distinguish between digital and traditional marketing.", "Evaluate the ROI of different channels.", "Choose a balanced marketing mix."],
-      "Social Media Platform Analysis": ["Analyze the demographics of major social media platforms.", "Develop a content strategy for each platform.", "Measure the success of your social media campaigns."]
-    },
-    transcripts: {
-      "Digital vs. Traditional Marketing": [
-        { timestamp: "0:00", text: "In today's landscape, marketers have more options than ever." },
-        { timestamp: "0:10", text: "The first step in determining your strategy is to understand the difference between digital and traditional channels." }
+      "Integrating GenAI into Products": [
+        { timestamp: "0:00", text: "Product integration requires collaboration." },
+        { timestamp: "0:17", text: "We'll examine discovery, prototyping, and launch playbooks." },
+        { timestamp: "0:38", text: "User feedback loops keep features improving." }
       ],
-      "Social Media Platform Analysis": [
-        { timestamp: "0:00", text: "With so many social media platforms, how do you know where to focus your efforts?" },
-        { timestamp: "0:15", text: "We'll break down the key platforms, from Facebook to TikTok, and help you decide." }
-      ]
-    }
-  },
-  6: { 
-    id: 6, 
-    title: "The Art of Public Speaking for Beginners", 
-    instructor: "Pia Singh", 
-    duration: "1h 15m", 
-    badge: "Popular", 
-    badgeColor: "bg-yellow-100 text-yellow-800", 
-    image: "bg-gradient-to-br from-yellow-400 to-orange-400",
-    preview: "Overcome stage fright and deliver compelling presentations with confidence...",
-    chapters: [
-      { id: 1, title: "Building Confidence", lessons: [
-        { id: 1, title: "Overcoming Stage Fright", duration: "10m 3s", completed: false, videoUrl: "https://www.youtube.com/embed/Xq4-2d-c1pQ" },
-        { id: 2, title: "Crafting Your Message", duration: "12m 20s", completed: false, videoUrl: "https://www.youtube.com/embed/Rk0W9uU8c_c" }
-      ]}
-    ],
-    videoDescriptions: {
-      "Overcoming Stage Fright": "Techniques and mental exercises to help you manage anxiety and fear before and during a speech.",
-      "Crafting Your Message": "Learn how to structure your speech for maximum impact and audience retention."
-    },
-    learningObjectives: {
-      "Overcoming Stage Fright": ["Identify the root causes of stage fright.", "Apply breathing and visualization techniques.", "Build confidence through practice and exposure."],
-      "Crafting Your Message": ["Outline a clear and compelling speech.", "Use storytelling to connect with your audience.", "Practice effective delivery and pacing."]
-    },
-    transcripts: {
-      "Overcoming Stage Fright": [
-        { timestamp: "0:00", text: "Public speaking can be terrifying, but it doesn't have to be." },
-        { timestamp: "0:10", text: "In this lesson, we'll give you tools to turn your nervousness into excitement." }
+      "Responsible Deployment Checklist": [
+        { timestamp: "0:00", text: "Before launch, run through a responsible AI checklist." },
+        { timestamp: "0:16", text: "We'll validate data sources and document capabilities." },
+        { timestamp: "0:34", text: "Communications help users understand boundaries." }
       ],
-      "Crafting Your Message": [
-        { timestamp: "0:00", text: "A great speaker is only as good as their message." },
-        { timestamp: "0:15", text: "We'll cover the fundamentals of crafting a message that resonates with your audience." }
-      ]
-    }
-  },
-  7: { 
-    id: 7, 
-    title: "Coding for Beginners Step by Step Guide", 
-    instructor: "Sam Altman", 
-    duration: "3h 40m", 
-    badge: "New", 
-    badgeColor: "bg-green-100 text-green-800", 
-    image: "bg-gradient-to-br from-gray-700 to-gray-900", 
-    preview: "Start your programming journey with fundamental concepts and hands-on projects...",
-    chapters: [
-      { id: 1, title: "Getting Started", lessons: [
-        { id: 1, title: "What is Programming?", duration: "15m 12s", completed: false, videoUrl: "https://www.youtube.com/watch?v=zgGTVaG2UiQ" },
-        { id: 2, title: "Your First Program", duration: "20m 3s", completed: false, videoUrl: "https://www.youtube.com/watch?v=b64jlYfrv6A" }
-      ]}
-    ],
-    videoDescriptions: {
-      "What is Programming?": "An accessible introduction to the world of programming, explaining core concepts in simple terms.",
-      "Your First Program": "A step-by-step guide to writing and running your very first program, with hands-on examples."
-    },
-    learningObjectives: {
-      "What is Programming?": ["Define computer programming.", "Understand the role of code.", "Identify different programming languages."],
-      "Your First Program": ["Set up a basic coding environment.", "Write and execute a simple program.", "Debug common beginner errors."]
-    },
-    transcripts: {
-      "What is Programming?": [
-        { timestamp: "0:00", text: "Welcome to coding for beginners. Let's demystify programming together." },
-        { timestamp: "0:10", text: "At its heart, programming is just giving a computer a set of instructions to follow." }
-      ],
-      "Your First Program": [
-        { timestamp: "0:00", text: "Every programmer starts with a first program." },
-        { timestamp: "0:15", text: "Today, we'll write and run your first 'Hello, World!' program." }
-      ]
-    }
-  },
-  8: { 
-    id: 8, 
-    title: "Project Management Fundamentals for Beginners", 
-    instructor: "Jane Doe", 
-    duration: "2h 50m", 
-    badge: "Popular", 
-    badgeColor: "bg-blue-100 text-blue-800", 
-    image: "bg-gradient-to-br from-teal-400 to-cyan-500",
-    preview: "Essential project management methodologies and tools for successful delivery...",
-    chapters: [
-      { id: 1, title: "Project Lifecycle", lessons: [
-        { id: 1, title: "Initiating a Project", duration: "18m 5s", completed: false, videoUrl: "https://www.youtube.com/watch?v=1x9lrYMPK_w" },
-        { id: 2, title: "Planning and Execution", duration: "25m 30s", completed: false, videoUrl: "https://www.youtube.com/watch?v=7ECPKBH88No" }
-      ]}
-    ],
-    videoDescriptions: {
-      "Initiating a Project": "Learn the critical first steps of a project, from defining scope to identifying stakeholders.",
-      "Planning and Execution": "Explore key project management methodologies and techniques for efficient execution."
-    },
-    learningObjectives: {
-      "Initiating a Project": ["Define a project and its scope.", "Identify project stakeholders.", "Create a project charter."],
-      "Planning and Execution": ["Understand different project management methodologies.", "Create a work breakdown structure.", "Monitor progress and manage risks."]
-    },
-    transcripts: {
-      "Initiating a Project": [
-        { timestamp: "0:00", text: "Welcome to Project Management Fundamentals." },
-        { timestamp: "0:10", text: "Every successful project begins with a strong foundation." }
-      ],
-      "Planning and Execution": [
-        { timestamp: "0:00", text: "Once you have a project charter, it's time to plan." },
-        { timestamp: "0:15", text: "Execution is where the real work happens, and effective planning is key to success." }
+      "Monitoring Model Performance": [
+        { timestamp: "0:00", text: "Monitoring is ongoing work once a model is live." },
+        { timestamp: "0:17", text: "We'll instrument dashboards for quality and safety." },
+        { timestamp: "0:36", text: "Feedback loops feed future model improvements." }
       ]
     }
   }
 };
-
-export const courseList = [
-  allCourses[1],
-  allCourses[2],
-  allCourses[3],
-  allCourses[4],
-  allCourses[5],
-  allCourses[6],
-  allCourses[7],
-  allCourses[8]
-];
