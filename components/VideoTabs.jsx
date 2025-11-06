@@ -4,6 +4,7 @@ import { BlockMath, InlineMath } from 'react-katex';
 import 'katex/dist/katex.min.css';
 import ImageCarousel from '@/components/ImageCarousel';
 import PMICertificate from '@/components/PMICertificate';
+import PosterShowcase from '@/components/PosterShowcase';
 
 export default function VideoTabs({
   activeTab,
@@ -208,7 +209,7 @@ export default function VideoTabs({
             <PMICertificate />
           </div>
           <div className="pt-6">
-            <ImageCarousel />
+            <PosterShowcase />
           </div>
         </div>
       </div>
