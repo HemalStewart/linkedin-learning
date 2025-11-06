@@ -546,7 +546,7 @@ export default function VideoPlayerPage({ courseId }) {
   };
 
   const layoutClasses = `relative flex flex-1 min-h-0 flex-col bg-gray-900 transition-all duration-300 lg:grid lg:h-[calc(100vh-5rem)] ${
-    isSidebarOpen ? 'lg:grid-cols-[350px_minmax(0,1fr)]' : 'lg:grid-cols-[0_minmax(0,1fr)]'
+    isSidebarOpen ? 'lg:grid-cols-[340px_minmax(0,1fr)]' : 'lg:grid-cols-[0_minmax(0,1fr)]'
   }`;
 
   return (
@@ -627,58 +627,62 @@ export default function VideoPlayerPage({ courseId }) {
               )}
               <div className="flex min-h-0 min-w-0 flex-1 flex-col lg:col-start-2">
                 <div className="flex-1 overflow-y-auto">
-                  <div
-                    ref={videoContainerRef}
-                    className={`relative w-full overflow-hidden bg-black transition-all duration-300 ${
-                      isFullscreen ? 'fixed inset-0 z-50 h-screen' : 'h-[410px] md:h-[470px] lg:h-[510px]'
-                    }`}
-                    onMouseMove={handleMouseMove}
-                    onMouseLeave={() => {
-                      if (playing) setShowControls(false);
-                    }}
-                  >
-                    {currentLesson && videoId && (
-                      <YouTube
-                        key={videoId}
-                        videoId={videoId}
-                        opts={opts}
-                        onReady={handleOnReady}
-                        onStateChange={handleOnStateChange}
-                        onPlaybackQualityChange={handleOnPlaybackQualityChange}
-                        className="h-full w-full"
-                        containerClassName="relative h-full w-full"
-                      />
-                    )}
+                  <div className="relative">
+                    <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-[3px] bg-black/80" />
+                    <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-[3px] bg-black/80" />
+                    <div
+                      ref={videoContainerRef}
+                      className={`relative w-full overflow-hidden bg-black transition-all duration-300 ${
+                        isFullscreen ? 'fixed inset-0 z-50 h-screen' : 'h-[400px] md:h-[460px] lg:h-[500px]'
+                      }`}
+                      onMouseMove={handleMouseMove}
+                      onMouseLeave={() => {
+                        if (playing) setShowControls(false);
+                      }}
+                    >
+                      {currentLesson && videoId && (
+                        <YouTube
+                          key={videoId}
+                          videoId={videoId}
+                          opts={opts}
+                          onReady={handleOnReady}
+                          onStateChange={handleOnStateChange}
+                          onPlaybackQualityChange={handleOnPlaybackQualityChange}
+                          className="h-full w-full"
+                          containerClassName="relative h-full w-full"
+                        />
+                      )}
 
-                    <VideoPlayerOverlay
-                      showControls={showControls}
-                      playing={playing}
-                      onPlayPause={handlePlayPause}
-                      progress={progress}
-                      duration={duration}
-                      currentTime={currentTime}
-                      onSeekChange={handleSeekChange}
-                      onPreviousLesson={handlePreviousLesson}
-                      onNextLesson={handleNextLesson}
-                      canGoPrevious={canGoPrevious}
-                      canGoNext={canGoNext}
-                      muted={muted}
-                      volume={volume}
-                      onToggleMute={handleToggleMute}
-                      onVolumeChange={handleVolumeChange}
-                      formatTime={formatTime}
-                      playbackRate={playbackRate}
-                      onChangePlaybackRate={handlePlaybackRateChange}
-                      playbackQuality={playbackQuality}
-                      onChangeQuality={handleQualityChange}
-                      qualityOptions={qualityOptionsForSelect}
-                      formatQualityLabel={formatQualityLabel}
-                      onToggleFullscreen={toggleFullscreen}
-                      isSidebarOpen={isSidebarOpen}
-                      onOpenSidebar={() => setIsSidebarOpen(true)}
-                      courseTitle={course.title}
-                      lessonTitle={currentLesson?.title || ''}
-                    />
+                      <VideoPlayerOverlay
+                        showControls={showControls}
+                        playing={playing}
+                        onPlayPause={handlePlayPause}
+                        progress={progress}
+                        duration={duration}
+                        currentTime={currentTime}
+                        onSeekChange={handleSeekChange}
+                        onPreviousLesson={handlePreviousLesson}
+                        onNextLesson={handleNextLesson}
+                        canGoPrevious={canGoPrevious}
+                        canGoNext={canGoNext}
+                        muted={muted}
+                        volume={volume}
+                        onToggleMute={handleToggleMute}
+                        onVolumeChange={handleVolumeChange}
+                        formatTime={formatTime}
+                        playbackRate={playbackRate}
+                        onChangePlaybackRate={handlePlaybackRateChange}
+                        playbackQuality={playbackQuality}
+                        onChangeQuality={handleQualityChange}
+                        qualityOptions={qualityOptionsForSelect}
+                        formatQualityLabel={formatQualityLabel}
+                        onToggleFullscreen={toggleFullscreen}
+                        isSidebarOpen={isSidebarOpen}
+                        onOpenSidebar={() => setIsSidebarOpen(true)}
+                        courseTitle={course.title}
+                        lessonTitle={currentLesson?.title || ''}
+                      />
+                    </div>
                   </div>
 
                   <VideoTabs
