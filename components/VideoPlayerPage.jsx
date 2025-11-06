@@ -10,8 +10,13 @@ import SidebarNavContent from '@/components/SidebarNavContent';
 import SolutionsBar from '@/components/SolutionsBar';
 import {
   HomeIcon as Home,
-  BookOpenIcon as BookOpen,
+  BriefcaseIcon as Briefcase,
+  BookmarkSquareIcon as BookmarkSquare,
+  RectangleStackIcon as Stack,
+  AcademicCapIcon as AcademicCap,
+  CommandLineIcon as CommandLine,
   TrophyIcon as Award,
+  ChartBarSquareIcon as ChartBar,
   CodeBracketIcon as Code,
   XMarkIcon as XMark
 } from '@heroicons/react/24/solid';
@@ -51,23 +56,23 @@ export default function VideoPlayerPage({ courseId }) {
       title: null,
       items: [
         { icon: Home, label: 'Home', active: true },
-        { icon: BookOpen, label: 'My Career Journey' }
+        { icon: Briefcase, label: 'My Career Journey' }
       ]
     },
     {
       title: 'Learn',
       items: [
-        { icon: BookOpen, label: 'My Library' },
-        { icon: BookOpen, label: 'Content' },
-        { icon: BookOpen, label: 'Learning Paths' }
+        { icon: BookmarkSquare, label: 'My Library' },
+        { icon: Stack, label: 'Content' },
+        { icon: AcademicCap, label: 'Learning Paths' }
       ]
     },
     {
       title: 'Apply',
       items: [
-        { icon: Code, label: 'Coding Practice' },
+        { icon: CommandLine, label: 'Coding Practice' },
         { icon: Award, label: 'Certifications' },
-        { icon: Award, label: 'Skill Assessments' }
+        { icon: ChartBar, label: 'Skill Assessments' }
       ]
     }
   ];
