@@ -5,7 +5,7 @@ import SidebarNavContent from '@/components/SidebarNavContent';
 export default function MainSidebar({ navSections, isCollapsed, onToggleCollapse }) {
   return (
     <aside
-      className={`hidden flex-shrink-0 flex-col border-r border-gray-200 bg-white transition-all duration-300 lg:flex lg:sticky lg:top-16 lg:h-[calc(100vh-4rem)] lg:overflow-y-auto ${
+      className={`hidden flex-shrink-0 flex-col border-r border-gray-200 bg-white transition-all duration-300 lg:flex lg:sticky lg:top-20 lg:h-[calc(100vh-5rem)] lg:overflow-y-auto ${
         isCollapsed ? 'w-20' : 'w-64'
       }`}
     >

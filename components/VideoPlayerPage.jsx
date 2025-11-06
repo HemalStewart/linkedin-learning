@@ -7,6 +7,7 @@ import VideoPlayerOverlay from '@/components/VideoPlayerOverlay';
 import MainHeader from '@/components/MainHeader';
 import MainSidebar from '@/components/MainSidebar';
 import SidebarNavContent from '@/components/SidebarNavContent';
+import SolutionsBar from '@/components/SolutionsBar';
 import {
   HomeIcon as Home,
   BookOpenIcon as BookOpen,
@@ -544,13 +545,16 @@ export default function VideoPlayerPage({ courseId }) {
     },
   };
 
-  const layoutClasses = `relative flex h-full min-h-0 flex-col bg-gray-900 transition-all duration-300 lg:grid lg:h-[calc(100vh-4rem)] ${
+  const layoutClasses = `relative flex flex-1 min-h-0 flex-col bg-gray-900 transition-all duration-300 lg:grid lg:h-[calc(100vh-5rem)] ${
     isSidebarOpen ? 'lg:grid-cols-[320px_minmax(0,1fr)]' : 'lg:grid-cols-[0_minmax(0,1fr)]'
   }`;
 
   return (
     <div className="flex h-screen flex-col overflow-hidden bg-gray-100 text-gray-900">
-      <MainHeader onOpenMobileNav={() => setIsMobileNavOpen(true)} />
+      <div className="sticky top-0 z-50 flex flex-col">
+        <MainHeader onOpenMobileNav={() => setIsMobileNavOpen(true)} />
+        <SolutionsBar />
+      </div>
 
       {!isDesktop && isMobileNavOpen && (
         <>
@@ -585,7 +589,7 @@ export default function VideoPlayerPage({ courseId }) {
           <div className="flex-1 overflow-hidden bg-gray-900">
             <div className={layoutClasses}>
               {isDesktop && (
-                <div className="hidden bg-gray-900 lg:sticky lg:top-16 lg:flex lg:h-[calc(100vh-4rem)] lg:flex-col lg:overflow-hidden">
+                <div className="hidden bg-gray-900 lg:sticky lg:top-20 lg:flex lg:h-[calc(100vh-5rem)] lg:flex-col lg:overflow-hidden">
                   {isSidebarOpen && (
                     <CourseContentsSidebar
                       course={course}

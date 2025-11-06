@@ -15,8 +15,8 @@ export default function CourseContentsSidebar({
   return (
     <div className="flex h-full w-full flex-col bg-[#293038] text-white">
       <div className="flex items-center justify-between border-b border-[#3a424d] bg-[#313842] px-4 py-4 flex-shrink-0">
-        <div className="flex items-center gap-3 text-sm font-semibold">
-          <Menu className="h-4 w-4 text-gray-100" />
+        <div className="flex items-center gap-3 text font-semibold">
+          <Menu className="h-6 w-6 text-gray-100" />
           <span>Contents</span>
         </div>
         {showCloseButton && (
