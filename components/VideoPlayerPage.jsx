@@ -546,7 +546,7 @@ export default function VideoPlayerPage({ courseId }) {
   };
 
   const layoutClasses = `relative flex flex-1 min-h-0 flex-col bg-gray-900 transition-all duration-300 lg:grid lg:h-[calc(100vh-5rem)] ${
-    isSidebarOpen ? 'lg:grid-cols-[320px_minmax(0,1fr)]' : 'lg:grid-cols-[0_minmax(0,1fr)]'
+    isSidebarOpen ? 'lg:grid-cols-[350px_minmax(0,1fr)]' : 'lg:grid-cols-[0_minmax(0,1fr)]'
   }`;
 
   return (
@@ -630,7 +630,7 @@ export default function VideoPlayerPage({ courseId }) {
                   <div
                     ref={videoContainerRef}
                     className={`relative w-full overflow-hidden bg-black transition-all duration-300 ${
-                      isFullscreen ? 'fixed inset-0 z-50 h-screen' : 'h-[430px] md:h-[480px] lg:h-[530px]'
+                      isFullscreen ? 'fixed inset-0 z-50 h-screen' : 'h-[410px] md:h-[470px] lg:h-[510px]'
                     }`}
                     onMouseMove={handleMouseMove}
                     onMouseLeave={() => {
