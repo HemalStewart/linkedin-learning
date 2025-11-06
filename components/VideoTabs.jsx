@@ -23,7 +23,7 @@ export default function VideoTabs({
   return (
     <div className="flex-1 bg-white border-t">
       {/* Tabs Header */}
-      <div className="sticky top-0 z-10 border-b bg-white">
+      <div className="border-b border-gray-200 bg-white shadow-sm">
         <div className="flex flex-wrap justify-center gap-3 px-4 py-3.5 sm:gap-4 sm:px-6">
           {tabs.map(({ id, label, icon: Icon }) => {
             const isActive = activeTab === id;
@@ -34,8 +34,8 @@ export default function VideoTabs({
                 onClick={() => setActiveTab(id)}
                 className={`inline-flex shrink-0 flex-col items-center justify-center gap-1 rounded-md px-3 py-2 text-xs font-medium text-center transition-colors sm:flex-row sm:gap-2 sm:px-4 sm:text-sm ${
                   isActive
-                    ? 'bg-blue-50 text-blue-600 ring-1 ring-blue-200'
-                    : 'text-gray-500 hover:text-gray-700 hover:bg-gray-100'
+                    ? 'bg-gray-800 text-white ring-1 ring-gray-600'
+                    : 'text-gray-800 hover:text-white hover:bg-gray-700/50'
                 }`}
               >
                 <Icon className="h-5 w-5" />
@@ -200,7 +200,7 @@ export default function VideoTabs({
               </div>
             </div>
           )}
-          <div className="pt-6">
+          <div className="pt-6 relative z-0">
             <ImageCarousel />
           </div>
 

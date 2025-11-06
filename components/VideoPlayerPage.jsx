@@ -4,18 +4,15 @@ import { allCourses } from '../Data/data';
 import VideoTabs from '@/components/VideoTabs';
 import CourseContentsSidebar from '@/components/CourseContentsSidebar';
 import VideoPlayerOverlay from '@/components/VideoPlayerOverlay';
+import MainHeader from '@/components/MainHeader';
+import MainSidebar from '@/components/MainSidebar';
+import SidebarNavContent from '@/components/SidebarNavContent';
 import {
   HomeIcon as Home,
   BookOpenIcon as BookOpen,
   TrophyIcon as Award,
   CodeBracketIcon as Code,
-  QuestionMarkCircleIcon as HelpCircle,
-  BellIcon as Bell,
-  UserIcon as User,
-  Bars3Icon as MenuIcon,
-  XMarkIcon as XMark,
-  MagnifyingGlassIcon as SearchIcon,
-  ChevronLeftIcon as ChevronLeft
+  XMarkIcon as XMark
 } from '@heroicons/react/24/solid';
 
 export default function VideoPlayerPage({ courseId }) { 
@@ -73,54 +70,6 @@ export default function VideoPlayerPage({ courseId }) {
       ]
     }
   ];
-
-  const renderNavContent = (collapsed = false) => (
-    <div className="flex h-full flex-col">
-      <nav className="flex-1 overflow-y-auto px-3 py-4">
-        {navSections.map((section, sectionIndex) => (
-          <div key={sectionIndex} className={sectionIndex === 0 ? 'mt-2' : 'mt-4'}>
-            {!collapsed && section.title && (
-              <h3 className="mb-2 text-xs font-semibold uppercase tracking-wider text-gray-500">
-                {section.title}
-              </h3>
-            )}
-            <ul className="space-y-1">
-              {section.items.map((item, itemIndex) => (
-                <li key={itemIndex}>
-                  <button
-                    type="button"
-                    className={`flex w-full items-center ${collapsed ? 'justify-center' : 'gap-3'} rounded-md px-3 py-2 text-sm font-medium transition-colors duration-200 ${
-                      item.active
-                        ? 'bg-blue-50 text-blue-700'
-                        : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
-                    }`}
-                  >
-                    <item.icon
-                      className={`h-6 w-6 transition-colors duration-200 ${
-                        item.active ? 'text-blue-600' : 'text-gray-500'
-                      }`}
-                    />
-                    {!collapsed && <span>{item.label}</span>}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </nav>
-      <div
-        className={`border-t border-gray-200 ${collapsed ? 'py-3' : 'px-3 py-4'}`}
-      >
-        <button
-          type="button"
-          className={`flex w-full items-center ${collapsed ? 'justify-center' : 'gap-3'} rounded-md px-3 py-2 text-sm text-gray-600 transition-colors duration-200 hover:bg-gray-50 hover:text-blue-600`}
-        >
-          <HelpCircle className="h-6 w-6" />
-          {!collapsed && <span>Help</span>}
-        </button>
-      </div>
-    </div>
-  );
 
   useEffect(() => {
     const foundCourse = allCourses[courseId]; 
@@ -595,41 +544,21 @@ export default function VideoPlayerPage({ courseId }) {
     },
   };
 
-  const layoutClasses = `relative flex h-[calc(100vh-64px)] flex-col bg-gray-900 overflow-hidden lg:transition-[grid-template-columns] lg:duration-300 ${
-    isSidebarOpen ? 'lg:grid lg:grid-cols-[320px_minmax(0,1fr)]' : 'lg:grid lg:grid-cols-[0_minmax(0,1fr)]'
+  const layoutClasses = `relative flex h-full min-h-0 flex-col bg-gray-900 transition-all duration-300 lg:grid lg:h-[calc(100vh-4rem)] ${
+    isSidebarOpen ? 'lg:grid-cols-[320px_minmax(0,1fr)]' : 'lg:grid-cols-[0_minmax(0,1fr)]'
   }`;
 
   return (
-    <div className="flex min-h-screen bg-gray-100 text-gray-900">
-      <aside
-        className={`hidden lg:flex flex-col border-r border-gray-200 bg-white transition-all duration-300 ${
-          isNavCollapsed ? 'w-20' : 'w-64'
-        }`}
-      >
-        <div
-          className={`flex px-3 py-4 ${isNavCollapsed ? 'justify-center' : 'justify-end'}`}
-        >
-          <button
-            type="button"
-            onClick={() => setIsNavCollapsed(!isNavCollapsed)}
-            className="rounded-full p-2 text-gray-500 transition-colors duration-200 hover:bg-gray-100"
-            aria-label="Toggle navigation width"
-          >
-            <ChevronLeft
-              className={`h-5 w-5 transition-transform duration-200 ${isNavCollapsed ? 'rotate-180' : ''}`}
-            />
-          </button>
-        </div>
-        {renderNavContent(isNavCollapsed)}
-      </aside>
+    <div className="flex h-screen flex-col overflow-hidden bg-gray-100 text-gray-900">
+      <MainHeader onOpenMobileNav={() => setIsMobileNavOpen(true)} />
 
       {!isDesktop && isMobileNavOpen && (
         <>
           <div
-            className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm"
+            className="fixed inset-0 z-60 bg-black/60 backdrop-blur-sm"
             onClick={() => setIsMobileNavOpen(false)}
           />
-          <aside className="fixed inset-y-0 left-0 z-50 flex w-72 max-w-[85%] flex-col border-r border-gray-200 bg-white shadow-xl">
+          <aside className="fixed inset-y-0 left-0 z-70 flex w-72 max-w-[85%] flex-col border-r border-gray-200 bg-white shadow-xl">
             <div className="flex items-center justify-end border-b border-gray-200 px-3 py-3">
               <button
                 type="button"
@@ -640,156 +569,123 @@ export default function VideoPlayerPage({ courseId }) {
                 <XMark className="h-5 w-5" />
               </button>
             </div>
-            {renderNavContent(false)}
+            <SidebarNavContent navSections={navSections} collapsed={false} />
           </aside>
         </>
       )}
 
-      <div className="flex min-h-screen flex-1 flex-col bg-gray-50">
-        <header className="flex h-16 items-center justify-between border-b border-gray-200 bg-white px-4 shadow-sm">
-          <div className="flex items-center gap-3">
-            <button
-              type="button"
-              className="rounded-full p-2 text-gray-600 transition-colors duration-200 hover:bg-gray-100 lg:hidden"
-              onClick={() => setIsMobileNavOpen(true)}
-              aria-label="Open navigation"
-            >
-              <MenuIcon className="h-6 w-6" />
-            </button>
-            <div className="flex items-center gap-2">
-              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-r from-blue-500 to-blue-600 text-sm font-semibold text-white">
-                LL
-              </div>
-              <span className="hidden text-lg font-semibold text-gray-900 sm:block">LinkedIn Learning</span>
-            </div>
-          </div>
-          <div className="relative hidden w-full max-w-md flex-1 items-center lg:flex">
-            <SearchIcon className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-500" />
-            <input
-              type="text"
-              placeholder="Search for courses, skills, or topics..."
-              className="w-full rounded-full border border-gray-300 bg-gray-100 py-2 pl-10 pr-4 text-sm text-gray-700 transition-all duration-300 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-          <div className="flex items-center gap-2 md:gap-3">
-            <button className="rounded-full p-2 text-gray-600 transition-colors duration-200 hover:bg-gray-100 lg:hidden">
-              <SearchIcon className="h-5 w-5" />
-            </button>
-            <button className="relative rounded-full p-2 text-gray-600 transition-colors duration-200 hover:bg-gray-100 hover:text-blue-600">
-              <Bell className="h-6 w-6" />
-              <span className="absolute -top-0.5 -right-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[10px] font-semibold text-white">
-                2
-              </span>
-            </button>
-            <button className="rounded-full p-2 text-gray-600 transition-colors duration-200 hover:bg-gray-100 hover:text-blue-600">
-              <User className="h-6 w-6" />
-            </button>
-          </div>
-        </header>
+      <div className="flex flex-1 min-h-0 overflow-hidden">
+        <MainSidebar
+          navSections={navSections}
+          isCollapsed={isNavCollapsed}
+          onToggleCollapse={() => setIsNavCollapsed((prev) => !prev)}
+        />
 
-        <div className="flex-1 overflow-hidden bg-gray-900">
-          <div className={layoutClasses}>
-            {isDesktop && (
-              <div className="hidden h-full overflow-hidden bg-gray-900 lg:flex lg:flex-col">
-                {isSidebarOpen && (
-                  <CourseContentsSidebar
-                    course={course}
-                    currentLessonId={currentLesson?.id}
-                    onSelectLesson={selectLesson}
-                    onClose={() => setIsSidebarOpen(false)}
-                  />
-                )}
-              </div>
-            )}
-            {!isDesktop && (
-              <>
-                <div
-                  className={`fixed inset-0 z-40 bg-black/60 transition-opacity duration-300 lg:hidden ${
-                    isSidebarOpen ? 'opacity-100 pointer-events-auto' : 'pointer-events-none opacity-0'
-                  }`}
-                  onClick={() => setIsSidebarOpen(false)}
-                />
-                <div
-                  className={`fixed top-0 bottom-0 left-0 z-50 w-72 max-w-[85%] transform transition-all duration-300 lg:hidden ${
-                    isSidebarOpen ? 'translate-x-0 ease-out' : '-translate-x-full ease-in'
-                  }`}
-                >
-                  <CourseContentsSidebar
-                    course={course}
-                    currentLessonId={currentLesson?.id}
-                    onSelectLesson={(lessonId) => {
-                      selectLesson(lessonId);
-                      setIsSidebarOpen(false);
-                    }}
-                    onClose={() => setIsSidebarOpen(false)}
-                  />
-                </div>
-              </>
-            )}
-            <div className="flex min-w-0 flex-1 flex-col overflow-hidden lg:col-start-2">
-              <div className="flex-1 overflow-y-auto">
-                <div
-                  ref={videoContainerRef}
-                  className={`relative w-full overflow-hidden bg-black transition-all duration-300 ${
-                    isFullscreen ? 'fixed inset-0 z-50 h-screen' : 'h-[430px] md:h-[480px] lg:h-[530px]'
-                  }`}
-                  onMouseMove={handleMouseMove}
-                  onMouseLeave={() => {
-                    if (playing) setShowControls(false);
-                  }}
-                >
-                  {currentLesson && videoId && (
-                    <YouTube
-                      key={videoId}
-                      videoId={videoId}
-                      opts={opts}
-                      onReady={handleOnReady}
-                      onStateChange={handleOnStateChange}
-                      onPlaybackQualityChange={handleOnPlaybackQualityChange}
-                      className="h-full w-full"
-                      containerClassName="relative h-full w-full"
+        <div className="flex min-h-0 flex-1 flex-col overflow-hidden bg-gray-50">
+          <div className="flex-1 overflow-hidden bg-gray-900">
+            <div className={layoutClasses}>
+              {isDesktop && (
+                <div className="hidden bg-gray-900 lg:sticky lg:top-16 lg:flex lg:h-[calc(100vh-4rem)] lg:flex-col lg:overflow-hidden">
+                  {isSidebarOpen && (
+                    <CourseContentsSidebar
+                      course={course}
+                      currentLessonId={currentLesson?.id}
+                      onSelectLesson={selectLesson}
+                      onClose={() => setIsSidebarOpen(false)}
                     />
                   )}
+                </div>
+              )}
+              {!isDesktop && (
+            <>
+              <div
+                className={`fixed inset-0 z-60 bg-black/60 transition-opacity duration-300 lg:hidden ${
+                  isSidebarOpen ? 'opacity-100 pointer-events-auto' : 'pointer-events-none opacity-0'
+                }`}
+                onClick={() => setIsSidebarOpen(false)}
+              />
+              <div
+                className={`fixed top-0 bottom-0 left-0 z-70 w-72 max-w-[85%] transform transition-all duration-300 lg:hidden ${
+                  isSidebarOpen ? 'translate-x-0 ease-out' : '-translate-x-full ease-in'
+                }`}
+              >
+                    <CourseContentsSidebar
+                      course={course}
+                      currentLessonId={currentLesson?.id}
+                      onSelectLesson={(lessonId) => {
+                        selectLesson(lessonId);
+                        setIsSidebarOpen(false);
+                      }}
+                      onClose={() => setIsSidebarOpen(false)}
+                    />
+                  </div>
+                </>
+              )}
+              <div className="flex min-h-0 min-w-0 flex-1 flex-col lg:col-start-2">
+                <div className="flex-1 overflow-y-auto">
+                  <div
+                    ref={videoContainerRef}
+                    className={`relative w-full overflow-hidden bg-black transition-all duration-300 ${
+                      isFullscreen ? 'fixed inset-0 z-50 h-screen' : 'h-[430px] md:h-[480px] lg:h-[530px]'
+                    }`}
+                    onMouseMove={handleMouseMove}
+                    onMouseLeave={() => {
+                      if (playing) setShowControls(false);
+                    }}
+                  >
+                    {currentLesson && videoId && (
+                      <YouTube
+                        key={videoId}
+                        videoId={videoId}
+                        opts={opts}
+                        onReady={handleOnReady}
+                        onStateChange={handleOnStateChange}
+                        onPlaybackQualityChange={handleOnPlaybackQualityChange}
+                        className="h-full w-full"
+                        containerClassName="relative h-full w-full"
+                      />
+                    )}
 
-                  <VideoPlayerOverlay
-                    showControls={showControls}
-                    playing={playing}
-                    onPlayPause={handlePlayPause}
-                    progress={progress}
-                    duration={duration}
-                    currentTime={currentTime}
-                    onSeekChange={handleSeekChange}
-                    onPreviousLesson={handlePreviousLesson}
-                    onNextLesson={handleNextLesson}
-                    canGoPrevious={canGoPrevious}
-                    canGoNext={canGoNext}
-                    muted={muted}
-                    volume={volume}
-                    onToggleMute={handleToggleMute}
-                    onVolumeChange={handleVolumeChange}
-                    formatTime={formatTime}
-                    playbackRate={playbackRate}
-                    onChangePlaybackRate={handlePlaybackRateChange}
-                    playbackQuality={playbackQuality}
-                    onChangeQuality={handleQualityChange}
-                    qualityOptions={qualityOptionsForSelect}
-                    formatQualityLabel={formatQualityLabel}
-                    onToggleFullscreen={toggleFullscreen}
-                    isSidebarOpen={isSidebarOpen}
-                    onOpenSidebar={() => setIsSidebarOpen(true)}
-                    courseTitle={course.title}
-                    lessonTitle={currentLesson?.title || ''}
+                    <VideoPlayerOverlay
+                      showControls={showControls}
+                      playing={playing}
+                      onPlayPause={handlePlayPause}
+                      progress={progress}
+                      duration={duration}
+                      currentTime={currentTime}
+                      onSeekChange={handleSeekChange}
+                      onPreviousLesson={handlePreviousLesson}
+                      onNextLesson={handleNextLesson}
+                      canGoPrevious={canGoPrevious}
+                      canGoNext={canGoNext}
+                      muted={muted}
+                      volume={volume}
+                      onToggleMute={handleToggleMute}
+                      onVolumeChange={handleVolumeChange}
+                      formatTime={formatTime}
+                      playbackRate={playbackRate}
+                      onChangePlaybackRate={handlePlaybackRateChange}
+                      playbackQuality={playbackQuality}
+                      onChangeQuality={handleQualityChange}
+                      qualityOptions={qualityOptionsForSelect}
+                      formatQualityLabel={formatQualityLabel}
+                      onToggleFullscreen={toggleFullscreen}
+                      isSidebarOpen={isSidebarOpen}
+                      onOpenSidebar={() => setIsSidebarOpen(true)}
+                      courseTitle={course.title}
+                      lessonTitle={currentLesson?.title || ''}
+                    />
+                  </div>
+
+                  <VideoTabs
+                    activeTab={activeTab}
+                    setActiveTab={setActiveTab}
+                    currentLesson={currentLesson}
+                    getVideoDescription={getVideoDescription}
+                    getLearningObjectives={getLearningObjectives}
+                    getTranscriptSegments={getTranscriptSegments}
                   />
                 </div>
-
-                <VideoTabs
-                  activeTab={activeTab}
-                  setActiveTab={setActiveTab}
-                  currentLesson={currentLesson}
-                  getVideoDescription={getVideoDescription}
-                  getLearningObjectives={getLearningObjectives}
-                  getTranscriptSegments={getTranscriptSegments}
-                />
               </div>
             </div>
           </div>

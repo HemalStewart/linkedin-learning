@@ -25,13 +25,13 @@ const images = [
 
 export default function ImageCarousel() {
   return (
-    <div className="relative w-full">
-      <div className="pointer-events-none absolute inset-y-0 left-0 z-20 hidden items-center lg:flex lg:-translate-x-6">
+    <div className="relative z-0 w-full">
+      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 hidden items-center lg:flex lg:-translate-x-6">
         <div className="swiper-button-prev pointer-events-auto flex h-10 w-10 items-center justify-center rounded-full bg-gray-700 text-gray-300 shadow-lg transition-colors hover:bg-gray-800">
           <ChevronLeft size={20} />
         </div>
       </div>
-      <div className="pointer-events-none absolute inset-y-0 right-0 z-20 hidden items-center lg:flex lg:translate-x-6">
+      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 hidden items-center lg:flex lg:translate-x-6">
         <div className="swiper-button-next pointer-events-auto flex h-10 w-10 items-center justify-center rounded-full bg-gray-700 text-gray-300 shadow-lg transition-colors hover:bg-gray-800">
           <ChevronRight size={20} />
         </div>
