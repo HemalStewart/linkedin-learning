@@ -633,7 +633,7 @@ export default function VideoPlayerPage({ courseId }) {
                     <div
                       ref={videoContainerRef}
                       className={`relative w-full overflow-hidden bg-black transition-all duration-300 ${
-                        isFullscreen ? 'fixed inset-0 z-50 h-screen' : 'h-[400px] md:h-[460px] lg:h-[500px]'
+                        isFullscreen ? 'fixed inset-0 z-50 h-screen' : 'h-[380px] md:h-[440px] lg:h-[480px]'
                       }`}
                       onMouseMove={handleMouseMove}
                       onMouseLeave={() => {
