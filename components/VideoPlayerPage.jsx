@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useEffect, useState, useRef, useMemo, useCallback } from 'react';
 import YouTube from 'react-youtube';
 import { allCourses } from '../Data/data';
