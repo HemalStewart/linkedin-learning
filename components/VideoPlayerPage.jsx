@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useMemo } from 'react';
+import React, { useEffect, useState, useRef, useMemo, useCallback } from 'react';
 import YouTube from 'react-youtube';
 import { allCourses } from '../Data/data';
 import VideoTabs from '@/components/VideoTabs';
@@ -20,6 +20,7 @@ import {
   CodeBracketIcon as Code,
   XMarkIcon as XMark
 } from '@heroicons/react/24/solid';
+import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 
 export default function VideoPlayerPage({ courseId }) { 
   const [course, setCourse] = useState(null);
@@ -51,6 +52,10 @@ export default function VideoPlayerPage({ courseId }) {
   const qualityLockTimeoutRef = useRef(null);
   const userSelectedQualityRef = useRef('auto'); 
 
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+
   const navSections = [
     {
       title: null,
@@ -77,13 +82,20 @@ export default function VideoPlayerPage({ courseId }) {
     }
   ];
 
+  const selectedLessonIdFromParams = useMemo(() => {
+    const lessonParam = searchParams?.get('lesson');
+    if (!lessonParam) return null;
+    const parsed = parseInt(lessonParam, 10);
+    return Number.isNaN(parsed) ? null : parsed;
+  }, [searchParams]);
+
   useEffect(() => {
     const foundCourse = allCourses[courseId]; 
     if (foundCourse) {
       setCourse(foundCourse);
-      const allLessons = foundCourse.chapters.flatMap(c => c.lessons);
-      const firstLesson = allLessons[0];
-      setCurrentLesson(firstLesson);
+    } else {
+      setCourse(null);
+      setCurrentLesson(null);
     }
   }, [courseId]);
 
@@ -392,12 +404,48 @@ export default function VideoPlayerPage({ courseId }) {
     }
   }, [isDesktop]);
 
+  const updateLessonQuery = useCallback((lessonId) => {
+    if (!pathname) return;
+    const nextParams = new URLSearchParams(searchParams?.toString());
+    nextParams.set('lesson', String(lessonId));
+    const queryString = nextParams.toString();
+    router.replace(queryString ? `${pathname}?${queryString}` : pathname, { scroll: false });
+  }, [pathname, router, searchParams]);
+
   const allLessons = useMemo(() => {
     if (!course) {
       return [];
     }
     return course.chapters.flatMap((chapter) => chapter.lessons);
   }, [course]);
+
+  useEffect(() => {
+    if (!course) return;
+    const lessonsList = course.chapters.flatMap((chapter) => chapter.lessons);
+    if (!lessonsList.length) return;
+
+    const targetLesson =
+      (selectedLessonIdFromParams && lessonsList.find((lesson) => lesson.id === selectedLessonIdFromParams)) ||
+      lessonsList[0];
+
+    if (!currentLesson || currentLesson.id !== targetLesson.id) {
+      setCurrentLesson(targetLesson);
+      setPlaying(false);
+      setCurrentTime(0);
+      userSelectedQualityRef.current = 'auto';
+      setAvailableQualities([]);
+      setPlaybackQuality('auto');
+    }
+
+    if (!selectedLessonIdFromParams) {
+      updateLessonQuery(targetLesson.id);
+    }
+  }, [
+    course,
+    currentLesson,
+    selectedLessonIdFromParams,
+    updateLessonQuery
+  ]);
 
   const currentLessonIndex = useMemo(() => {
     if (!currentLesson) {
@@ -418,6 +466,7 @@ export default function VideoPlayerPage({ courseId }) {
       userSelectedQualityRef.current = 'auto';
       setAvailableQualities([]);
       setPlaybackQuality('auto');
+      updateLessonQuery(lessonId);
     }
   };
 
@@ -519,9 +568,10 @@ export default function VideoPlayerPage({ courseId }) {
     return qualityLabels[quality] || quality.toUpperCase();
   };
 
-  const getVideoDescription = () => course?.videoDescriptions?.[currentLesson?.title] || "Explore advanced AI concepts and practical applications.";
-  const getLearningObjectives = () => course?.learningObjectives?.[currentLesson?.title] || [];
-  const getTranscriptSegments = () => course?.transcripts?.[currentLesson?.title] || [];
+  const getVideoDescription = () => currentLesson?.description || "Explore advanced AI concepts and practical applications.";
+  const getLearningObjectives = () => currentLesson?.objectives || [];
+  const getTranscriptSegments = () => currentLesson?.transcript || [];
+  const getLessonResources = () => currentLesson?.resources || [];
 
   const videoId = currentLesson?.videoUrl?.split('v=')[1]?.split('&')[0]?.replace('embed/', '');
 
@@ -697,6 +747,7 @@ export default function VideoPlayerPage({ courseId }) {
                     getVideoDescription={getVideoDescription}
                     getLearningObjectives={getLearningObjectives}
                     getTranscriptSegments={getTranscriptSegments}
+                    getLessonResources={getLessonResources}
                   />
                 </div>
               </div>

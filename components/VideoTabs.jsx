@@ -1,7 +1,5 @@
 import React from "react";
 import { BookOpen, FileText } from "lucide-react";
-import { BlockMath, InlineMath } from 'react-katex';
-import 'katex/dist/katex.min.css';
 import ImageCarousel from '@/components/ImageCarousel';
 import PMICertificate from '@/components/PMICertificate';
 import PosterShowcase from '@/components/PosterShowcase';
@@ -12,7 +10,8 @@ export default function VideoTabs({
   currentLesson,
   getVideoDescription,
   getLearningObjectives,
-  getTranscriptSegments
+  getTranscriptSegments,
+  getLessonResources
 }) {
   const tabs = [
     { id: 'overview', label: 'Overview', icon: BookOpen },
@@ -106,99 +105,35 @@ export default function VideoTabs({
           )}
 
           {activeTab === 'resources' && (
-            <div className="space-y-6 text-[15px] leading-relaxed text-gray-800">
-              <div>
-                <div className="flex flex-col gap-2 text-gray-800 sm:flex-row sm:items-start sm:gap-3">
-                  <h2 className="text-lg font-bold text-gray-900">1.</h2>
-                  <p className="flex-1 text-[15px]">
-                    ආකිමිඩිස් මූල ධර්මය භාවිත කොට දී ඇති තෙල් වර්ගයක ඝනත්වය පරීක්ෂණාත්මකව නිර්ණය කිරීමට ඔබට නියමව ඇත.
-                    පරීක්ෂණය සිදු කිරීම සඳහා රූපයේ පෙන්වා ඇති පරිදි තෙල් අඩංගු තුනී බිත්තියක් සහිත වීදුරු පරීක්ෂා නළයකින්
-                    සහ ජලය සහිත පාරදෘශ්‍ය වීදුරු බඳුනකින් සමන්විත ඇටවුමක් සපයා ඇත.
-                    රූපයේ පෙන්වා ඇති පරිදි පරීක්ෂා නළය ජලයේ සිරස්ව ඉපිලේ.
-                    <b> P</b> හි දී නළයේ බිත්තිය වටා වර්ණවත් වළල්ලක් පැහැදිලි ලෙස සළකුණු කර ඇති අතර උස මැනීම සඳහා එය යොමුවක් ලෙසට භාවිත කළ හැක.
-                    පහත සංකේත ඇටවුමට අදාළ විවිධ පරාමිති සඳහා පවරා ඇති අතර එම සංකේත ප්‍රශ්න වලට පිළිතුරු සැපයීම සඳහා භාවිත කරන්න.
-                  </p>
-                </div>
-
-                <div className="mt-3 flex flex-col gap-6 sm:ml-4 lg:ml-6 lg:flex-row lg:items-start">
-                  <ul className="flex-1 list-inside list-disc text-gray-700">
-                    <li>A – වළල්ලට ඉහළ නළයේ හරස්කඩ වර්ගඵලය</li>
-                    <li>V – වළල්ලට පහළ පරිමාව</li>
-                    <li>l₁ – තෙල් කඳේ උස</li>
-                    <li>l₂ – ජල කඳේ උස</li>
-                    <li>M – හිස් නළයේ ස්කන්ධය</li>
-                    <li>d – තෙලෙහි ඝනත්වය</li>
-                    <li>d<sub>w</sub> – ජලයේ ඝනත්වය</li>
-                  </ul>
-
-                  <div className="w-full flex-shrink-0 lg:w-[300px]">
-                    <img
-                      src="/images/q1.png"
-                      alt="Archimedes Principle Diagram"
-                      className="w-full rounded-md object-contain"
-                    />
+            <div className="space-y-6 text-gray-800">
+              {(() => {
+                const resources = getLessonResources();
+                if (!resources?.length) {
+                  return (
+                    <div className="rounded-lg border border-dashed border-gray-300 p-6 text-center text-sm text-gray-500">
+                      MCQ coming soon for this lesson.
+                    </div>
+                  );
+                }
+                return resources.map((resource) => (
+                  <div
+                    key={resource.id || resource.title}
+                    className="rounded-2xl border border-gray-200 bg-white/90 p-5 shadow-sm"
+                  >
+                    <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gray-400">
+                      {resource.type || 'MCQ'}
+                    </p>
+                    <p className="mt-3 text-base font-semibold text-gray-900 whitespace-pre-line">
+                      {resource.question || resource.title}
+                    </p>
+                    {resource.answer && (
+                      <p className="mt-4 text-sm font-medium text-green-600">
+                        ✔ {resource.answer}
+                      </p>
+                    )}
                   </div>
-                </div>
-
-                <ol className="mt-6 space-y-4 md:ml-8" style={{ listStyle: 'none' }}>
-                  <li className="relative pl-6 md:pl-8">
-                    <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:gap-3">
-                      <span className="absolute left-0 font-semibold text-gray-900">(a)</span>
-                      <p className="text-gray-800 sm:ml-2">
-                        නළය තුළ ඇති තෙල්වල බර සඳහා ප්‍රකාශනයක් V, A, l₁, d සහ g ඇසුරෙන් ලියා දක්වන්න.
-                      </p>
-                    </div>
-                    <div className="ml-6 mt-2 flex flex-col gap-2 sm:ml-8 sm:flex-row sm:items-end sm:justify-between">
-                      <BlockMath math="(V + A l_1)\, d\, g" />
-                      <span className="text-sm font-sans text-gray-700 not-italic">(ලකුණු 01)</span>
-                    </div>
-                  </li>
-
-                  <li className="relative pl-6 md:pl-8">
-                    <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:gap-3">
-                      <span className="absolute left-0 font-semibold text-gray-900">(b)</span>
-                      <p className="text-gray-800 sm:ml-2">
-                        තෙල් සමඟ නළයේ මුළු බර <InlineMath math="W" /> සඳහා ප්‍රකාශනයක් ලියා දක්වන්න.
-                      </p>
-                    </div>
-                    <div className="ml-6 mt-2 flex flex-col gap-2 sm:ml-8 sm:flex-row sm:items-end sm:justify-between">
-                      <BlockMath math="W = M g + (V + A l_1)\, d\, g" />
-                      <span className="text-sm font-sans text-gray-700 not-italic">(ලකුණු 01)</span>
-                    </div>
-                  </li>
-
-                  <li className="relative pl-6 md:pl-8">
-                    <span className="absolute left-0 font-semibold text-gray-900">(d)</span>
-                    <div className="ml-6 space-y-3">
-                      <div className="relative mt-4 pl-8">
-                        <div className="flex items-start">
-                          <span className="absolute left-0 font-semibold text-gray-900">(i)</span>
-                          <p className="ml-2 text-gray-800">
-                            <InlineMath math="W" /> සහ <InlineMath math="U" /> අතර පවතින සම්බන්ධතාව කුමක්ද?
-                          </p>
-                        </div>
-                        <div className="ml-8 mt-1 flex items-end justify-between">
-                          <InlineMath math="W = U" />
-                          <span className="text-sm font-sans text-gray-700 not-italic">(ලකුණු 01)</span>
-                        </div>
-                      </div>
-
-                      <div className="relative mt-4 pl-8">
-                        <div className="flex items-start">
-                          <span className="absolute left-0 font-semibold text-gray-900">(ii)</span>
-                          <p className="ml-2 text-gray-800">
-                            නළය තුළ ඇති තෙල් මල්ල සම්බන්ධයෙන් <InlineMath math="U" /> යනු කුමක්ද?
-                          </p>
-                        </div>
-                        <div className="ml-8 mt-1 flex items-end justify-between">
-                          <InlineMath math="U = m g l_1" />
-                          <span className="text-sm font-sans text-gray-700 not-italic">(ලකුණු 01)</span>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                </ol>
-              </div>
+                ));
+              })()}
             </div>
           )}
           <div className="pt-6 relative z-0">

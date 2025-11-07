@@ -1,3 +1,232 @@
+const lessonMcqs = {
+  1: {
+    id: '1-mcq',
+    type: 'MCQ',
+    question: `uydkdu ysñhka úiska rpkd lrk ,oezhs ie,flk › ,xldfõ foaYmd,k b;sydih ms<sn| iúia;r f;dr;=re wvx.= jxYl;dj l=ulao@
+(1) §mjxYh
+(2) uydjxYh
+(3) odGdjxYh
+(4) fndaê jxYh`,
+    answer: 'විකල්පය 2'
+  },
+  2: {
+    id: '2-mcq',
+    type: 'MCQ',
+    question: `› ,xldj .ek f;dr;=re iemhQ úfoaY f,aLlhka lsysmfofkl= I ;Srefõ o" Tjqka wh;a jQ rgj,a II ;Srefõ o oelafõ' ;Srej II ;Srej yd .e<mQ úg ksjerÈ ms<s;=r jkafka ñka l=ula o@
+
+I ;Srej   II ;Srej
+(i) bnka n;+;d    (A) wrdìh
+(ii) *dyshka       (B) bkaÈhdj
+(iii) fl!á,H       (C) nqreuh (ñhkaud¾)
+                 (D) Ökh
+
+(1) AD iy B
+(2) CD iy A
+(3) AC iy B
+(4) DA iy B`,
+    answer: 'විකල්පය 1'
+  },
+  3: {
+    id: '3-mcq',
+    type: 'MCQ',
+    question: `wkqrdOmqr hq.fha wdrdu md,kh ms<sn| f;dr;=re we;=<;a jkafka ñka ljrlo@
+(1) nÿ¨ geï ,smsh
+(2) is;=,amõj fi,a ,smsh
+(3) ñyska;,d mqjre ,smsh
+(4) f.dvjdh geï ,smsh`,
+    answer: 'විකල්පය 3'
+  },
+  4: {
+    id: '4-mcq',
+    type: 'MCQ',
+    question: `ls;a ;aisßfujka rcqf.a hehs ie,flk f;da‚., Ys,d,smsfha w;S; lDIsl¾uh .ek f;dr;=re we;=<;a fõ' fuys —msg ovyi —" —wl,yi —" — uefoyi — hkqfjka i|yka j we;af;a ljrla úh yelso@
+(1) c, iïmdokh iïnkaO nÿ j¾. ;=kls'
+(2) lDIsl¾uhg iïnkaO rdcH ks,Orhka ;sfofkls'
+(3) j.d l< OdkH j,ska wh l< nÿ j¾. ;=kls'
+(4) ù j.djg iïnkaO j.d lkak ;=kls'`,
+    answer: 'විකල්පය 4'
+  },
+  5: {
+    id: '5-mcq',
+    type: 'MCQ',
+    question: `wkqrdOmqr hq.fha§ bkaÈhdkq ixl%u‚lhka yd wdl%u‚lhka › ,xldjg f.dv neiSu i|yd nyq,j Ndú; lr we;s f;dgqm< l=ulao@
+(1) Wrefõ,
+(2) f.dalK
+(3) f.dvjdh
+(4) uyd;s;a:`,
+    answer: 'විකල්පය 4'
+  },
+  6: {
+    id: '6-mcq',
+    type: 'MCQ',
+    question: `jir y;<sia y;rla idOdrK yd kS;s .rel md,khla f.k .shd hehs ie,flk wkqrmqr øúv md,lhd ljqo@
+(1) t<dr
+(2) ;sÍ;r
+(3) mq,y;a:
+(4) mkhudr`,
+    answer: 'විකල්පය 1'
+  },
+  7: {
+    id: '7-mcq',
+    type: 'MCQ',
+    question: `m<uq jk úchndyq rc;=udf.ka isÿ jQ fiajdj we.hSfï§ m%uqL;ajh Èh hq;af;a l=uk lreKgo@
+(1) wNdjhg f.dia ;snQ jdßud¾. m%;sixialrKh lsÍu
+(2) {d;s iïnkaO;d u.ska wi,a jeis rdcH iuÕ iqyoj lghq;= lsÍu
+(3) fid<S md,kfhka furg uqojd f.k iajdëk rdcHhla ìys lsÍu
+(4) kgnqka j ;snQ fjfyr úydr m%;sixialrKh lsÍu`,
+    answer: 'විකල්පය 3'
+  },
+  8: {
+    id: '8-mcq',
+    type: 'MCQ',
+    question: `w;sßla; c,h msg lsÍu i|yd ;kd we;s ks¾udKh oelafjkafka ljr wlaIrfhlao@
+(1) A
+(2) B
+(3) C
+(4) D`,
+    answer: 'විකල්පය 1'
+  },
+  9: {
+    id: '9-mcq',
+    type: 'MCQ',
+    question: `fuys C j,ska oelafjk ks¾udKfha m%Odk ld¾hh l=ulalao@
+(1) jejg tl;= jk frdka uv md,kh lsÍu
+(2) jefjys c, mSvkh iukh fldg m%Odk we<g c,h ksl=;a lsÍu
+(3) jefjys r< myßka jeõ neïu fia§ hdu je<elaùu
+(4) kshx ld, j,§ iSñ; c, m%udKhla l=Uqre j,g uqod yeÍu`,
+    answer: 'විකල්පය 3'
+  },
+  10: {
+    id: '10-mcq',
+    type: 'MCQ',
+    question: `;=,dNdr odk §u" rg ;=< ixpdrh lsÍu yd Ys,d,sms úYd, ixLHdjla lrùu u.ska jeishka w;r ckm%sh ùfï m%;sm;a;shla wkq.ukh l< fmdf<dkakre md,lhd ljqo@
+(1) m<uqjk úchndyq rc;=ud
+(2) m<uqjk mrdl%undyq rc;=ud
+(3) idyiu,a, rc;=ud
+(4) lS¾;s › ksYaYxlu,a, rc;=ud`,
+    answer: 'විකල්පය 4'
+  },
+  11: {
+    id: '11-mcq',
+    type: 'MCQ',
+    question: `my; i|yka isÿùï w;=frka l=reKE., rdcOdks iufha ,xldjg meñ‚ úfoaYslhl=g wikakg fyda olskakg ,efnk isÿùï we;=<;a ms<s;=r l=ulao@
+A.fojk mrdl%undyq rc;=ud úiska cdjl pkaøNdkq mrdch lsÍu
+B.hdmkfha md,lhd f,i imqu,a l=ure lghq;= lsÍu
+C.miajk ñys÷ rc isrlrejl= f,i bkaÈhdjg f.k hdu
+D.NslaIQkaf.a úkh kS;s ms<sn| oUfo‚ l;sldj; iïmdokh lsÍu
+E.fj!fyda fikam;shd ,xldj wdl%uKh lsÍu
+
+(1) AC iy D
+(2) CD iy E
+(3) BC iy D
+(4) ADiy E`,
+    answer: 'විකල්පය 1'
+  },
+  12: {
+    id: '12-mcq',
+    type: 'MCQ',
+    question: `› ,dxlsl jdia;= úoHdj yd uQ¾;s Ys,amh flfrys lemS fmfkk yskaÿ n,mEï oelsh yelafla ljr hq.j, §o@
+(1) wkqrdOmqr - oUfo‚
+(2) fmdf<dkakre - .ïfmd<
+(3) hdmyq - l=reKE.,
+(4) uykqjr - fldaÜfÜ`,
+    answer: 'විකල්පය 2'
+  },
+  13: {
+    id: '13-mcq',
+    type: 'MCQ',
+    question: `wk.dßl O¾umd," wdreuq. kdj,¾" isoaÈ f,ífí hk mqoa.,hkaf.a lghq;= j, lemSfmfkk fmdÿ ,laIKh l=ulao@
+(1) cd;sl iuÕsh j¾Okh lsÍu i|yd iduQyslj lghq;= lsÍuh'
+(2) iqrdie,a ;ykï lsÍfï jHdmdrh jHdma; lsÍug lghq;= lsÍuh'
+(3) ì%;dkH md,kfhka › ,xldj uqojd .ekSu i|yd lghq;= lsÍu h'
+(4) iajlSh wd.u yd ixialD;sh ms<sn| mqk¾Ôjhla we;s lsÍug lghq;= lsÍuh'`,
+    answer: 'විකල්පය 4'
+  },
+  14: {
+    id: '14-mcq',
+    type: 'MCQ',
+    question: `ì%;dkHhkag › ,xldj flfrys wjOdkh fhduq lsÍug fya;= jQ lreK l=ulao@
+(1) j;= j.dj wdrïN lsÍug iqÿiq bvï ,nd.ekSfï wjYH;dj
+(2) foaYSh ck;dj l%sia;shdks wd.ug yrjd .ekSfï wNs,dIh
+(3) bkaÈhka id.rfha kdjql lghq;= fufyh ùug ;%sl=Kdu,h jrdfha we;s jeo.;alu jgyd .ekSu
+(4) › ,xldfõ l=re÷ fj<|du ms<sn| tAldêldrh ,nd.ekSfï wjYH;dj`,
+    answer: 'විකල්පය 3'
+  },
+  15: {
+    id: '15-mcq',
+    type: 'MCQ',
+    question: `› ,xldj hg;a úð;hla njg m;alrk ,oafoa my; i|yka ljr fldñiul fhdackdjla u; o@
+(1) o ñhqrka fldñiu
+(2) flda,anDDla fldñiu
+(3) fvdkfuda¾ fldñiu
+(4) fida,anß fldñiu`,
+    answer: 'විකල්පය 1'
+  },
+  16: {
+    id: '16-mcq',
+    type: 'MCQ',
+    question: `l%s'j' 1818 § yd l%s'j' 1848 § › ,xldfõ we;s jQ ksoyia wr., yd iïnkaO f;dr;=re my; A, B, C, D, E hgf;a olajd we;' tAjd w;=frka l%s'j' 1818 ksoyia wr.,h yd iïnkaO f;dr;=re muKla wvx.= ms<s;=r f;darkak'
+A.lemafmá fmd< Èidfõf.a kdhl;ajh
+B.fgdßx.agka idñf.a nÿ m%;sm;a;sh
+C.f.dx.df,af.dv nKavd isxyf,a rcq jYfhka wNsfIal ,eîu
+D.fud,a,sf.dv wÈldrïf.a l%shdl,dmh
+E.yÊð ußlald¾ fj,a,iafia uqykaÈrï f,i m;a lrkq ,eîu
+
+(1) BCD
+(2) ACE
+(3) ADE
+(4) CDE`,
+    answer: 'විකල්පය 3'
+  },
+  17: {
+    id: '17-mcq',
+    type: 'MCQ',
+    question: `ì%;dkH md,k iuh ;=< furg isÿ lrk ,o wdKavql%u jHjia:d ixfYdaOkj, olakg ,enqKq j¾;udkfha mjd wys;lr n,mEï we;s lsÍug iu;a jQ ,laIKh f,i ie,lsh yelafla"
+(1) ks,,;a uka;%Ska ixLHdjg jvd ks, fkd,;a uka;%Ska ixLHdj l%ufhka jeäùuhs'
+(2) ckj¾. wkqj uka;%Sjreka m;a lsÍuhs'
+(3) rdcH ks,OdÍkaf.a n,h uyck ksfhdað;hkaf.a n,h wNsnjd hEuhs'
+(4) kdu lrKfhka uka;%Sjreka m;alsÍug wdKavqldrhdg n,;, ;sîuhs'`,
+    answer: 'විකල්පය 2'
+  },
+  18: {
+    id: '18-mcq',
+    type: 'MCQ',
+    question: `fida,anß wdKavql%u m%;sixialrK j,g wod<j › ,xldfõ we;s l< fjkialula jkafka ñka l=ulao@
+(1) úOdhl ldrl iNd msysgqùuh'
+(2) rdcH uka;%K iNdj msysgqùuh'
+(3) i¾jck Pkao n,h ,nd §uh'
+(4) W;a;r uka;%S uKav,h ia:dms; lsÍu h'`,
+    answer: 'විකල්පය 4'
+  },
+  19: {
+    id: '19-mcq',
+    type: 'MCQ',
+    question: `ì%;dkH md,k iuh ;=<§ j;=j.dfõ ÈhqKqjg fukau foaYSh lDIsl¾ufha mßydkshg o tlfia n,mE fya;=jla jkafka"
+(1) wksjd¾h fiajd rdcldÍ l%uh wfydais lsÍu h'
+(2) uqvq ìï mk; iïu; lsÍu h'
+(3) bkaÈhdkq lïlrejkaf.a Y%uh ,nd .ekSu h'
+(4) isú,a fiajlhkag fm!oa.,sl jHdmdr j, fh§ug bv ie,iSuh'`,
+    answer: 'විකල්පය 2'
+  },
+  20: {
+    id: '20-mcq',
+    type: 'MCQ',
+    question: `my; i|yka tAjdhska ngysr cd;Skaf.a n,mEu ksid › ,dxlsl iudchg tl;= jQ ,laIK muKla ksjerÈ j we;=<;a jkafka lskï ms<s;=fra o@
+A.nhs,d - lmsß[a[d ix.S;h
+B.f;aij,dfuhs kS;sh
+C.i¾jck Pkao n,h
+D.rdcldß l%uh
+E.wdhq¾fõo ffjoH l%uh
+F.frmrudÿ wd.u
+
+(1) ABC
+(2) BDE
+(3) ACF
+(4) CEF`,
+    answer: 'විකල්පය 3'
+  }
+};
+
 export const allCourses = {
   1: {
     id: 1,
@@ -362,3 +591,31 @@ export const allCourses = {
     }
   }
 };
+
+Object.values(allCourses).forEach((course) => {
+  const descriptions = course.videoDescriptions || {};
+  const objectives = course.learningObjectives || {};
+  const transcripts = course.transcripts || {};
+
+  course.chapters.forEach((chapter) => {
+    chapter.lessons.forEach((lesson) => {
+      const { title, id } = lesson;
+
+      if (descriptions[title]) {
+        lesson.description = descriptions[title];
+      }
+      if (objectives[title]) {
+        lesson.objectives = objectives[title];
+      }
+      if (transcripts[title]) {
+        lesson.transcript = transcripts[title];
+      }
+
+      if (lessonMcqs[id]) {
+        lesson.resources = [lessonMcqs[id]];
+      } else if (!lesson.resources) {
+        lesson.resources = [];
+      }
+    });
+  });
+});
