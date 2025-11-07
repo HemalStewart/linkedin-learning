@@ -18,35 +18,35 @@ export const allCourses = {
             title: "What is Generative AI?",
             duration: "5m 23s",
             completed: false,
-            videoUrl: "https://www.youtube.com/watch?v=Vped7Y8Caa8"
+            videoUrl: "https://www.youtube.com/watch?v=1ukSR1GRtMU&list=PL4cUxeGkcC9jLYyp2Aoh6hcWuxFDX6PBJ"
           },
           {
             id: 2,
             title: "Understanding Foundation Models",
             duration: "8m 45s",
             completed: false,
-            videoUrl: "https://www.youtube.com/watch?v=_zb7WgYfyDs"
+            videoUrl: "https://www.youtube.com/watch?v=bKueYVtV0eA&list=PL4cUxeGkcC9jLYyp2Aoh6hcWuxFDX6PBJ&index=2"
           },
           {
             id: 3,
             title: "Generative AI Use Cases",
             duration: "7m 12s",
             completed: false,
-            videoUrl: "https://www.youtube.com/watch?v=4s86A4y1d7A"
+            videoUrl: "https://www.youtube.com/watch?v=LtlsX_lCfK4&list=PL4cUxeGkcC9jLYyp2Aoh6hcWuxFDX6PBJ&index=3"
           },
           {
             id: 4,
             title: "Model Capabilities and Limits",
             duration: "6m 54s",
             completed: false,
-            videoUrl: "https://www.youtube.com/watch?v=QzNxxC8N08s"
+            videoUrl: "https://www.youtube.com/watch?v=FLQ-Vhw1NYQ&list=PL4cUxeGkcC9jLYyp2Aoh6hcWuxFDX6PBJ&index=4"
           },
           {
             id: 5,
             title: "Getting Started Toolkit",
             duration: "4m 48s",
             completed: false,
-            videoUrl: "https://www.youtube.com/watch?v=G7mavP9zxqI"
+            videoUrl: "https://www.youtube.com/watch?v=TSIhiZ5jRB0&list=PL4cUxeGkcC9jLYyp2Aoh6hcWuxFDX6PBJ&index=5"
           }
         ]
       },
