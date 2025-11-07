@@ -3,7 +3,7 @@ import { QuestionMarkCircleIcon as HelpCircle } from '@heroicons/react/24/solid'
 
 export default function SidebarNavContent({ navSections, collapsed = false }) {
   return (
-    <div className="flex h-full flex-col text-gray-200">
+    <div className="flex h-full flex-col text-gray-700">
       <nav className="flex-1 overflow-y-auto px-3 py-4">
         {navSections.map((section, sectionIndex) => (
           <div key={sectionIndex} className={sectionIndex === 0 ? 'mt-2' : 'mt-4'}>
@@ -21,13 +21,13 @@ export default function SidebarNavContent({ navSections, collapsed = false }) {
                       collapsed ? 'justify-center' : 'gap-3'
                     } rounded-md px-3 py-2 text-sm font-medium transition-colors duration-200 ${
                       item.active
-                        ? 'bg-white/10 text-white'
-                        : 'text-gray-300 hover:bg-white/5 hover:text-white'
+                        ? 'bg-gray-200 text-gray-900'
+                        : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
                     }`}
                   >
                     <item.icon
                       className={`h-6 w-6 transition-colors duration-200 ${
-                        item.active ? 'text-white' : 'text-gray-400'
+                        item.active ? 'text-gray-900' : 'text-gray-500'
                       }`}
                     />
                     {!collapsed && <span>{item.label}</span>}
@@ -38,14 +38,14 @@ export default function SidebarNavContent({ navSections, collapsed = false }) {
           </div>
         ))}
       </nav>
-      <div className={`border-t border-white/10 ${collapsed ? 'py-3' : 'px-3 py-4'}`}>
+      <div className={`border-t border-gray-200 ${collapsed ? 'py-3' : 'px-3 py-4'}`}>
         <button
           type="button"
           className={`flex w-full items-center ${
             collapsed ? 'justify-center' : 'gap-3'
-          } rounded-md px-3 py-2 text-sm text-gray-300 transition-colors duration-200 hover:bg-white/5 hover:text-white`}
+          } rounded-md px-3 py-2 text-sm text-gray-600 transition-colors duration-200 hover:bg-gray-100 hover:text-gray-900`}
         >
-          <HelpCircle className="h-6 w-6 text-gray-400" />
+          <HelpCircle className="h-6 w-6 text-gray-500" />
           {!collapsed && <span>Help</span>}
         </button>
       </div>
