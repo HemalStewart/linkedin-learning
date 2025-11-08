@@ -50,7 +50,7 @@ export default function VideoPlayerOverlay({
     <div
       className={`absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/40 transition-opacity duration-300 pointer-events-none ${
         showOverlay ? 'opacity-100' : 'opacity-0'
-      } ${!isFullscreen ? 'rounded-[32px]' : ''}`}
+      }`}
     >
       {/* Center Play/Pause Button */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-auto">
