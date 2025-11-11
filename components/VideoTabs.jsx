@@ -19,6 +19,9 @@ export default function VideoTabs({
     { id: 'transcript', label: 'Transcript', icon: FileText },
     { id: 'resources', label: 'Resources', icon: FileText },
   ];
+  const mcqFontStyle = {
+    fontFamily: 'var(--font-fm-malithi), "FM Malithi", "Noto Sans Sinhala", sans-serif'
+  };
 
   return (
     <div className="flex-1 bg-white border-t">
@@ -115,24 +118,33 @@ export default function VideoTabs({
                     </div>
                   );
                 }
-                return resources.map((resource) => (
-                  <div
-                    key={resource.id || resource.title}
-                    className="rounded-2xl border border-gray-200 bg-white/90 p-5 shadow-sm"
-                  >
-                    <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gray-400">
-                      {resource.type || 'MCQ'}
-                    </p>
-                    <p className="mt-3 text-base font-semibold text-gray-900 whitespace-pre-line">
-                      {resource.question || resource.title}
-                    </p>
-                    {resource.answer && (
-                      <p className="mt-4 text-sm font-medium text-green-600">
-                        ✔ {resource.answer}
+                return resources.map((resource) => {
+                  const isMcq = (resource.type || '').toLowerCase() === 'mcq';
+                  return (
+                    <div
+                      key={resource.id || resource.title}
+                      className="rounded-2xl border border-gray-200 bg-white/90 p-5 shadow-sm"
+                    >
+                      <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gray-400">
+                        {resource.type || 'MCQ'}
                       </p>
-                    )}
-                  </div>
-                ));
+                      <p
+                        className="mt-3 text-base font-semibold text-gray-900 whitespace-pre-line"
+                        style={isMcq ? mcqFontStyle : undefined}
+                      >
+                        {resource.question || resource.title}
+                      </p>
+                      {resource.answer && (
+                        <p
+                          className="mt-4 text-sm font-medium text-green-600"
+                          style={isMcq ? mcqFontStyle : undefined}
+                        >
+                          ✔ {resource.answer}
+                        </p>
+                      )}
+                    </div>
+                  );
+                });
               })()}
             </div>
           )}
