@@ -6,16 +6,28 @@ const solutionLinks = [
   { label: 'Government', href: '#government' },
 ];
 
-export default function SolutionsBar() {
+export default function SolutionsBar({ theme = 'light' }) {
+  const isDark = theme === 'dark';
+  const wrapperClasses = isDark
+    ? 'border-gray-800 bg-gray-900 text-gray-200'
+    : 'border-gray-200 bg-gray-100 text-gray-700';
+  const labelClasses = isDark ? 'text-gray-100' : 'text-gray-900';
+  const linkClasses = isDark ? 'text-gray-300 hover:text-white' : 'text-gray-700 hover:text-gray-900';
+  const actionClasses = isDark
+    ? 'text-gray-100 hover:text-white'
+    : 'text-gray-900 hover:text-gray-900';
+
   return (
-    <div className="flex h-9 w-full flex-shrink-0 items-center gap-2 border-b border-gray-200 bg-gray-100 px-4 text-xs font-medium text-gray-700 sm:gap-3 sm:px-6 lg:px-8">
+    <div
+      className={`flex h-9 w-full flex-shrink-0 items-center gap-2 border-b px-4 text-xs font-medium sm:gap-3 sm:px-6 lg:px-8 ${wrapperClasses}`}
+    >
       <div className="flex flex-wrap items-center gap-2 sm:gap-3">
-        <span className="font-semibold text-gray-900">Solutions for:</span>
+        <span className={`font-semibold ${labelClasses}`}>Solutions for:</span>
         {solutionLinks.map(({ label, href }) => (
           <a
             key={label}
             href={href}
-            className="text-gray-700 transition-colors duration-150 hover:text-gray-900"
+            className={`transition-colors duration-150 ${linkClasses}`}
           >
             {label}
           </a>
@@ -24,7 +36,7 @@ export default function SolutionsBar() {
       <div className="ml-auto">
         <a
           href="#team"
-          className="inline-flex items-center justify-center px-3 py-1 text-xs font-semibold text-gray-900 transition-colors duration-150 hover:border-gray-400 hover:text-gray-900"
+          className={`inline-flex items-center justify-center px-3 py-1 text-xs font-semibold transition-colors duration-150 ${actionClasses}`}
         >
           Buy for my team
         </a>

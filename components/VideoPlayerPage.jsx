@@ -33,6 +33,7 @@ export default function VideoPlayerPage({ courseId }) {
   const [isNavCollapsed, setIsNavCollapsed] = useState(true);
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
 
+  const [theme, setTheme] = useState('light');
   const [playing, setPlaying] = useState(false);
   const [volume, setVolume] = useState(0.8);
   const [muted, setMuted] = useState(false);
@@ -57,6 +58,7 @@ export default function VideoPlayerPage({ courseId }) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
+  const isDarkTheme = theme === 'dark';
 
   const navSections = [
     {
@@ -83,6 +85,40 @@ export default function VideoPlayerPage({ courseId }) {
       ]
     }
   ];
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    try {
+      const storedTheme = window.localStorage?.getItem('ll-theme');
+      if (storedTheme === 'dark' || storedTheme === 'light') {
+        setTheme(storedTheme);
+        return;
+      }
+    } catch {
+      // ignore storage read issues
+    }
+    let prefersDark = false;
+    if (typeof window.matchMedia === 'function') {
+      prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    }
+    setTheme(prefersDark ? 'dark' : 'light');
+  }, []);
+
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+    document.documentElement.dataset.theme = theme;
+    if (typeof window !== 'undefined') {
+      try {
+        window.localStorage?.setItem('ll-theme', theme);
+      } catch {
+        // ignore storage write issues
+      }
+    }
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
+  };
 
   const selectedLessonIdFromParams = useMemo(() => {
     const lessonParam = searchParams?.get('lesson');
@@ -605,8 +641,14 @@ export default function VideoPlayerPage({ courseId }) {
 
   if (!course) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-white text-white">
-        <p className="text-xl text-gray-400">Loading course details...</p>
+      <div
+        className={`flex min-h-screen items-center justify-center ${
+          isDarkTheme ? 'bg-gray-950 text-gray-100' : 'bg-white text-gray-900'
+        }`}
+      >
+        <p className={`text-xl ${isDarkTheme ? 'text-gray-400' : 'text-gray-500'}`}>
+          Loading course details...
+        </p>
       </div>
     );
   }
@@ -628,15 +670,23 @@ export default function VideoPlayerPage({ courseId }) {
     },
   };
 
-  const layoutClasses = `relative flex flex-1 min-h-0 flex-col bg-white transition-all duration-300 lg:grid lg:h-[calc(100vh-5rem)] ${
+  const layoutClasses = `relative flex flex-1 min-h-0 flex-col ${isDarkTheme ? 'bg-gray-900' : 'bg-white'} transition-all duration-300 lg:grid lg:h-[calc(100vh-5rem)] ${
     isSidebarOpen ? 'lg:grid-cols-[340px_minmax(0,1fr)]' : 'lg:grid-cols-[0_minmax(0,1fr)]'
   }`;
 
+  const rootClasses = isDarkTheme ? 'bg-gray-950 text-gray-100' : 'bg-gray-100 text-gray-900';
+  const contentShellClasses = isDarkTheme ? 'bg-gray-900' : 'bg-gray-50';
+  const innerShellClasses = isDarkTheme ? 'bg-gray-950' : 'bg-white';
+
   return (
-    <div className="flex h-screen flex-col overflow-hidden bg-gray-100 text-gray-900">
+    <div className={`flex h-screen flex-col overflow-hidden ${rootClasses}`}>
       <div className="sticky top-0 z-50 flex flex-col">
-        <MainHeader onOpenMobileNav={() => setIsMobileNavOpen(true)} />
-        <SolutionsBar />
+        <MainHeader
+          onOpenMobileNav={() => setIsMobileNavOpen(true)}
+          theme={theme}
+          onToggleTheme={toggleTheme}
+        />
+        <SolutionsBar theme={theme} />
       </div>
 
       {!isDesktop && isMobileNavOpen && (
@@ -645,18 +695,28 @@ export default function VideoPlayerPage({ courseId }) {
             className="fixed inset-0 z-60 bg-black/60 backdrop-blur-sm"
             onClick={() => setIsMobileNavOpen(false)}
           />
-          <aside className="fixed inset-y-0 left-0 z-70 flex w-72 max-w-[85%] flex-col border-r border-gray-200 bg-white shadow-xl">
-            <div className="flex items-center justify-end border-b border-gray-200 px-3 py-3">
+          <aside
+            className={`fixed inset-y-0 left-0 z-70 flex w-72 max-w-[85%] flex-col border-r shadow-xl ${
+              isDarkTheme ? 'border-gray-800 bg-gray-900 text-gray-100' : 'border-gray-200 bg-white text-gray-900'
+            }`}
+          >
+            <div
+              className={`flex items-center justify-end border-b px-3 py-3 ${
+                isDarkTheme ? 'border-gray-800' : 'border-gray-200'
+              }`}
+            >
               <button
                 type="button"
                 onClick={() => setIsMobileNavOpen(false)}
-                className="rounded-full p-2 text-gray-600 hover:bg-gray-100"
+                className={`rounded-full p-2 ${
+                  isDarkTheme ? 'text-gray-200 hover:bg-gray-800' : 'text-gray-600 hover:bg-gray-100'
+                }`}
                 aria-label="Close navigation"
               >
                 <XMark className="h-5 w-5" />
               </button>
             </div>
-            <SidebarNavContent navSections={navSections} collapsed={false} />
+            <SidebarNavContent navSections={navSections} collapsed={false} theme={theme} />
           </aside>
         </>
       )}
@@ -666,19 +726,25 @@ export default function VideoPlayerPage({ courseId }) {
           navSections={navSections}
           isCollapsed={isNavCollapsed}
           onToggleCollapse={() => setIsNavCollapsed((prev) => !prev)}
+          theme={theme}
         />
 
-        <div className="flex min-h-0 flex-1 flex-col overflow-hidden bg-gray-50">
-          <div className="flex-1 overflow-hidden bg-white">
+        <div className={`flex min-h-0 flex-1 flex-col overflow-hidden ${contentShellClasses}`}>
+          <div className={`flex-1 overflow-hidden ${innerShellClasses}`}>
             <div className={layoutClasses}>
               {isDesktop && (
-                <div className="hidden bg-white lg:sticky lg:top-20 lg:flex lg:h-[calc(100vh-5rem)] lg:flex-col lg:overflow-hidden">
+                <div
+                  className={`hidden lg:sticky lg:top-20 lg:flex lg:h-[calc(100vh-5rem)] lg:flex-col lg:overflow-hidden ${
+                    isDarkTheme ? 'bg-gray-900' : 'bg-white'
+                  }`}
+                >
                   {isSidebarOpen && (
                     <CourseContentsSidebar
                       course={course}
                       currentLessonId={currentLesson?.id}
                       onSelectLesson={selectLesson}
                       onClose={() => setIsSidebarOpen(false)}
+                      theme={theme}
                     />
                   )}
                 </div>
@@ -704,6 +770,7 @@ export default function VideoPlayerPage({ courseId }) {
                         setIsSidebarOpen(false);
                       }}
                       onClose={() => setIsSidebarOpen(false)}
+                      theme={theme}
                     />
                   </div>
                 </>
@@ -711,8 +778,16 @@ export default function VideoPlayerPage({ courseId }) {
               <div className="flex min-h-0 min-w-0 flex-1 flex-col lg:col-start-2">
                 <div className="flex-1 overflow-y-auto">
                   <div className="relative">
-                    <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-[3px] bg-white" />
-                    <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-[3px] bg-white" />
+                    <div
+                      className={`pointer-events-none absolute inset-y-0 left-0 z-10 w-[3px] ${
+                        isDarkTheme ? 'bg-gray-800' : 'bg-white'
+                      }`}
+                    />
+                    <div
+                      className={`pointer-events-none absolute inset-y-0 right-0 z-10 w-[3px] ${
+                        isDarkTheme ? 'bg-gray-800' : 'bg-white'
+                      }`}
+                    />
                     <div
                       ref={videoContainerRef}
                       className={`group relative w-full transition-all duration-300 ${
@@ -729,7 +804,9 @@ export default function VideoPlayerPage({ courseId }) {
                         className={`relative h-full w-full overflow-hidden ${
                           isFullscreen
                             ? 'bg-black rounded-none ring-0 border-0'
-                            : 'bg-gradient-to-br from-white via-white to-slate-50 rounded-xl border border-white/40 ring-1 ring-white/30'
+                            : isDarkTheme
+                              ? 'bg-gradient-to-br from-gray-900 via-gray-900 to-gray-800 rounded-xl border border-gray-700 ring-1 ring-gray-700'
+                              : 'bg-gradient-to-br from-white via-white to-slate-50 rounded-xl border border-white/40 ring-1 ring-white/30'
                         }`}
                       >
                         {currentLesson && videoId && (
@@ -787,6 +864,7 @@ export default function VideoPlayerPage({ courseId }) {
                     getLearningObjectives={getLearningObjectives}
                     getTranscriptSegments={getTranscriptSegments}
                     getLessonResources={getLessonResources}
+                    theme={theme}
                   />
                 </div>
               </div>
