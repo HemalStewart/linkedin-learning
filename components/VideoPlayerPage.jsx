@@ -503,6 +503,32 @@ export default function VideoPlayerPage({ courseId }) {
     }
   };
 
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+
+    const handleFullscreenChange = () => {
+      const fsElement =
+        document.fullscreenElement ||
+        document.webkitFullscreenElement ||
+        document.mozFullScreenElement ||
+        document.msFullscreenElement;
+
+      const isPlayerFullscreen =
+        fsElement &&
+        (fsElement === videoContainerRef.current ||
+          videoContainerRef.current?.contains(fsElement));
+
+      setIsFullscreen(Boolean(isPlayerFullscreen));
+    };
+
+    const events = ['fullscreenchange', 'webkitfullscreenchange', 'mozfullscreenchange', 'MSFullscreenChange'];
+    events.forEach((event) => document.addEventListener(event, handleFullscreenChange));
+
+    return () => {
+      events.forEach((event) => document.removeEventListener(event, handleFullscreenChange));
+    };
+  }, []);
+
   const handlePlayPause = () => {
     if (playerRef.current) {
       if (playing) {
@@ -579,7 +605,7 @@ export default function VideoPlayerPage({ courseId }) {
 
   if (!course) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-900 text-white">
+      <div className="flex items-center justify-center min-h-screen bg-white text-white">
         <p className="text-xl text-gray-400">Loading course details...</p>
       </div>
     );
@@ -602,7 +628,7 @@ export default function VideoPlayerPage({ courseId }) {
     },
   };
 
-  const layoutClasses = `relative flex flex-1 min-h-0 flex-col bg-gray-900 transition-all duration-300 lg:grid lg:h-[calc(100vh-5rem)] ${
+  const layoutClasses = `relative flex flex-1 min-h-0 flex-col bg-white transition-all duration-300 lg:grid lg:h-[calc(100vh-5rem)] ${
     isSidebarOpen ? 'lg:grid-cols-[340px_minmax(0,1fr)]' : 'lg:grid-cols-[0_minmax(0,1fr)]'
   }`;
 
@@ -643,10 +669,10 @@ export default function VideoPlayerPage({ courseId }) {
         />
 
         <div className="flex min-h-0 flex-1 flex-col overflow-hidden bg-gray-50">
-          <div className="flex-1 overflow-hidden bg-gray-900">
+          <div className="flex-1 overflow-hidden bg-white">
             <div className={layoutClasses}>
               {isDesktop && (
-                <div className="hidden bg-gray-900 lg:sticky lg:top-20 lg:flex lg:h-[calc(100vh-5rem)] lg:flex-col lg:overflow-hidden">
+                <div className="hidden bg-white lg:sticky lg:top-20 lg:flex lg:h-[calc(100vh-5rem)] lg:flex-col lg:overflow-hidden">
                   {isSidebarOpen && (
                     <CourseContentsSidebar
                       course={course}
@@ -685,60 +711,71 @@ export default function VideoPlayerPage({ courseId }) {
               <div className="flex min-h-0 min-w-0 flex-1 flex-col lg:col-start-2">
                 <div className="flex-1 overflow-y-auto">
                   <div className="relative">
-                    <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-[3px] bg-black/80" />
-                    <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-[3px] bg-black/80" />
+                    <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-[3px] bg-white" />
+                    <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-[3px] bg-white" />
                     <div
                       ref={videoContainerRef}
-                      className={`relative w-full overflow-hidden bg-black transition-all duration-300 ${
-                        isFullscreen ? 'fixed inset-0 z-50 h-screen' : 'h-[380px] md:h-[440px] lg:h-[480px]'
+                      className={`group relative w-full transition-all duration-300 ${
+                        isFullscreen
+                          ? 'fixed inset-0 z-50 h-screen'
+                          : 'z-30 h-[380px] md:h-[440px] lg:h-[500px]'
                       }`}
                       onMouseMove={handleMouseMove}
                       onMouseLeave={() => {
                         if (playing) setShowControls(false);
                       }}
                     >
-                      {currentLesson && videoId && (
-                        <YouTube
-                          key={videoId}
-                          videoId={videoId}
-                          opts={opts}
-                          onReady={handleOnReady}
-                          onStateChange={handleOnStateChange}
-                          onPlaybackQualityChange={handleOnPlaybackQualityChange}
-                          className="h-full w-full"
-                          containerClassName="relative h-full w-full"
-                        />
-                      )}
+                      <div
+                        className={`relative h-full w-full overflow-hidden ${
+                          isFullscreen
+                            ? 'bg-black rounded-none ring-0 border-0'
+                            : 'bg-gradient-to-br from-white via-white to-slate-50 rounded-xl border border-white/40 ring-1 ring-white/30'
+                        }`}
+                      >
+                        {currentLesson && videoId && (
+                          <YouTube
+                            key={videoId}
+                            videoId={videoId}
+                            opts={opts}
+                            onReady={handleOnReady}
+                            onStateChange={handleOnStateChange}
+                            onPlaybackQualityChange={handleOnPlaybackQualityChange}
+                            className="h-full w-full"
+                            containerClassName="relative h-full w-full"
+                          />
+                        )}
 
-                      <VideoPlayerOverlay
-                        showControls={showControls}
-                        playing={playing}
-                        onPlayPause={handlePlayPause}
-                        progress={progress}
-                        duration={duration}
-                        currentTime={currentTime}
-                        onSeekChange={handleSeekChange}
-                        onPreviousLesson={handlePreviousLesson}
-                        onNextLesson={handleNextLesson}
-                        canGoPrevious={canGoPrevious}
-                        canGoNext={canGoNext}
-                        muted={muted}
-                        volume={volume}
-                        onToggleMute={handleToggleMute}
-                        onVolumeChange={handleVolumeChange}
-                        formatTime={formatTime}
-                        playbackRate={playbackRate}
-                        onChangePlaybackRate={handlePlaybackRateChange}
-                        playbackQuality={playbackQuality}
-                        onChangeQuality={handleQualityChange}
-                        qualityOptions={qualityOptionsForSelect}
-                        formatQualityLabel={formatQualityLabel}
-                        onToggleFullscreen={toggleFullscreen}
-                        isSidebarOpen={isSidebarOpen}
-                        onOpenSidebar={() => setIsSidebarOpen(true)}
-                        courseTitle={course.title}
-                        lessonTitle={currentLesson?.title || ''}
-                      />
+                        <VideoPlayerOverlay
+                          showControls={showControls}
+                          playing={playing}
+                          onPlayPause={handlePlayPause}
+                          progress={progress}
+                          duration={duration}
+                          currentTime={currentTime}
+                          onSeekChange={handleSeekChange}
+                          onPreviousLesson={handlePreviousLesson}
+                          onNextLesson={handleNextLesson}
+                          canGoPrevious={canGoPrevious}
+                          canGoNext={canGoNext}
+                          muted={muted}
+                          volume={volume}
+                          onToggleMute={handleToggleMute}
+                          onVolumeChange={handleVolumeChange}
+                          formatTime={formatTime}
+                          playbackRate={playbackRate}
+                          onChangePlaybackRate={handlePlaybackRateChange}
+                          playbackQuality={playbackQuality}
+                          onChangeQuality={handleQualityChange}
+                          qualityOptions={qualityOptionsForSelect}
+                          formatQualityLabel={formatQualityLabel}
+                          onToggleFullscreen={toggleFullscreen}
+                          isSidebarOpen={isSidebarOpen}
+                          onOpenSidebar={() => setIsSidebarOpen(true)}
+                          courseTitle={course.title}
+                          lessonTitle={currentLesson?.title || ''}
+                          isFullscreen={isFullscreen}
+                        />
+                      </div>
                     </div>
                   </div>
 
