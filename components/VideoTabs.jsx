@@ -25,7 +25,7 @@ export default function VideoTabs({
   const mcqFontStyle = {
     fontFamily: 'var(--font-fm-malithi), "FM Malithi", "Noto Sans Sinhala", sans-serif'
   };
-  const containerClasses = isDark ? 'bg-gray-900 border-gray-800 text-gray-100' : 'bg-white border-gray-200 text-gray-900';
+  const containerClasses = isDark ? 'bg-gray-900 text-gray-100' : 'bg-white text-gray-900';
   const tabsHeaderClasses = isDark ? 'border-gray-800 bg-gray-900' : 'border-gray-200 bg-white';
   const activeTabClasses = isDark
     ? 'bg-white/10 text-white ring-1 ring-white/30'
@@ -55,7 +55,7 @@ export default function VideoTabs({
   const linkClasses = isDark ? 'text-blue-400 hover:text-blue-300' : 'text-blue-600 hover:text-blue-700';
 
   return (
-    <div className={`flex-1 border-t ${containerClasses}`}>
+    <div className={`flex-1 ${containerClasses}`}>
       {/* Tabs Header */}
       <div className={`border-b shadow-sm ${tabsHeaderClasses}`}>
         <div className="flex flex-wrap justify-center gap-3 px-4 py-3.5 sm:gap-4 sm:px-6">
