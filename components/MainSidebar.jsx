@@ -5,11 +5,11 @@ import SidebarNavContent from '@/components/SidebarNavContent';
 export default function MainSidebar({ navSections, isCollapsed, onToggleCollapse, theme = 'light' }) {
   const isDark = theme === 'dark';
   const sidebarClasses = isDark
-    ? 'border-gray-800 bg-gray-900 text-gray-100'
-    : 'border-gray-200 bg-white text-gray-900';
+    ? 'border-white/10 bg-slate-900/70 text-gray-100 backdrop-blur-2xl shadow-[0_20px_50px_rgba(2,6,23,0.65)]'
+    : 'border-white/40 bg-white/70 text-gray-900 backdrop-blur-2xl shadow-[0_20px_50px_rgba(15,23,42,0.15)]';
   const buttonClasses = isDark
-    ? 'rounded-full p-2 text-gray-300 transition-colors duration-200 hover:bg-gray-800'
-    : 'rounded-full p-2 text-gray-500 transition-colors duration-200 hover:bg-gray-200';
+    ? 'rounded-full p-2 text-gray-200 transition-colors duration-200 hover:bg-white/10'
+    : 'rounded-full p-2 text-gray-600 transition-colors duration-200 hover:bg-gray-900/5';
   return (
     <aside
       className={`hidden flex-shrink-0 flex-col border-r transition-all duration-300 lg:flex lg:sticky lg:top-20 lg:h-[calc(100vh-5rem)] lg:overflow-y-auto ${sidebarClasses} ${

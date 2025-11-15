@@ -23,16 +23,29 @@ const images = [
   { id: 15, src: '/images/Poster15.jpg' },
 ];
 
-export default function ImageCarousel() {
+export default function ImageCarousel({ theme = 'light' }) {
+  const isDark = theme === 'dark';
   return (
     <div className="relative z-0 w-full">
       <div className="pointer-events-none absolute inset-y-0 left-0 z-10 hidden items-center lg:flex lg:-translate-x-6">
-        <div className="swiper-button-prev pointer-events-auto flex h-10 w-10 items-center justify-center rounded-full bg-gray-700 text-gray-300 shadow-lg transition-colors hover:bg-gray-800">
+        <div
+          className={`swiper-button-prev pointer-events-auto flex h-10 w-10 items-center justify-center rounded-full border ${
+            isDark
+              ? 'border-white/10 bg-white/10 text-white shadow-[0_20px_45px_rgba(0,0,0,0.45)] hover:bg-white/20'
+              : 'border-white/50 bg-white/70 text-slate-900 shadow-[0_20px_45px_rgba(15,23,42,0.15)] hover:bg-white'
+          } transition-colors backdrop-blur-xl`}
+        >
           <ChevronLeft size={20} />
         </div>
       </div>
       <div className="pointer-events-none absolute inset-y-0 right-0 z-10 hidden items-center lg:flex lg:translate-x-6">
-        <div className="swiper-button-next pointer-events-auto flex h-10 w-10 items-center justify-center rounded-full bg-gray-700 text-gray-300 shadow-lg transition-colors hover:bg-gray-800">
+        <div
+          className={`swiper-button-next pointer-events-auto flex h-10 w-10 items-center justify-center rounded-full border ${
+            isDark
+              ? 'border-white/10 bg-white/10 text-white shadow-[0_20px_45px_rgba(0,0,0,0.45)] hover:bg-white/20'
+              : 'border-white/50 bg-white/70 text-slate-900 shadow-[0_20px_45px_rgba(15,23,42,0.15)] hover:bg-white'
+          } transition-colors backdrop-blur-xl`}
+        >
           <ChevronRight size={20} />
         </div>
       </div>
@@ -55,11 +68,19 @@ export default function ImageCarousel() {
       >
         {images.map((image) => (
           <SwiperSlide key={image.id}>
-            <img
-              src={image.src}
-              alt={`Poster ${image.id}`}
-              className="h-auto w-full rounded-lg object-cover shadow"
-            />
+            <div
+              className={`overflow-hidden rounded-2xl ${
+                isDark
+                  ? 'bg-white/5 shadow-[0_25px_55px_rgba(0,0,0,0.45)]'
+                  : 'bg-white/80 shadow-[0_25px_55px_rgba(15,23,42,0.18)]'
+              } backdrop-blur-xl`}
+            >
+              <img
+                src={image.src}
+                alt={`Poster ${image.id}`}
+                className="h-auto w-full object-cover transition duration-500 hover:scale-[1.03]"
+              />
+            </div>
           </SwiperSlide>
         ))}
       </Swiper>

@@ -9,8 +9,8 @@ const solutionLinks = [
 export default function SolutionsBar({ theme = 'light' }) {
   const isDark = theme === 'dark';
   const wrapperClasses = isDark
-    ? 'border-gray-800 bg-gray-900 text-gray-200'
-    : 'border-gray-200 bg-gray-100 text-gray-700';
+    ? 'border-white/10 bg-slate-900/60 text-gray-200 backdrop-blur-xl shadow-[0_10px_25px_rgba(2,6,23,0.6)]'
+    : 'border-white/40 bg-white/60 text-gray-700 backdrop-blur-xl shadow-[0_10px_25px_rgba(15,23,42,0.15)]';
   const labelClasses = isDark ? 'text-gray-100' : 'text-gray-900';
   const linkClasses = isDark ? 'text-gray-300 hover:text-white' : 'text-gray-700 hover:text-gray-900';
   const actionClasses = isDark

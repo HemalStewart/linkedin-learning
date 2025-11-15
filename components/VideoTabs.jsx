@@ -25,30 +25,34 @@ export default function VideoTabs({
   const mcqFontStyle = {
     fontFamily: 'var(--font-fm-malithi), "FM Malithi", "Noto Sans Sinhala", sans-serif'
   };
-  const containerClasses = isDark ? 'bg-gray-900 text-gray-100' : 'bg-white text-gray-900';
-  const tabsHeaderClasses = isDark ? 'border-gray-800 bg-gray-900' : 'border-gray-200 bg-white';
+  const containerClasses = isDark
+    ? 'bg-slate-950/50 text-gray-100 backdrop-blur-2xl shadow-[0_35px_70px_rgba(2,6,23,0.65)]'
+    : 'bg-white/70 text-gray-900 backdrop-blur-2xl shadow-[0_35px_70px_rgba(15,23,42,0.15)]';
+  const tabsHeaderClasses = isDark
+    ? 'border-white/10 bg-white/5'
+    : 'border-white/60 bg-white/50';
   const activeTabClasses = isDark
-    ? 'bg-white/10 text-white ring-1 ring-white/30'
-    : 'bg-gray-800 text-white ring-1 ring-gray-600';
+    ? 'bg-white/15 text-white ring-1 ring-white/30 shadow-[0_10px_35px_rgba(0,0,0,0.45)]'
+    : 'bg-slate-900 text-white ring-1 ring-white/50 shadow-[0_10px_35px_rgba(15,23,42,0.25)]';
   const inactiveTabClasses = isDark
     ? 'text-gray-300 hover:text-white hover:bg-white/10'
     : 'text-gray-800 hover:text-white hover:bg-gray-700/50';
   const sectionTitleClasses = isDark ? 'text-gray-100' : 'text-gray-900';
   const bodyTextClasses = isDark ? 'text-gray-300' : 'text-gray-700';
   const cardBackgroundClasses = isDark
-    ? 'rounded-lg border border-gray-800 bg-gray-800/70'
-    : 'rounded-lg bg-blue-50';
+    ? 'rounded-2xl border border-white/10 bg-white/5 backdrop-blur'
+    : 'rounded-2xl border border-white/70 bg-white/70 backdrop-blur';
   const placeholderClasses = isDark
-    ? 'rounded-lg border border-dashed border-gray-700 bg-gray-900/60 text-gray-400'
-    : 'rounded-lg border border-dashed border-gray-300 text-gray-500';
+    ? 'rounded-2xl border border-dashed border-white/20 bg-white/5 text-gray-400'
+    : 'rounded-2xl border border-dashed border-white/70 bg-white/60 text-gray-500';
   const transcriptRowClasses = isDark
-    ? 'flex flex-col gap-2 rounded p-3 hover:bg-gray-800/70 sm:flex-row sm:items-start sm:gap-3'
-    : 'flex flex-col gap-2 rounded p-3 hover:bg-gray-50 sm:flex-row sm:items-start sm:gap-3';
+    ? 'flex flex-col gap-2 rounded-2xl p-3 hover:bg-white/5 sm:flex-row sm:items-start sm:gap-3'
+    : 'flex flex-col gap-2 rounded-2xl p-3 hover:bg-white/70 sm:flex-row sm:items-start sm:gap-3';
   const transcriptTimeClasses = isDark ? 'text-blue-300' : 'text-blue-600';
   const resourceWrapperClasses = isDark ? 'space-y-6 text-gray-100' : 'space-y-6 text-gray-800';
   const resourceCardClasses = isDark
-    ? 'rounded-2xl border border-gray-700 bg-gray-900/80 p-5 shadow-[0_15px_35px_rgba(0,0,0,0.4)]'
-    : 'rounded-2xl border border-gray-200 bg-white/90 p-5 shadow-sm';
+    ? 'rounded-3xl border border-white/15 bg-slate-950/60 p-5 shadow-[0_35px_65px_rgba(0,0,0,0.55)] backdrop-blur'
+    : 'rounded-3xl border border-white/70 bg-white/80 p-5 shadow-[0_35px_65px_rgba(15,23,42,0.18)] backdrop-blur';
   const resourceTypeClasses = isDark ? 'text-gray-400' : 'text-gray-400';
   const resourceTitleClasses = isDark ? 'text-gray-100' : 'text-gray-900';
   const resourceAnswerClasses = isDark ? 'text-green-400' : 'text-green-600';
@@ -175,14 +179,14 @@ export default function VideoTabs({
             </div>
           )}
           <div className="pt-6 relative z-0">
-            <ImageCarousel />
+            <ImageCarousel theme={theme} />
           </div>
 
           <div className="pt-6 px-10 sm:px-10">
             <PMICertificate theme={theme} />
           </div>
           <div className="pt-6">
-            <PosterShowcase />
+            <PosterShowcase theme={theme} />
           </div>
         </div>
       </div>

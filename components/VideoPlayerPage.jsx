@@ -643,7 +643,9 @@ export default function VideoPlayerPage({ courseId }) {
     return (
       <div
         className={`flex min-h-screen items-center justify-center ${
-          isDarkTheme ? 'bg-gray-950 text-gray-100' : 'bg-white text-gray-900'
+          isDarkTheme
+            ? 'bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-gray-100'
+            : 'bg-gradient-to-br from-slate-50 via-white to-slate-100 text-gray-900'
         }`}
       >
         <p className={`text-xl ${isDarkTheme ? 'text-gray-400' : 'text-gray-500'}`}>
@@ -670,13 +672,19 @@ export default function VideoPlayerPage({ courseId }) {
     },
   };
 
-  const layoutClasses = `relative flex flex-1 min-h-0 flex-col ${isDarkTheme ? 'bg-gray-900' : 'bg-white'} transition-all duration-300 lg:grid lg:h-[calc(100vh-5rem)] ${
+  const layoutClasses = `relative flex flex-1 min-h-0 flex-col ${
+    isDarkTheme ? 'bg-slate-950/50' : 'bg-white/70'
+  } backdrop-blur-2xl transition-all duration-300 lg:grid lg:h-[calc(100vh-5rem)] ${
     isSidebarOpen ? 'lg:grid-cols-[340px_minmax(0,1fr)]' : 'lg:grid-cols-[0_minmax(0,1fr)]'
   }`;
 
-  const rootClasses = isDarkTheme ? 'bg-gray-950 text-gray-100' : 'bg-gray-100 text-gray-900';
-  const contentShellClasses = isDarkTheme ? 'bg-gray-900' : 'bg-gray-50';
-  const innerShellClasses = isDarkTheme ? 'bg-gray-950' : 'bg-white';
+  const rootClasses = isDarkTheme
+    ? 'bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-gray-100'
+    : 'bg-gradient-to-br from-slate-50 via-white to-slate-100 text-gray-900';
+  const contentShellClasses = 'bg-transparent';
+  const innerShellClasses = isDarkTheme
+    ? 'bg-white/5 backdrop-blur-2xl'
+    : 'bg-white/80 backdrop-blur-2xl';
 
   return (
     <div className={`flex h-screen flex-col overflow-hidden ${rootClasses}`}>
@@ -696,20 +704,20 @@ export default function VideoPlayerPage({ courseId }) {
             onClick={() => setIsMobileNavOpen(false)}
           />
           <aside
-            className={`fixed inset-y-0 left-0 z-70 flex w-72 max-w-[85%] flex-col border-r shadow-xl ${
-              isDarkTheme ? 'border-gray-800 bg-gray-900 text-gray-100' : 'border-gray-200 bg-white text-gray-900'
+            className={`fixed inset-y-0 left-0 z-70 flex w-72 max-w-[85%] flex-col border-r shadow-[0_40px_90px_rgba(0,0,0,0.45)] backdrop-blur-2xl ${
+              isDarkTheme ? 'border-white/10 bg-slate-950/80 text-gray-100' : 'border-white/50 bg-white/80 text-gray-900'
             }`}
           >
             <div
               className={`flex items-center justify-end border-b px-3 py-3 ${
-                isDarkTheme ? 'border-gray-800' : 'border-gray-200'
+                isDarkTheme ? 'border-white/10' : 'border-white/60'
               }`}
             >
               <button
                 type="button"
                 onClick={() => setIsMobileNavOpen(false)}
                 className={`rounded-full p-2 ${
-                  isDarkTheme ? 'text-gray-200 hover:bg-gray-800' : 'text-gray-600 hover:bg-gray-100'
+                  isDarkTheme ? 'text-gray-200 hover:bg-white/10' : 'text-gray-600 hover:bg-white/50'
                 }`}
                 aria-label="Close navigation"
               >
@@ -735,7 +743,7 @@ export default function VideoPlayerPage({ courseId }) {
               {isDesktop && (
                 <div
                   className={`hidden lg:sticky lg:top-20 lg:flex lg:h-[calc(100vh-5rem)] lg:flex-col lg:overflow-hidden ${
-                    isDarkTheme ? 'bg-gray-900' : 'bg-white'
+                    isDarkTheme ? 'bg-white/5 backdrop-blur-2xl' : 'bg-white/70 backdrop-blur-2xl'
                   }`}
                 >
                   {isSidebarOpen && (
@@ -779,21 +787,11 @@ export default function VideoPlayerPage({ courseId }) {
                 <div className="flex-1 overflow-y-auto">
                   <div className="relative">
                     <div
-                      className={`pointer-events-none absolute inset-y-0 left-0 z-10 w-[3px] ${
-                        isDarkTheme ? 'bg-gray-800' : 'bg-white'
-                      }`}
-                    />
-                    <div
-                      className={`pointer-events-none absolute inset-y-0 right-0 z-10 w-[3px] ${
-                        isDarkTheme ? 'bg-gray-800' : 'bg-white'
-                      }`}
-                    />
-                    <div
                       ref={videoContainerRef}
                       className={`group relative w-full transition-all duration-300 ${
                         isFullscreen
                           ? 'fixed inset-0 z-50 h-screen'
-                          : 'z-30 h-[380px] md:h-[440px] lg:h-[500px]'
+                          : 'z-40 h-[380px] md:h-[440px] lg:h-[500px]'
                       }`}
                       onMouseMove={handleMouseMove}
                       onMouseLeave={() => {
@@ -805,8 +803,8 @@ export default function VideoPlayerPage({ courseId }) {
                           isFullscreen
                             ? 'bg-black rounded-none ring-0 border-0'
                             : isDarkTheme
-                              ? 'bg-gradient-to-br from-gray-900 via-gray-900 to-gray-800 rounded-xl border border-gray-700 ring-1 ring-gray-700'
-                              : 'bg-gradient-to-br from-white via-white to-slate-50 rounded-xl border border-white/40 ring-1 ring-white/30'
+                              ? 'rounded-[28px] border border-white/10 bg-transparent ring-1 ring-white/15 shadow-[0_45px_120px_rgba(0,0,0,0.7)] backdrop-blur-3xl'
+                              : 'rounded-[28px] border border-white/70 bg-transparent ring-1 ring-white/80 shadow-[0_45px_120px_rgba(15,23,42,0.25)] backdrop-blur-3xl'
                         }`}
                       >
                         {currentLesson && videoId && (

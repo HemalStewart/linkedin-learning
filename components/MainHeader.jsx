@@ -12,22 +12,22 @@ import {
 export default function MainHeader({ onOpenMobileNav, theme = 'light', onToggleTheme }) {
   const isDark = theme === 'dark';
   const headerClasses = isDark
-    ? 'border-gray-800 bg-gray-900 text-gray-100'
-    : 'border-gray-200 bg-white text-gray-900';
+    ? 'border-white/10 bg-slate-900/70 text-slate-100 backdrop-blur-xl shadow-[0_10px_40px_rgba(2,6,23,0.55)]'
+    : 'border-white/40 bg-white/70 text-slate-900 backdrop-blur-xl shadow-[0_10px_40px_rgba(15,23,42,0.15)]';
   const iconButtonBase =
-    'rounded-full p-2 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2';
+    'rounded-full p-2 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 backdrop-blur';
   const iconButtonStyles = isDark
-    ? `${iconButtonBase} text-gray-200 hover:bg-gray-800 focus:ring-gray-700 focus:ring-offset-gray-900`
-    : `${iconButtonBase} text-gray-600 hover:bg-gray-100 focus:ring-gray-200 focus:ring-offset-white`;
+    ? `${iconButtonBase} text-gray-200 hover:bg-white/10 focus:ring-white/30 focus:ring-offset-slate-900/40`
+    : `${iconButtonBase} text-gray-600 hover:bg-slate-900/5 focus:ring-slate-400/40 focus:ring-offset-white/60`;
   const textButtonClasses = isDark
     ? 'text-gray-200 hover:text-white'
     : 'text-gray-700 hover:text-gray-900';
   const accentButtonClasses = isDark
-    ? 'px-3 py-1 text-sm font-semibold text-gray-100 transition-colors duration-150 hover:text-white'
-    : 'px-3 py-1 text-sm font-semibold text-gray-900 transition-colors duration-150 hover:text-gray-900';
+    ? 'px-3 py-1 text-sm font-semibold text-gray-100 transition-colors duration-150 hover:text-white/90 bg-white/10 rounded-full backdrop-blur border border-white/20'
+    : 'px-3 py-1 text-sm font-semibold text-gray-900 transition-colors duration-150 hover:text-gray-900 bg-white/70 rounded-full backdrop-blur border border-white/50';
   const themeButtonClasses = isDark
-    ? 'flex items-center gap-1 rounded-full bg-gray-800 px-3 py-1 text-xs font-semibold text-gray-100 transition-colors hover:bg-gray-700'
-    : 'flex items-center gap-1 rounded-full bg-gray-100 px-3 py-1 text-xs font-semibold text-gray-800 transition-colors hover:bg-gray-200';
+    ? 'flex items-center gap-1 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-gray-100 transition-colors hover:bg-white/20 backdrop-blur'
+    : 'flex items-center gap-1 rounded-full bg-white/70 px-3 py-1 text-xs font-semibold text-gray-800 transition-colors hover:bg-white/90 backdrop-blur';
 
   return (
     <header className={`flex h-14 items-center justify-between border-b px-4 ${headerClasses}`}>

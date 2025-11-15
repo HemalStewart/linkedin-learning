@@ -15,23 +15,24 @@ export default function CourseContentsSidebar({
 
   const isDark = theme === 'dark';
   const wrapperClasses = isDark
-    ? 'bg-gray-900 text-gray-100 border-gray-800'
-    : 'bg-white text-black border-gray-300';
+    ? 'bg-slate-950/60 text-gray-100 border-white/10 backdrop-blur-2xl shadow-[0_20px_60px_rgba(2,6,23,0.65)]'
+    : 'bg-white/70 text-black border-white/50 backdrop-blur-2xl shadow-[0_20px_60px_rgba(15,23,42,0.15)]';
   const headerClasses = isDark
-    ? 'border-gray-700 bg-gray-800 text-gray-100'
-    : 'border-gray-200 bg-gray-100 text-gray-900';
+    ? 'border-white/10 bg-white/5 text-gray-100'
+    : 'border-white/60 bg-white/60 text-gray-900';
   const iconColor = isDark ? 'text-gray-200' : 'text-gray-700';
   const closeButtonClasses = isDark
-    ? 'border-gray-700 text-gray-300 hover:border-gray-500 hover:text-white'
-    : 'border-gray-300 text-gray-600 hover:border-gray-500 hover:text-black';
+    ? 'border-white/20 bg-white/0 text-gray-300 hover:border-white/40 hover:text-white hover:bg-white/10'
+    : 'border-white/60 bg-white/10 text-gray-600 hover:border-gray-400 hover:text-black hover:bg-white/60';
   const chapterTitleClasses = isDark ? 'text-gray-100' : 'text-gray-800';
-  const lessonContainerBase = 'flex cursor-pointer items-center gap-3 rounded-lg border px-3 py-3 transition-colors';
+  const lessonContainerBase =
+    'flex cursor-pointer items-center gap-3 rounded-2xl border px-3 py-3 transition-all duration-200 backdrop-blur';
   const activeLessonClasses = isDark
-    ? 'border-gray-700 bg-gray-800 text-white shadow-lg shadow-black/30'
-    : 'border-transparent bg-gray-200 text-black shadow';
+    ? 'border-white/20 bg-white/10 text-white shadow-[0_20px_45px_rgba(0,0,0,0.45)]'
+    : 'border-white/80 bg-white/70 text-black shadow-[0_20px_45px_rgba(15,23,42,0.15)]';
   const idleLessonClasses = isDark
-    ? 'border-transparent text-gray-300 hover:bg-gray-800/70 hover:text-white'
-    : 'border-transparent text-gray-700 hover:bg-gray-100';
+    ? 'border-transparent text-gray-300 hover:bg-white/5 hover:text-white'
+    : 'border-transparent text-gray-700 hover:bg-white/70';
   const durationClasses = isDark ? 'text-gray-400' : 'text-gray-500';
   const bookmarkButtonClasses = isDark
     ? 'text-gray-400 hover:text-white'
