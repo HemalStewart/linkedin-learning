@@ -22,83 +22,115 @@ export default function VideoTabs({
     { id: 'transcript', label: 'Transcript', icon: FileText },
     { id: 'resources', label: 'Resources', icon: FileText },
   ];
+
   const mcqFontStyle = {
     fontFamily: 'var(--font-fm-malithi), "FM Malithi", "Noto Sans Sinhala", sans-serif'
   };
+
   const containerClasses = isDark
-    ? 'bg-slate-950/50 text-gray-100 backdrop-blur-2xl shadow-[0_35px_70px_rgba(2,6,23,0.65)]'
-    : 'bg-gradient-to-br from-white/95 via-slate-50/75 to-white/60 text-gray-900 backdrop-blur-2xl shadow-[0_40px_80px_rgba(15,23,42,0.18)] border border-white/80';
-  const tabsHeaderClasses = isDark
-    ? 'border-white/10 bg-white/5 rounded-2xl px-4 py-3'
-    : 'border-white/70 bg-white/85 rounded-2xl px-4 py-3';
+    ? 'relative isolate flex-1 overflow-hidden rounded-[32px] border border-white/10 bg-gradient-to-br from-slate-950/80 via-slate-900/60 to-slate-900/80 text-gray-100 shadow-[0_60px_120px_rgba(0,0,0,0.6)] backdrop-blur-3xl'
+    : 'relative isolate flex-1 overflow-hidden rounded-[32px] border border-white/70 bg-gradient-to-br from-white/95 via-slate-50/75 to-white/60 text-gray-900 shadow-[0_60px_120px_rgba(15,23,42,0.18)] backdrop-blur-3xl';
+
+  const controlShellClasses = isDark
+    ? 'border border-white/15 bg-white/5'
+    : 'border border-white/70 bg-white/85';
+
   const activeTabClasses = isDark
-    ? 'bg-white/15 text-white ring-1 ring-white/30 shadow-[0_10px_35px_rgba(0,0,0,0.45)]'
-    : 'bg-slate-900 text-white ring-1 ring-white/50 shadow-[0_10px_35px_rgba(15,23,42,0.25)]';
+    ? 'bg-white/20 text-slate-900 shadow-[0_20px_35px_rgba(0,0,0,0.45)]'
+    : 'bg-white text-slate-900 shadow-[0_20px_35px_rgba(15,23,42,0.18)]';
+
   const inactiveTabClasses = isDark
     ? 'text-gray-300 hover:text-white hover:bg-white/10'
-    : 'text-gray-800 hover:text-white hover:bg-gray-700/50';
-  const sectionTitleClasses = isDark ? 'text-gray-100' : 'text-gray-900';
-  const bodyTextClasses = isDark ? 'text-gray-300' : 'text-gray-700';
-  const cardBackgroundClasses = isDark
-    ? 'rounded-2xl border border-white/10 bg-white/5 backdrop-blur'
-    : 'rounded-2xl border border-white/70 bg-white/70 backdrop-blur';
+    : 'text-slate-700 hover:text-slate-900 hover:bg-white/70';
+
+  const sectionTitleClasses = isDark ? 'text-white' : 'text-slate-900';
+  const bodyTextClasses = isDark ? 'text-gray-200' : 'text-slate-600';
+
+  const panelClasses = isDark
+    ? 'rounded-[28px] border border-white/10 bg-white/5 backdrop-blur-xl shadow-[0_35px_70px_rgba(0,0,0,0.4)]'
+    : 'rounded-[28px] border border-white/70 bg-white/85 backdrop-blur-xl shadow-[0_35px_70px_rgba(15,23,42,0.12)]';
+
   const placeholderClasses = isDark
     ? 'rounded-2xl border border-dashed border-white/20 bg-white/5 text-gray-400'
-    : 'rounded-2xl border border-dashed border-white/70 bg-white/60 text-gray-500';
+    : 'rounded-2xl border border-dashed border-white/70 bg-white/70 text-gray-500';
+
   const transcriptRowClasses = isDark
-    ? 'flex flex-col gap-2 rounded-2xl p-3 hover:bg-white/5 sm:flex-row sm:items-start sm:gap-3'
-    : 'flex flex-col gap-2 rounded-2xl p-3 hover:bg-white/70 sm:flex-row sm:items-start sm:gap-3';
-  const transcriptTimeClasses = isDark ? 'text-blue-300' : 'text-blue-600';
-  const resourceWrapperClasses = isDark ? 'space-y-6 text-gray-100' : 'space-y-6 text-gray-800';
+    ? 'flex flex-col gap-2 rounded-2xl p-3 hover:bg-white/10 sm:flex-row sm:items-start sm:gap-3'
+    : 'flex flex-col gap-2 rounded-2xl p-3 hover:bg-white/80 sm:flex-row sm:items-start sm:gap-3';
+
+  const transcriptTimeClasses = isDark ? 'text-blue-200' : 'text-blue-600';
+
+  const resourceWrapperClasses = isDark ? 'space-y-6 text-gray-100' : 'space-y-6 text-slate-900';
+
   const resourceCardClasses = isDark
-    ? 'rounded-3xl border border-white/15 bg-slate-950/60 p-5 shadow-[0_35px_65px_rgba(0,0,0,0.55)] backdrop-blur'
-    : 'rounded-3xl border border-white/70 bg-white/80 p-5 shadow-[0_35px_65px_rgba(15,23,42,0.18)] backdrop-blur';
+    ? 'rounded-[32px] border border-white/15 bg-gradient-to-br from-slate-950/70 via-slate-900/50 to-slate-950/70 p-6 shadow-[0_45px_90px_rgba(0,0,0,0.55)] backdrop-blur'
+    : 'rounded-[32px] border border-white/80 bg-gradient-to-br from-white/95 via-slate-50/70 to-white/55 p-6 shadow-[0_45px_90px_rgba(15,23,42,0.18)] backdrop-blur';
+
   const resourceTypeClasses = isDark ? 'text-gray-400' : 'text-gray-400';
   const resourceTitleClasses = isDark ? 'text-gray-100' : 'text-gray-900';
   const resourceAnswerClasses = isDark ? 'text-green-400' : 'text-green-600';
-  const linkClasses = isDark ? 'text-blue-400 hover:text-blue-300' : 'text-blue-600 hover:text-blue-700';
+
+  const linkClasses = isDark ? 'text-blue-300 hover:text-blue-200' : 'text-blue-600 hover:text-blue-700';
+  const resourceMetaBadgeClasses = isDark
+    ? 'bg-white/10 text-cyan-200'
+    : 'bg-slate-900/5 text-slate-700';
+  const resourceMetaTextClasses = isDark ? 'text-cyan-200' : 'text-slate-600';
+  const resourceTipClasses = isDark ? 'text-gray-300' : 'text-gray-700';
 
   return (
-    <div className={`flex-1 ${containerClasses}`}>
-      {/* Tabs Header */}
-      <div className={`border-b shadow-sm ${tabsHeaderClasses}`}>
-        <div className="flex flex-wrap justify-center gap-3 px-4 py-3.5 sm:gap-4 sm:px-6">
-          {tabs.map(({ id, label, icon: Icon }) => {
-            const isActive = activeTab === id;
-            return (
-              <button
-                key={id}
-                type="button"
-                onClick={() => setActiveTab(id)}
-                className={`inline-flex shrink-0 flex-col items-center justify-center gap-1 rounded-md px-3 py-2 text-xs font-medium text-center transition-colors sm:flex-row sm:gap-2 sm:px-4 sm:text-sm ${
-                  isActive ? activeTabClasses : inactiveTabClasses
-                }`}
-              >
-                <Icon className="h-5 w-5" />
-                <span className="text-center sm:text-left">{label}</span>
-              </button>
-            );
-          })}
-        </div>
+    <section className={containerClasses}>
+      <div className="pointer-events-none absolute inset-0 opacity-50">
+        <div className="absolute -top-24 right-4 h-72 w-72 rounded-full bg-gradient-to-br from-cyan-300/30 via-blue-500/30 to-transparent blur-3xl" />
+        <div className="absolute -bottom-32 left-10 h-80 w-80 rounded-full bg-gradient-to-br from-rose-300/25 via-violet-400/30 to-transparent blur-3xl" />
       </div>
 
-      {/* Tab Content */}
-      <div className="px-4 py-6 sm:px-6 lg:px-8">
-        <div className="space-y-8">
+      <div className="relative px-5 py-6 sm:px-8 sm:py-8 space-y-8">
+        <div
+          className={`flex flex-col gap-5 rounded-[26px] px-5 py-4 sm:flex-row sm:items-center sm:justify-between ${controlShellClasses} backdrop-blur`}
+        >
+          <div>
+            <p className={`text-xs uppercase tracking-[0.3em] ${isDark ? 'text-gray-300' : 'text-slate-500'}`}>
+              Learning Space
+            </p>
+            <h2 className="text-xl font-semibold tracking-tight">Navigate this lesson like a native</h2>
+            <p className={`text-sm ${isDark ? 'text-gray-300' : 'text-slate-600'}`}>
+              Switch modes to explore details, transcripts, or resources.
+            </p>
+          </div>
+          <div className="inline-flex items-center rounded-full border border-white/20 bg-white/10 p-1 text-xs font-semibold backdrop-blur-xl sm:text-sm">
+            {tabs.map(({ id, label }) => {
+              const isActive = activeTab === id;
+              return (
+                <button
+                  key={id}
+                  type="button"
+                  onClick={() => setActiveTab(id)}
+                  className={`relative mx-0.5 flex items-center gap-1 rounded-full px-4 py-1 transition-all ${
+                    isActive ? activeTabClasses : inactiveTabClasses
+                  }`}
+                >
+                  <span>{label}</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        <div className="space-y-8 pt-4">
           {activeTab === 'overview' && (
-            <div className="space-y-6">
-              <div className={`${cardBackgroundClasses} p-4`}>
-                <h3 className={`mb-2 font-semibold ${sectionTitleClasses}`}>Subscribe to LinkedIn Learning</h3>
+            <div className={`${panelClasses} p-6 space-y-5`}>
+              <div>
+                <h3 className={`mb-2 text-lg font-semibold ${sectionTitleClasses}`}>Subscribe to LinkedIn Learning</h3>
                 <p className={bodyTextClasses}>Get full access to all videos, exercise files, and certificates.</p>
               </div>
-              <div>
-                <h4 className={`mb-3 font-semibold ${sectionTitleClasses}`}>About this lesson</h4>
+              <div className="space-y-3">
+                <h4 className={`font-semibold ${sectionTitleClasses}`}>About this lesson</h4>
                 <p className={bodyTextClasses}>
                   {currentLesson?.title}: {getVideoDescription()}
                 </p>
               </div>
-              <div>
-                <h4 className={`mb-3 font-semibold ${sectionTitleClasses}`}>Learning objectives</h4>
+              <div className="space-y-3">
+                <h4 className={`font-semibold ${sectionTitleClasses}`}>Learning objectives</h4>
                 <ul className={`list-inside list-disc space-y-2 ${bodyTextClasses}`}>
                   {getLearningObjectives().map((objective, index) => (
                     <li key={index}>{objective}</li>
@@ -109,31 +141,26 @@ export default function VideoTabs({
           )}
 
           {activeTab === 'notebook' && (
-            <div className={`${placeholderClasses} p-8 text-center text-sm`}>
-              Notebook features are coming soon.
+            <div className={`${panelClasses} p-6`}>
+              <div className={`${placeholderClasses} p-6 text-center text-sm`}>
+                Notebook features are coming soon.
+              </div>
             </div>
           )}
 
           {activeTab === 'transcript' && (
-            <div className="space-y-4">
+            <div className={`${panelClasses} p-6 space-y-4`}>
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                 <h4 className={`font-semibold ${sectionTitleClasses}`}>Video Transcript</h4>
-                <button className={`text-sm ${linkClasses}`}>
-                  Download PDF
-                </button>
+                <button className={`text-sm font-medium ${linkClasses}`}>Download PDF</button>
               </div>
               <div className="space-y-3">
                 {getTranscriptSegments().map((segment, index) => (
-                  <div
-                    key={index}
-                    className={transcriptRowClasses}
-                  >
-                    <span className={`text-sm font-mono sm:min-w-[70px] ${transcriptTimeClasses}`}>
+                  <div key={index} className={transcriptRowClasses}>
+                    <span className={`text-sm font-mono sm:min-w-[80px] ${transcriptTimeClasses}`}>
                       {segment.timestamp}
                     </span>
-                    <p className={`text-sm leading-relaxed ${bodyTextClasses}`}>
-                      {segment.text}
-                    </p>
+                    <p className={`text-sm leading-relaxed ${bodyTextClasses}`}>{segment.text}</p>
                   </div>
                 ))}
               </div>
@@ -146,11 +173,14 @@ export default function VideoTabs({
                 const resources = getLessonResources();
                 if (!resources?.length) {
                   return (
-                    <div className={`${placeholderClasses} p-6 text-center text-sm`}>
-                      MCQ coming soon for this lesson.
+                    <div className={`${panelClasses} p-6`}>
+                      <div className={`${placeholderClasses} p-6 text-center text-sm`}>
+                        MCQ coming soon for this lesson.
+                      </div>
                     </div>
                   );
                 }
+
                 return resources.map((resource) => {
                   const isMcq = (resource.type || '').toLowerCase() === 'mcq';
                   return (
@@ -172,24 +202,51 @@ export default function VideoTabs({
                           ✔ {resource.answer}
                         </p>
                       )}
+                      {(resource.videoTimestamp || resource.videoUrl || resource.videoDuration) && (
+                        <div className="mt-4 flex flex-wrap items-center gap-3 text-sm">
+                          {resource.videoTimestamp && (
+                            <span className={`inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-semibold ${resourceMetaBadgeClasses} backdrop-blur`}>
+                              ⏱ {resource.videoTimestamp}
+                            </span>
+                          )}
+                          {resource.videoDuration && (
+                            <span className={`text-xs font-medium ${resourceMetaTextClasses}`}>
+                              Clip length: {resource.videoDuration}
+                            </span>
+                          )}
+                          {resource.videoUrl && (
+                            <a
+                              href={resource.videoUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className={`text-xs font-semibold uppercase tracking-wide ${linkClasses}`}
+                            >
+                              Watch clip ↗
+                            </a>
+                          )}
+                        </div>
+                      )}
+                      {resource.tip && (
+                        <p className={`mt-3 text-sm italic ${resourceTipClasses}`}>{resource.tip}</p>
+                      )}
                     </div>
                   );
                 });
               })()}
             </div>
           )}
-          <div className="pt-6 relative z-0">
+
+          <div className={`${panelClasses} p-0`}>
             <ImageCarousel theme={theme} />
           </div>
-
-          <div className="pt-6 px-10 sm:px-10">
+          <div className={`${panelClasses} p-0`}>
             <PMICertificate theme={theme} />
           </div>
-          <div className="pt-6">
+          <div className={`${panelClasses} p-0`}>
             <PosterShowcase theme={theme} />
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
