@@ -3,8 +3,8 @@ import React from 'react';
 export default function PMICertificate({ theme = 'light' }) {
   const isDark = theme === 'dark';
   const cardClasses = isDark
-    ? 'rounded-lg border border-gray-800 bg-gray-900/90 shadow-[0_25px_60px_rgba(0,0,0,0.55)]'
-    : 'rounded-lg border border-gray-200 bg-white shadow-sm';
+    ? 'rounded-2xl border border-white/10 bg-gray-900/90 shadow-[0_25px_60px_rgba(0,0,0,0.55)]'
+    : 'rounded-2xl border border-white/80 bg-gradient-to-br from-white/95 via-slate-50/70 to-white/60 shadow-[0_45px_90px_rgba(15,23,42,0.2)]';
   const baseText = isDark ? 'text-gray-300' : 'text-gray-700';
   const headingText = isDark ? 'text-gray-100' : 'text-gray-900';
   const subHeadingText = isDark ? 'text-gray-400' : 'text-gray-600';

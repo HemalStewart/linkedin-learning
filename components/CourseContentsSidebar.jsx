@@ -16,10 +16,10 @@ export default function CourseContentsSidebar({
   const isDark = theme === 'dark';
   const wrapperClasses = isDark
     ? 'bg-slate-950/60 text-gray-100 border-white/10 backdrop-blur-2xl shadow-[0_20px_60px_rgba(2,6,23,0.65)]'
-    : 'bg-white/70 text-black border-white/50 backdrop-blur-2xl shadow-[0_20px_60px_rgba(15,23,42,0.15)]';
+    : 'bg-gradient-to-br from-white/95 via-slate-50/75 to-white/60 text-black border-white/70 backdrop-blur-2xl shadow-[0_35px_70px_rgba(15,23,42,0.2)]';
   const headerClasses = isDark
     ? 'border-white/10 bg-white/5 text-gray-100'
-    : 'border-white/60 bg-white/60 text-gray-900';
+    : 'border-white/70 bg-white/85 text-gray-900';
   const iconColor = isDark ? 'text-gray-200' : 'text-gray-700';
   const closeButtonClasses = isDark
     ? 'border-white/20 bg-white/0 text-gray-300 hover:border-white/40 hover:text-white hover:bg-white/10'
@@ -29,10 +29,10 @@ export default function CourseContentsSidebar({
     'flex cursor-pointer items-center gap-3 rounded-2xl border px-3 py-3 transition-all duration-200 backdrop-blur';
   const activeLessonClasses = isDark
     ? 'border-white/20 bg-white/10 text-white shadow-[0_20px_45px_rgba(0,0,0,0.45)]'
-    : 'border-white/80 bg-white/70 text-black shadow-[0_20px_45px_rgba(15,23,42,0.15)]';
+    : 'border-white/80 bg-gradient-to-br from-white/95 via-slate-50/70 to-white/55 text-black shadow-[0_25px_50px_rgba(15,23,42,0.18)]';
   const idleLessonClasses = isDark
     ? 'border-transparent text-gray-300 hover:bg-white/5 hover:text-white'
-    : 'border-transparent text-gray-700 hover:bg-white/70';
+    : 'border border-transparent text-gray-700 hover:border-white/80 hover:bg-gradient-to-r hover:from-white/90 hover:to-slate-50/60 hover:text-gray-900';
   const durationClasses = isDark ? 'text-gray-400' : 'text-gray-500';
   const bookmarkButtonClasses = isDark
     ? 'text-gray-400 hover:text-white'

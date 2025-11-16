@@ -12,8 +12,8 @@ import {
 export default function MainHeader({ onOpenMobileNav, theme = 'light', onToggleTheme }) {
   const isDark = theme === 'dark';
   const headerClasses = isDark
-    ? 'border-white/10 bg-slate-900/70 text-slate-100 backdrop-blur-xl shadow-[0_10px_40px_rgba(2,6,23,0.55)]'
-    : 'border-white/40 bg-white/70 text-slate-900 backdrop-blur-xl shadow-[0_10px_40px_rgba(15,23,42,0.15)]';
+    ? 'border-white/10 bg-slate-900/70 text-slate-100 backdrop-blur-2xl shadow-[0_10px_40px_rgba(2,6,23,0.55)]'
+    : 'border-white/60 bg-gradient-to-br from-white/95 via-slate-50/80 to-white/70 text-slate-900 backdrop-blur-2xl shadow-[0_20px_45px_rgba(15,23,42,0.15)]';
   const iconButtonBase =
     'rounded-full p-2 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 backdrop-blur';
   const iconButtonStyles = isDark
@@ -24,7 +24,7 @@ export default function MainHeader({ onOpenMobileNav, theme = 'light', onToggleT
     : 'text-gray-700 hover:text-gray-900';
   const accentButtonClasses = isDark
     ? 'px-3 py-1 text-sm font-semibold text-gray-100 transition-colors duration-150 hover:text-white/90 bg-white/10 rounded-full backdrop-blur border border-white/20'
-    : 'px-3 py-1 text-sm font-semibold text-gray-900 transition-colors duration-150 hover:text-gray-900 bg-white/70 rounded-full backdrop-blur border border-white/50';
+    : 'px-3 py-1 text-sm font-semibold text-gray-900 transition-colors duration-150 hover:text-gray-900 bg-gradient-to-r from-white/95 via-slate-50/60 to-white/70 rounded-full backdrop-blur border border-white/70';
   const themeButtonClasses = isDark
     ? 'flex items-center gap-1 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-gray-100 transition-colors hover:bg-white/20 backdrop-blur'
     : 'flex items-center gap-1 rounded-full bg-white/70 px-3 py-1 text-xs font-semibold text-gray-800 transition-colors hover:bg-white/90 backdrop-blur';

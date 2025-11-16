@@ -27,10 +27,10 @@ export default function VideoTabs({
   };
   const containerClasses = isDark
     ? 'bg-slate-950/50 text-gray-100 backdrop-blur-2xl shadow-[0_35px_70px_rgba(2,6,23,0.65)]'
-    : 'bg-white/70 text-gray-900 backdrop-blur-2xl shadow-[0_35px_70px_rgba(15,23,42,0.15)]';
+    : 'bg-gradient-to-br from-white/95 via-slate-50/75 to-white/60 text-gray-900 backdrop-blur-2xl shadow-[0_40px_80px_rgba(15,23,42,0.18)] border border-white/80';
   const tabsHeaderClasses = isDark
-    ? 'border-white/10 bg-white/5'
-    : 'border-white/60 bg-white/50';
+    ? 'border-white/10 bg-white/5 rounded-2xl px-4 py-3'
+    : 'border-white/70 bg-white/85 rounded-2xl px-4 py-3';
   const activeTabClasses = isDark
     ? 'bg-white/15 text-white ring-1 ring-white/30 shadow-[0_10px_35px_rgba(0,0,0,0.45)]'
     : 'bg-slate-900 text-white ring-1 ring-white/50 shadow-[0_10px_35px_rgba(15,23,42,0.25)]';

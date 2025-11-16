@@ -6,7 +6,7 @@ export default function MainSidebar({ navSections, isCollapsed, onToggleCollapse
   const isDark = theme === 'dark';
   const sidebarClasses = isDark
     ? 'border-white/10 bg-slate-900/70 text-gray-100 backdrop-blur-2xl shadow-[0_20px_50px_rgba(2,6,23,0.65)]'
-    : 'border-white/40 bg-white/70 text-gray-900 backdrop-blur-2xl shadow-[0_20px_50px_rgba(15,23,42,0.15)]';
+    : 'border-white/70 bg-gradient-to-br from-white/95 via-slate-50/80 to-white/65 text-gray-900 backdrop-blur-2xl shadow-[0_30px_60px_rgba(15,23,42,0.18)]';
   const buttonClasses = isDark
     ? 'rounded-full p-2 text-gray-200 transition-colors duration-200 hover:bg-white/10'
     : 'rounded-full p-2 text-gray-600 transition-colors duration-200 hover:bg-gray-900/5';
