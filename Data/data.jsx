@@ -1,3 +1,5 @@
+// Tagging note: wrap English/Latin text inside MCQs with [en]...[/en] to keep it in the default font.
+// If an entire line should stay in the default font, prefix with [latin] or [default] (tags are stripped in the UI).
 export const allCourses = {
   1: {
     id: 1,
@@ -85,15 +87,15 @@ export const allCourses = {
                 question: `› ,xldj .ek f;dr;=re iemhQ úfoaY f,aLlhka lsysmfofkl= I ;Srefõ o" Tjqka wh;a jQ rgj,a II ;Srefõ o oelafõ' ;Srej II ;Srej yd .e<mQ úg ksjerÈ ms<s;=r jkafka ñka l=ula o@
 
 I ;Srej   II ;Srej
-(i) bnka n;+;d    (A) wrdìh
-(ii) *dyshka       (B) bkaÈhdj
-(iii) fl!á,H       (C) nqreuh (ñhkaud¾)
-                 (D) Ökh
+(i) bnka n;+;d    [en](A)[/en] wrdìh
+(ii) *dyshka       [en](B)[/en] bkaÈhdj
+(iii) fl!á,H       [en](C)[/en] nqreuh (ñhkaud¾)
+                 [en](D)[/en] Ökh
 
-(1) AD iy B
-(2) CD iy A
-(3) AC iy B
-(4) DA iy B`,
+(1) [en]AD[/en] [fm] iy [/fm] [en]B[/en]
+(2) [en]CD[/en] iy [en]A[/en]
+(3) [en]AC[/en] iy [en]B[/en]
+(4) [en]DA[/en] iy [en]B[/en]`,
                 answer: "විකල්පය 1"
               }
             ]
@@ -330,10 +332,10 @@ I ;Srej   II ;Srej
                 id: "8-mcq",
                 type: "MCQ",
                 question: `w;sßla; c,h msg lsÍu i|yd ;kd we;s ks¾udKh oelafjkafka ljr wlaIrfhlao@
-(1) A
-(2) B
-(3) C
-(4) D`,
+(1) [en]A[/en]
+(2) [en]B[/en]
+(3) [en]C[/en]
+(4) [en]D[/en]`,
                 answer: "විකල්පය 1"
               }
             ]
@@ -453,16 +455,16 @@ I ;Srej   II ;Srej
                 id: "11-mcq",
                 type: "MCQ",
                 question: `my; i|yka isÿùï w;=frka l=reKE., rdcOdks iufha ,xldjg meñ‚ úfoaYslhl=g wikakg fyda olskakg ,efnk isÿùï we;=<;a ms<s;=r l=ulao@
-A.fojk mrdl%undyq rc;=ud úiska cdjl pkaøNdkq mrdch lsÍu
-B.hdmkfha md,lhd f,i imqu,a l=ure lghq;= lsÍu
-C.miajk ñys÷ rc isrlrejl= f,i bkaÈhdjg f.k hdu
-D.NslaIQkaf.a úkh kS;s ms<sn| oUfo‚ l;sldj; iïmdokh lsÍu
-E.fj!fyda fikam;shd ,xldj wdl%uKh lsÍu
+[en]A.[/en] fojk mrdl%undyq rc;=ud úiska cdjl pkaøNdkq mrdch lsÍu
+[en]B.[/en] hdmkfha md,lhd f,i imqu,a l=ure lghq;= lsÍu
+[en]C.[/en] miajk ñys÷ rc isrlrejl= f,i bkaÈhdjg f.k hdu
+[en]D.[/en] NslaIQkaf.a úkh kS;s ms<sn| oUfo‚ l;sldj; iïmdokh lsÍu
+[en]E.[/en] fj!fyda fikam;shd ,xldj wdl%uKh lsÍu
 
-(1) AC iy D
-(2) CD iy E
-(3) BC iy D
-(4) ADiy E`,
+(1) [en]AC[/en] iy [en]D[/en]
+(2) [en]CD[/en] iy [en]E[/en]
+(3) [en]BC[/en] iy [en]D[/en]
+(4) [en]AD[/en] iy [en]E[/en]`,
                 answer: "විකල්පය 1"
               }
             ]
@@ -660,16 +662,16 @@ E.fj!fyda fikam;shd ,xldj wdl%uKh lsÍu
                 id: "16-mcq",
                 type: "MCQ",
                 question: `l%s'j' 1818 § yd l%s'j' 1848 § › ,xldfõ we;s jQ ksoyia wr., yd iïnkaO f;dr;=re my; A, B, C, D, E hgf;a olajd we;' tAjd w;=frka l%s'j' 1818 ksoyia wr.,h yd iïnkaO f;dr;=re muKla wvx.= ms<s;=r f;darkak'
-A.lemafmá fmd< Èidfõf.a kdhl;ajh
-B.fgdßx.agka idñf.a nÿ m%;sm;a;sh
-C.f.dx.df,af.dv nKavd isxyf,a rcq jYfhka wNsfIal ,eîu
-D.fud,a,sf.dv wÈldrïf.a l%shdl,dmh
-E.yÊð ußlald¾ fj,a,iafia uqykaÈrï f,i m;a lrkq ,eîu
+[en]A.[/en] lemafmá fmd< Èidfõf.a kdhl;ajh
+[en]B.[/en] fgdßx.agka idñf.a nÿ m%;sm;a;sh
+[en]C.[/en] f.dx.df,af.dv nKavd isxyf,a rcq jYfhka wNsfIal ,eîu
+[en]D.[/en] fud,a,sf.dv wÈldrïf.a l%shdl,dmh
+[en]E.[/en] yÊð ußlald¾ fj,a,iafia uqykaÈrï f,i m;a lrkq ,eîu
 
-(1) BCD
-(2) ACE
-(3) ADE
-(4) CDE`,
+(1) [en]BCD[/en]
+(2) [en]ACE[/en]
+(3) [en]ADE[/en]
+(4) [en]CDE[/en]`,
                 answer: "විකල්පය 3"
               }
             ]
@@ -822,17 +824,17 @@ E.yÊð ußlald¾ fj,a,iafia uqykaÈrï f,i m;a lrkq ,eîu
                 id: "20-mcq",
                 type: "MCQ",
                 question: `my; i|yka tAjdhska ngysr cd;Skaf.a n,mEu ksid › ,dxlsl iudchg tl;= jQ ,laIK muKla ksjerÈ j we;=<;a jkafka lskï ms<s;=fra o@
-A.nhs,d - lmsß[a[d ix.S;h
-B.f;aij,dfuhs kS;sh
-C.i¾jck Pkao n,h
-D.rdcldß l%uh
-E.wdhq¾fõo ffjoH l%uh
-F.frmrudÿ wd.u
+[en]A.[/en] nhs,d - lmsß[a[d ix.S;h
+[en]B.[/en] f;aij,dfuhs kS;sh
+[en]C.[/en] i¾jck Pkao n,h
+[en]D.[/en] rdcldß l%uh
+[en]E.[/en] wdhq¾fõo ffjoH l%uh
+[en]F.[/en] frmrudÿ wd.u
 
-(1) ABC
-(2) BDE
-(3) ACF
-(4) CEF`,
+(1) [en]ABC[/en]
+(2) [en]BDE[/en]
+(3) [en]ACF[/en]
+(4) [en]CEF[/en]`,
                 answer: "විකල්පය 3"
               }
             ]

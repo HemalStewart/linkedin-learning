@@ -77,6 +77,80 @@ export default function VideoTabs({
   const resourceMetaTextClasses = isDark ? 'text-cyan-200' : 'text-slate-600';
   const resourceTipClasses = isDark ? 'text-gray-300' : 'text-gray-700';
 
+  const renderMcqContent = (text) => {
+    const renderTaggedSegments = (content, fallbackStyle, keyPrefix) => {
+      const segmentRegex = /\[(en|fm)\](.*?)\[\/\1\]/gi;
+      const segments = [];
+      let lastIndex = 0;
+      let match;
+
+      while ((match = segmentRegex.exec(content)) !== null) {
+        if (match.index > lastIndex) {
+          segments.push({
+            text: content.slice(lastIndex, match.index),
+            style: fallbackStyle,
+          });
+        }
+        const [, tag, inner] = match;
+        segments.push({
+          text: inner,
+          style: tag.toLowerCase() === 'fm' ? mcqFontStyle : undefined,
+        });
+        lastIndex = segmentRegex.lastIndex;
+      }
+
+      if (lastIndex < content.length) {
+        segments.push({
+          text: content.slice(lastIndex),
+          style: fallbackStyle,
+        });
+      }
+
+      return segments
+        .filter((segment) => segment.text.length > 0)
+        .map((segment, idx) => (
+          <span key={`${keyPrefix}-${idx}`} style={segment.style}>
+            {segment.text}
+          </span>
+        ));
+    };
+
+    return (text || '')
+      .split(/\r?\n/)
+      .filter(Boolean)
+      .map((line, index) => {
+        const defaultTagRegex = /\[(default|latin)\]/i;
+        const hasDefaultTag = defaultTagRegex.test(line);
+        const cleanedLine = line.replace(defaultTagRegex, "").trim();
+
+        const numbered = cleanedLine.match(/^(\(\d+\)\s*)(.*)$/);
+        if (numbered) {
+          const [, prefix, rest] = numbered;
+          const useDefaultFont = hasDefaultTag || /^[\x00-\x7F]+$/.test(rest);
+          const fallbackStyle = useDefaultFont ? undefined : mcqFontStyle;
+
+          return (
+            <div key={`${prefix}-${index}`} className={`whitespace-pre-wrap ${resourceTitleClasses}`}>
+              <span className="font-sans">{prefix}</span>
+              <span>{renderTaggedSegments(rest, fallbackStyle, `mcq-${index}-seg`)}</span>
+            </div>
+          );
+        }
+
+        const useDefaultFont = hasDefaultTag || /^[\x00-\x7F]+$/.test(cleanedLine);
+        const fallbackStyle = useDefaultFont ? undefined : mcqFontStyle;
+
+        return (
+          <div
+            key={`mcq-${index}`}
+            className={`whitespace-pre-wrap ${resourceTitleClasses}`}
+          >
+            {renderTaggedSegments(cleanedLine, fallbackStyle, `mcq-${index}-seg`)}
+          </div>
+        );
+      });
+  };
+
   return (
     <section className={containerClasses}>
       <div className="pointer-events-none absolute inset-0 opacity-50">
@@ -188,12 +262,15 @@ export default function VideoTabs({
                       <p className={`text-xs font-semibold uppercase tracking-[0.3em] ${resourceTypeClasses}`}>
                         {resource.type || 'MCQ'}
                       </p>
-                      <p
-                        className={`mt-3 text-base font-semibold whitespace-pre-line ${resourceTitleClasses}`}
-                        style={isMcq ? mcqFontStyle : undefined}
-                      >
-                        {resource.question || resource.title}
-                      </p>
+                      <div className="mt-3 space-y-1 text-base font-semibold whitespace-pre-line">
+                        {isMcq
+                          ? renderMcqContent(resource.question || resource.title)
+                          : (
+                            <p className={resourceTitleClasses}>
+                              {resource.question || resource.title}
+                            </p>
+                            )}
+                      </div>
                       {resource.answer && (
                         <p
                           className={`mt-4 text-sm font-medium ${resourceAnswerClasses}`}
