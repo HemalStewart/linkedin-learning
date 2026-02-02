@@ -52,6 +52,10 @@ export const allCourses = {
 (4) fndaê jxYh`,
                 answer: "විකල්පය 2"
               }
+            ],
+            studyMaterials: [
+              "/images/Poster1.jpg",
+              "/images/Poster2.jpg"
             ]
           },
           {
@@ -98,6 +102,10 @@ I ;Srej   II ;Srej
 (4) [en]DA[/en] iy [en]B[/en]`,
                 answer: "විකල්පය 1"
               }
+            ],
+            studyMaterials: [
+              "/images/Poster3.jpg",
+              "/images/Poster4.jpg"
             ]
           },
           {

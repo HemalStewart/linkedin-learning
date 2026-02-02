@@ -24,7 +24,7 @@ import {
 } from '@heroicons/react/24/solid';
 import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 
-export default function VideoPlayerPage({ courseId }) { 
+export default function VideoPlayerPage({ courseId }) {
   const [course, setCourse] = useState(null);
   const [currentLesson, setCurrentLesson] = useState(null);
   const [activeTab, setActiveTab] = useState('overview');
@@ -53,7 +53,7 @@ export default function VideoPlayerPage({ courseId }) {
   const qualitySyncTimeoutRef = useRef(null);
   const qualityLockIntervalRef = useRef(null);
   const qualityLockTimeoutRef = useRef(null);
-  const userSelectedQualityRef = useRef('auto'); 
+  const userSelectedQualityRef = useRef('auto');
 
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -128,7 +128,7 @@ export default function VideoPlayerPage({ courseId }) {
   }, [searchParams]);
 
   useEffect(() => {
-    const foundCourse = allCourses[courseId]; 
+    const foundCourse = allCourses[courseId];
     if (foundCourse) {
       setCourse(foundCourse);
     } else {
@@ -149,7 +149,7 @@ export default function VideoPlayerPage({ courseId }) {
     mediaQuery.addListener(update);
     return () => mediaQuery.removeListener(update);
   }, []);
-  
+
   const handleMouseMove = () => {
     setShowControls(true);
   };
@@ -253,7 +253,7 @@ export default function VideoPlayerPage({ courseId }) {
       clearQualityLock();
     }, 15000);
   };
- 
+
   const updateAvailableQualities = () => {
     if (!playerRef.current) {
       return [];
@@ -284,7 +284,7 @@ export default function VideoPlayerPage({ courseId }) {
 
     return Array.from(options);
   }, [availableQualities, playbackQuality]);
-  
+
   const applyQuality = (quality, attempts = 5) => {
     if (!playerRef.current) return;
 
@@ -350,7 +350,7 @@ export default function VideoPlayerPage({ courseId }) {
   const handleOnReady = (event) => {
     playerRef.current = event.target;
     setIsPlayerReady(true);
-    
+
     const videoDuration = playerRef.current.getDuration();
     setDuration(videoDuration);
 
@@ -636,17 +636,17 @@ export default function VideoPlayerPage({ courseId }) {
   const getLearningObjectives = () => currentLesson?.objectives || [];
   const getTranscriptSegments = () => currentLesson?.transcript || [];
   const getLessonResources = () => currentLesson?.resources || [];
+  const getStudyMaterials = () => currentLesson?.studyMaterials || [];
 
   const videoId = currentLesson?.videoUrl?.split('v=')[1]?.split('&')[0]?.replace('embed/', '');
 
   if (!course) {
     return (
       <div
-        className={`flex min-h-screen items-center justify-center ${
-          isDarkTheme
-            ? 'bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-gray-100'
-            : 'bg-gradient-to-br from-slate-50 via-white to-slate-100 text-gray-900'
-        }`}
+        className={`flex min-h-screen items-center justify-center ${isDarkTheme
+          ? 'bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-gray-100'
+          : 'bg-gradient-to-br from-slate-50 via-white to-slate-100 text-gray-900'
+          }`}
       >
         <p className={`text-xl ${isDarkTheme ? 'text-gray-400' : 'text-gray-500'}`}>
           Loading course details...
@@ -665,18 +665,16 @@ export default function VideoPlayerPage({ courseId }) {
       controls: 0,
       modestbranding: 1,
       rel: 0,
-      showinfo: 0,     
+      showinfo: 0,
       fs: 0,
       hd: 1,
       vq: 'hd1080',
     },
   };
 
-  const layoutClasses = `relative flex flex-1 min-h-0 flex-col ${
-    isDarkTheme ? 'bg-slate-950/50' : 'bg-white/70'
-  } backdrop-blur-2xl transition-all duration-300 lg:grid lg:h-[calc(100vh-5rem)] ${
-    isSidebarOpen ? 'lg:grid-cols-[340px_minmax(0,1fr)]' : 'lg:grid-cols-[0_minmax(0,1fr)]'
-  }`;
+  const layoutClasses = `relative flex flex-1 min-h-0 flex-col ${isDarkTheme ? 'bg-slate-950/50' : 'bg-white/70'
+    } backdrop-blur-2xl transition-all duration-300 lg:grid lg:h-[calc(100vh-5rem)] ${isSidebarOpen ? 'lg:grid-cols-[340px_minmax(0,1fr)]' : 'lg:grid-cols-[0_minmax(0,1fr)]'
+    }`;
 
   const rootClasses = isDarkTheme
     ? 'bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-gray-100'
@@ -704,21 +702,18 @@ export default function VideoPlayerPage({ courseId }) {
             onClick={() => setIsMobileNavOpen(false)}
           />
           <aside
-            className={`fixed inset-y-0 left-0 z-70 flex w-72 max-w-[85%] flex-col border-r shadow-[0_40px_90px_rgba(0,0,0,0.45)] backdrop-blur-2xl ${
-              isDarkTheme ? 'border-white/10 bg-slate-950/80 text-gray-100' : 'border-white/50 bg-white/80 text-gray-900'
-            }`}
+            className={`fixed inset-y-0 left-0 z-70 flex w-72 max-w-[85%] flex-col border-r shadow-[0_40px_90px_rgba(0,0,0,0.45)] backdrop-blur-2xl ${isDarkTheme ? 'border-white/10 bg-slate-950/80 text-gray-100' : 'border-white/50 bg-white/80 text-gray-900'
+              }`}
           >
             <div
-              className={`flex items-center justify-end border-b px-3 py-3 ${
-                isDarkTheme ? 'border-white/10' : 'border-white/60'
-              }`}
+              className={`flex items-center justify-end border-b px-3 py-3 ${isDarkTheme ? 'border-white/10' : 'border-white/60'
+                }`}
             >
               <button
                 type="button"
                 onClick={() => setIsMobileNavOpen(false)}
-                className={`rounded-full p-2 ${
-                  isDarkTheme ? 'text-gray-200 hover:bg-white/10' : 'text-gray-600 hover:bg-white/50'
-                }`}
+                className={`rounded-full p-2 ${isDarkTheme ? 'text-gray-200 hover:bg-white/10' : 'text-gray-600 hover:bg-white/50'
+                  }`}
                 aria-label="Close navigation"
               >
                 <XMark className="h-5 w-5" />
@@ -742,9 +737,8 @@ export default function VideoPlayerPage({ courseId }) {
             <div className={layoutClasses}>
               {isDesktop && (
                 <div
-                  className={`hidden lg:sticky lg:top-20 lg:flex lg:h-[calc(100vh-5rem)] lg:flex-col lg:overflow-hidden ${
-                    isDarkTheme ? 'bg-white/5 backdrop-blur-2xl' : 'bg-white/70 backdrop-blur-2xl'
-                  }`}
+                  className={`hidden lg:sticky lg:top-20 lg:flex lg:h-[calc(100vh-5rem)] lg:flex-col lg:overflow-hidden ${isDarkTheme ? 'bg-white/5 backdrop-blur-2xl' : 'bg-white/70 backdrop-blur-2xl'
+                    }`}
                 >
                   {isSidebarOpen && (
                     <CourseContentsSidebar
@@ -758,18 +752,16 @@ export default function VideoPlayerPage({ courseId }) {
                 </div>
               )}
               {!isDesktop && (
-            <>
-              <div
-                className={`fixed inset-0 z-60 bg-black/60 transition-opacity duration-300 lg:hidden ${
-                  isSidebarOpen ? 'opacity-100 pointer-events-auto' : 'pointer-events-none opacity-0'
-                }`}
-                onClick={() => setIsSidebarOpen(false)}
-              />
-              <div
-                className={`fixed top-0 bottom-0 left-0 z-70 w-72 max-w-[85%] transform transition-all duration-300 lg:hidden ${
-                  isSidebarOpen ? 'translate-x-0 ease-out' : '-translate-x-full ease-in'
-                }`}
-              >
+                <>
+                  <div
+                    className={`fixed inset-0 z-60 bg-black/60 transition-opacity duration-300 lg:hidden ${isSidebarOpen ? 'opacity-100 pointer-events-auto' : 'pointer-events-none opacity-0'
+                      }`}
+                    onClick={() => setIsSidebarOpen(false)}
+                  />
+                  <div
+                    className={`fixed top-0 bottom-0 left-0 z-70 w-72 max-w-[85%] transform transition-all duration-300 lg:hidden ${isSidebarOpen ? 'translate-x-0 ease-out' : '-translate-x-full ease-in'
+                      }`}
+                  >
                     <CourseContentsSidebar
                       course={course}
                       currentLessonId={currentLesson?.id}
@@ -788,24 +780,22 @@ export default function VideoPlayerPage({ courseId }) {
                   <div className="relative">
                     <div
                       ref={videoContainerRef}
-                      className={`group relative w-full transition-all duration-300 ${
-                        isFullscreen
-                          ? 'fixed inset-0 z-50 h-screen'
-                          : 'z-40 h-[380px] md:h-[440px] lg:h-[500px]'
-                      }`}
+                      className={`group relative w-full transition-all duration-300 ${isFullscreen
+                        ? 'fixed inset-0 z-50 h-screen'
+                        : 'z-40 h-[380px] md:h-[440px] lg:h-[500px]'
+                        }`}
                       onMouseMove={handleMouseMove}
                       onMouseLeave={() => {
                         if (playing) setShowControls(false);
                       }}
                     >
                       <div
-                        className={`relative h-full w-full overflow-hidden ${
-                          isFullscreen
-                            ? 'bg-black rounded-none ring-0 border-0'
-                            : isDarkTheme
-                              ? 'rounded-[28px] border border-white/10 bg-transparent ring-1 ring-white/15 shadow-[0_45px_120px_rgba(0,0,0,0.7)] backdrop-blur-3xl'
-                              : 'rounded-[28px] border border-white/70 bg-transparent ring-1 ring-white/80 shadow-[0_45px_120px_rgba(15,23,42,0.25)] backdrop-blur-3xl'
-                        }`}
+                        className={`relative h-full w-full overflow-hidden ${isFullscreen
+                          ? 'bg-black rounded-none ring-0 border-0'
+                          : isDarkTheme
+                            ? 'rounded-[28px] border border-white/10 bg-transparent ring-1 ring-white/15 shadow-[0_45px_120px_rgba(0,0,0,0.7)] backdrop-blur-3xl'
+                            : 'rounded-[28px] border border-white/70 bg-transparent ring-1 ring-white/80 shadow-[0_45px_120px_rgba(15,23,42,0.25)] backdrop-blur-3xl'
+                          }`}
                       >
                         {currentLesson && videoId && (
                           <YouTube
@@ -862,6 +852,7 @@ export default function VideoPlayerPage({ courseId }) {
                     getLearningObjectives={getLearningObjectives}
                     getTranscriptSegments={getTranscriptSegments}
                     getLessonResources={getLessonResources}
+                    getStudyMaterials={getStudyMaterials}
                     theme={theme}
                   />
                 </div>

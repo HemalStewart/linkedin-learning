@@ -1,5 +1,5 @@
 import React from "react";
-import { BookOpen, FileText } from "lucide-react";
+import { BookOpen, FileText, Image as ImageIcon } from "lucide-react";
 import ImageCarousel from '@/components/ImageCarousel';
 import PMICertificate from '@/components/PMICertificate';
 import PosterShowcase from '@/components/PosterShowcase';
@@ -12,6 +12,7 @@ export default function VideoTabs({
   getLearningObjectives,
   getTranscriptSegments,
   getLessonResources,
+  getStudyMaterials,
   theme = 'light'
 }) {
   const isDark = theme === 'dark';
@@ -21,6 +22,7 @@ export default function VideoTabs({
     { id: 'notebook', label: 'Notebook', icon: BookOpen },
     { id: 'transcript', label: 'Transcript', icon: FileText },
     { id: 'resources', label: 'Resources', icon: FileText },
+    { id: 'studyMaterial', label: 'Study Material', icon: ImageIcon },
   ];
 
   const mcqFontStyle = {
@@ -179,9 +181,8 @@ export default function VideoTabs({
                   key={id}
                   type="button"
                   onClick={() => setActiveTab(id)}
-                  className={`relative mx-0.5 flex items-center gap-1 rounded-full px-4 py-1 transition-all ${
-                    isActive ? activeTabClasses : inactiveTabClasses
-                  }`}
+                  className={`relative mx-0.5 flex items-center gap-1 rounded-full px-4 py-1 transition-all ${isActive ? activeTabClasses : inactiveTabClasses
+                    }`}
                 >
                   <span>{label}</span>
                 </button>
@@ -269,7 +270,7 @@ export default function VideoTabs({
                             <p className={resourceTitleClasses}>
                               {resource.question || resource.title}
                             </p>
-                            )}
+                          )}
                       </div>
                       {resource.answer && (
                         <p
@@ -309,6 +310,39 @@ export default function VideoTabs({
                     </div>
                   );
                 });
+              })()}
+            </div>
+          )}
+
+          {activeTab === 'studyMaterial' && (
+            <div className={`${panelClasses} p-6`}>
+              {(() => {
+                const materials = getStudyMaterials();
+                if (!materials?.length) {
+                  return (
+                    <div className={`${placeholderClasses} p-6 text-center text-sm`}>
+                      No study materials available for this lesson.
+                    </div>
+                  );
+                }
+
+                return (
+                  <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                    {materials.map((url, index) => (
+                      <div
+                        key={index}
+                        className={`overflow-hidden rounded-2xl border transition-all hover:scale-[1.02] ${isDark ? 'border-white/15 bg-white/5' : 'border-white/50 bg-white/50'
+                          }`}
+                      >
+                        <img
+                          src={url}
+                          alt={`Study Material ${index + 1}`}
+                          className="h-auto w-full object-cover"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                );
               })()}
             </div>
           )}
