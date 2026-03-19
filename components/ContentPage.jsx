@@ -30,6 +30,10 @@ const contentCards = [
   { id: 2, title: 'Self-Promotion Techniques for Creatives', author: 'Carla Bonomini', image: '/images/Poster10.jpg' },
   { id: 3, title: 'Lighting Essentials for Video Storytellers', author: 'Marcus Le', image: '/images/Poster8.jpg' },
   { id: 4, title: 'Productivity Playbook: Focused Workflows', author: 'Amara Singh', image: '/images/Poster4.jpg' },
+  { id: 5, title: 'Designing Moodboards That Sell Ideas', author: 'Lea Wong', image: '/images/Poster2.jpg' },
+  { id: 6, title: 'Cinematic Color Grading Basics', author: 'Rafael Diaz', image: '/images/Poster11.jpg' },
+  { id: 7, title: 'Creative Pitch Decks in One Afternoon', author: 'Sofia Blake', image: '/images/Poster13.jpg' },
+  { id: 8, title: 'Storytelling Through Motion Graphics', author: 'Jin Park', image: '/images/Poster7.jpg' },
 ];
 
 export default function ContentPage() {
@@ -183,7 +187,7 @@ export default function ContentPage() {
         <div className={`flex min-h-0 flex-1 flex-col overflow-hidden ${sectionShell}`}>
           <div className={`flex-1 overflow-y-auto ${isDark ? 'bg-slate-950/50' : 'bg-white/70'}`}>
             <div className="flex flex-col gap-8 p-6">
-              <section className={`flex h-[calc(100vh-6rem)] flex-col gap-6 ${sectionShell} rounded-[32px] p-6`}>
+              <section className={`flex h-[calc(100vh-4rem)] flex-col gap-6 ${sectionShell} rounded-[32px] p-6`}>
                 <div className="relative flex-1 overflow-hidden rounded-[28px]">
                   <img
                     src={bannerImages[0]}
@@ -225,7 +229,7 @@ export default function ContentPage() {
                   <ImageCarousel
                     theme={theme}
                     items={carouselItems}
-                    cardHeightClass="h-64 sm:h-72 lg:h-80"
+                    cardHeightClass="h-72 sm:h-80 lg:h-96"
                     onSelect={(item) => router.push(`/?lesson=${item.lessonId ?? item.id}`)}
                   />
                 </div>
