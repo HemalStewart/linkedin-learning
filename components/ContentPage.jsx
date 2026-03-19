@@ -30,6 +30,10 @@ const contentCards = [
   { id: 2, title: 'Self-Promotion Techniques for Creatives', author: 'Carla Bonomini', image: '/images/Poster10.jpg' },
   { id: 3, title: 'Lighting Essentials for Video Storytellers', author: 'Marcus Le', image: '/images/Poster8.jpg' },
   { id: 4, title: 'Productivity Playbook: Focused Workflows', author: 'Amara Singh', image: '/images/Poster4.jpg' },
+  { id: 5, title: 'Designing Moodboards That Sell Ideas', author: 'Lea Wong', image: '/images/Poster2.jpg' },
+  { id: 6, title: 'Cinematic Color Grading Basics', author: 'Rafael Diaz', image: '/images/Poster11.jpg' },
+  { id: 7, title: 'Creative Pitch Decks in One Afternoon', author: 'Sofia Blake', image: '/images/Poster13.jpg' },
+  { id: 8, title: 'Storytelling Through Motion Graphics', author: 'Jin Park', image: '/images/Poster7.jpg' },
 ];
 
 export default function ContentPage() {
