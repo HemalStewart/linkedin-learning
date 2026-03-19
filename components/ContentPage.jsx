@@ -21,6 +21,7 @@ import MainSidebar from '@/components/MainSidebar';
 import SidebarNavContent from '@/components/SidebarNavContent';
 import CourseContentsSidebar from '@/components/CourseContentsSidebar';
 import ImageCarousel from '@/components/ImageCarousel';
+import { allCourses } from '../Data/data';
 
 const bannerImages = ['/images/Poster14.jpg', '/images/Poster9.jpg', '/images/Poster12.jpg'];
 
@@ -39,6 +40,7 @@ export default function ContentPage() {
   const [isContentsOpen, setIsContentsOpen] = useState(true);
 
   const router = useRouter();
+  const course = allCourses[1];
   const isDark = theme === 'dark';
 
   const navSections = [
@@ -110,40 +112,21 @@ export default function ContentPage() {
     return () => mediaQuery.removeListener(update);
   }, []);
 
-  const dummyCourse = useMemo(
-    () => ({
-      id: 999,
-      title: 'Creative Essentials',
-      chapters: [
-        {
-          id: 1,
-          title: 'Contents',
-          lessons: [
-            { id: 1, title: 'Introduction', duration: '3m', completed: true },
-            { id: 2, title: 'Write more effective prompts', duration: '8m', completed: false },
-            { id: 3, title: 'What makes a good prompt?', duration: '6m', completed: false },
-            { id: 4, title: 'Prompting dos and don’ts', duration: '5m', completed: false },
-            { id: 5, title: 'Prompt examples', duration: '7m', completed: false },
-            { id: 6, title: 'Putting it all together', duration: '4m', completed: false },
-          ],
-        },
-      ],
-    }),
-    []
-  );
+  const lessons = useMemo(() => {
+    if (!course?.chapters) return [];
+    return course.chapters.flatMap((chapter) => chapter.lessons || []);
+  }, [course]);
 
-  const carouselItems = useMemo(
-    () =>
-      Array.from({ length: 10 }).map((_, index) => ({
-        id: index + 1,
-        src: `/images/Poster${(index % 15) + 1}.jpg`,
-        title: `Feature ${index + 1}`,
-        subtitle: 'Continue learning',
-        duration: `${4 + index}m`,
-        lessonId: index + 1,
-      })),
-    []
-  );
+  const carouselItems = useMemo(() => {
+    return lessons.map((lesson, idx) => ({
+      id: lesson.id ?? idx + 1,
+      src: lesson.studyMaterials?.[0] || `/images/Poster${(idx % 15) + 1}.jpg`,
+      title: lesson.title,
+      subtitle: lesson.instructor || course?.instructor || 'Continue learning',
+      duration: lesson.duration,
+      lessonId: lesson.id ?? idx + 1,
+    }));
+  }, [lessons, course]);
 
   const handleNavigate = (href) => {
     if (!href) return;
@@ -199,9 +182,9 @@ export default function ContentPage() {
 
         <div className={`flex min-h-0 flex-1 flex-col overflow-hidden ${sectionShell}`}>
           <div className={`flex-1 overflow-y-auto ${isDark ? 'bg-slate-950/50' : 'bg-white/70'}`}>
-            <div className="flex flex-col gap-6 p-6">
-              <section className={`relative overflow-hidden rounded-[32px] ${sectionShell}`}>
-                <div className="relative h-[280px] sm:h-[340px] lg:h-[380px]">
+            <div className="flex flex-col gap-8 p-6">
+              <section className={`flex h-[calc(100vh-6rem)] flex-col gap-6 ${sectionShell} rounded-[32px] p-6`}>
+                <div className="relative flex-1 overflow-hidden rounded-[28px]">
                   <img
                     src={bannerImages[0]}
                     alt="Featured header"
@@ -237,22 +220,23 @@ export default function ContentPage() {
                     </div>
                   </div>
                 </div>
+
+                <div className="flex-shrink-0">
+                  <ImageCarousel
+                    theme={theme}
+                    items={carouselItems}
+                    cardHeightClass="h-64 sm:h-72 lg:h-80"
+                    onSelect={(item) => router.push(`/?lesson=${item.lessonId ?? item.id}`)}
+                  />
+                </div>
               </section>
 
-              <section className={`rounded-3xl p-6 ${sectionShell}`}>
-                <ImageCarousel
-                  theme={theme}
-                  items={carouselItems}
-                  onSelect={(item) => router.push(`/?lesson=${item.lessonId ?? item.id}`)}
-                />
-              </section>
-
-              <section className={`grid gap-6 lg:grid-cols-[320px_minmax(0,1fr)]`}>
-                <div className={`rounded-3xl ${sectionShell}`}>
+              <section className="grid gap-6 lg:grid-cols-[320px_minmax(0,1fr)]">
+                <div className={`rounded-3xl ${sectionShell} lg:sticky lg:top-24 lg:h-fit lg:max-h-[calc(100vh-8rem)] lg:overflow-y-auto`}>
                   {isContentsOpen && (
                     <CourseContentsSidebar
-                      course={dummyCourse}
-                      currentLessonId={1}
+                      course={course}
+                      currentLessonId={lessons[0]?.id}
                       onSelectLesson={(lessonId) => router.push(`/?lesson=${lessonId}`)}
                       onClose={() => setIsContentsOpen(false)}
                       theme={theme}
@@ -260,7 +244,7 @@ export default function ContentPage() {
                   )}
                 </div>
 
-                <div className="grid gap-6 sm:grid-cols-2">
+                <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                   {contentCards.map((card) => (
                     <article key={card.id} className={`rounded-3xl p-5 ${sectionShell}`}>
                       <div className="relative h-40 overflow-hidden rounded-2xl">

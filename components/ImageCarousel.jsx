@@ -23,16 +23,18 @@ const defaultImages = [
   { id: 15, src: '/images/Poster15.jpg' },
 ];
 
-export default function ImageCarousel({ theme = 'light', items, onSelect }) {
+export default function ImageCarousel({ theme = 'light', items, onSelect, cardHeightClass = 'h-64' }) {
   const isDark = theme === 'dark';
   const slides = items?.length ? items : defaultImages;
   const rawId = useId();
   const sliderId = rawId.replace(/[^a-zA-Z0-9_-]/g, '');
   const prevClass = `image-carousel-prev-${sliderId}`;
   const nextClass = `image-carousel-next-${sliderId}`;
+  const shellBase =
+    'relative flex flex-col justify-end overflow-hidden rounded-[32px] border shadow-[0_45px_95px_rgba(15,23,42,0.18)]';
   const shellClasses = isDark
-    ? 'relative flex h-64 flex-col justify-end overflow-hidden rounded-[32px] border border-white/15 bg-gradient-to-br from-slate-900/70 via-slate-900/40 to-slate-900/60 shadow-[0_45px_95px_rgba(0,0,0,0.55)]'
-    : 'relative flex h-64 flex-col justify-end overflow-hidden rounded-[32px] border border-white/80 bg-gradient-to-br from-white/95 via-slate-50/70 to-white/80 shadow-[0_45px_95px_rgba(15,23,42,0.18)]';
+    ? `${shellBase} ${cardHeightClass} border-white/15 bg-gradient-to-br from-slate-900/70 via-slate-900/40 to-slate-900/60 shadow-[0_45px_95px_rgba(0,0,0,0.55)]`
+    : `${shellBase} ${cardHeightClass} border-white/80 bg-gradient-to-br from-white/95 via-slate-50/70 to-white/80`;
   const overlayGradient = isDark
     ? 'from-black/65 via-black/35 to-transparent'
     : 'from-white/35 via-white/15 to-transparent';
