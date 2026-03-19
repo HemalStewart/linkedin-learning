@@ -254,29 +254,28 @@ export default function BrowsePage({ courseId = 1 }) {
                     )}
 
                     {Array.from({ length: 4 }).map((_, index) => (
-                      <section key={`hero-${index}`} className={`rounded-3xl p-6 ${sectionShell}`}>
-                        <HeroCarousel
-                          slides={carouselItems.slice(0, 3).map((item) => ({
-                            id: item.id,
-                            title: item.title,
-                            description: item.subtitle || 'Tap to start learning.',
-                            image: item.src,
-                            duration: item.duration,
-                          }))}
-                          onSelect={(lessonId) => handleSelectLesson(lessonId)}
-                          theme={theme}
-                        />
-                      </section>
-                    ))}
-
-                    {Array.from({ length: 4 }).map((_, index) => (
-                      <section key={`carousel-${index}`} className={`rounded-3xl p-6 ${sectionShell}`}>
-                        <ImageCarousel
-                          theme={theme}
-                          items={carouselItems}
-                          onSelect={(item) => handleSelectLesson(item.lessonId ?? item.id)}
-                        />
-                      </section>
+                      <React.Fragment key={`block-${index}`}>
+                        <section className={`rounded-3xl p-6 ${sectionShell}`}>
+                          <HeroCarousel
+                            slides={carouselItems.slice(0, 3).map((item) => ({
+                              id: item.id,
+                              title: item.title,
+                              description: item.subtitle || 'Tap to start learning.',
+                              image: item.src,
+                              duration: item.duration,
+                            }))}
+                            onSelect={(lessonId) => handleSelectLesson(lessonId)}
+                            theme={theme}
+                          />
+                        </section>
+                        <section className={`rounded-3xl p-6 ${sectionShell}`}>
+                          <ImageCarousel
+                            theme={theme}
+                            items={carouselItems}
+                            onSelect={(item) => handleSelectLesson(item.lessonId ?? item.id)}
+                          />
+                        </section>
+                      </React.Fragment>
                     ))}
                   </div>
                 </div>
