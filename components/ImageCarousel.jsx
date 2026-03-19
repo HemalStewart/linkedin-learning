@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useId } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
@@ -26,6 +26,10 @@ const defaultImages = [
 export default function ImageCarousel({ theme = 'light', items, onSelect }) {
   const isDark = theme === 'dark';
   const slides = items?.length ? items : defaultImages;
+  const rawId = useId();
+  const sliderId = rawId.replace(/[^a-zA-Z0-9_-]/g, '');
+  const prevClass = `image-carousel-prev-${sliderId}`;
+  const nextClass = `image-carousel-next-${sliderId}`;
   const shellClasses = isDark
     ? 'relative flex h-64 flex-col justify-end overflow-hidden rounded-[32px] border border-white/15 bg-gradient-to-br from-slate-900/70 via-slate-900/40 to-slate-900/60 shadow-[0_45px_95px_rgba(0,0,0,0.55)]'
     : 'relative flex h-64 flex-col justify-end overflow-hidden rounded-[32px] border border-white/80 bg-gradient-to-br from-white/95 via-slate-50/70 to-white/80 shadow-[0_45px_95px_rgba(15,23,42,0.18)]';
@@ -33,29 +37,22 @@ export default function ImageCarousel({ theme = 'light', items, onSelect }) {
     ? 'from-black/65 via-black/35 to-transparent'
     : 'from-white/35 via-white/15 to-transparent';
   const labelClasses = isDark ? 'bg-white/20 text-white' : 'bg-white/85 text-slate-900';
+  const navButtonClasses = `pointer-events-auto flex h-10 w-10 items-center justify-center rounded-full border backdrop-blur-xl transition-colors ${
+    isDark
+      ? 'border-white/15 bg-white/10 text-white hover:bg-white/20'
+      : 'border-white/70 bg-white/80 text-slate-900 hover:bg-white'
+  }`;
 
   return (
     <div className="relative z-0 w-full">
       <div className="pointer-events-none absolute left-3 top-1/2 z-10 hidden -translate-y-1/2 items-center lg:flex">
-        <div
-          className={`swiper-button-prev pointer-events-auto flex h-9 w-9 items-center justify-center rounded-full border ${
-            isDark
-              ? 'border-white/20 bg-slate-900/80 text-white shadow-[0_12px_24px_rgba(0,0,0,0.35)] hover:bg-slate-900'
-              : 'border-slate-200 bg-white text-slate-900 shadow-[0_12px_24px_rgba(15,23,42,0.12)] hover:bg-slate-50'
-          } transition-colors`}
-        >
-          <ChevronLeft size={18} />
+        <div className={`${prevClass} ${navButtonClasses}`}>
+          <ChevronLeft size={20} />
         </div>
       </div>
       <div className="pointer-events-none absolute right-3 top-1/2 z-10 hidden -translate-y-1/2 items-center lg:flex">
-        <div
-          className={`swiper-button-next pointer-events-auto flex h-9 w-9 items-center justify-center rounded-full border ${
-            isDark
-              ? 'border-white/20 bg-slate-900/80 text-white shadow-[0_12px_24px_rgba(0,0,0,0.35)] hover:bg-slate-900'
-              : 'border-slate-200 bg-white text-slate-900 shadow-[0_12px_24px_rgba(15,23,42,0.12)] hover:bg-slate-50'
-          } transition-colors`}
-        >
-          <ChevronRight size={18} />
+        <div className={`${nextClass} ${navButtonClasses}`}>
+          <ChevronRight size={20} />
         </div>
       </div>
 
@@ -64,8 +61,8 @@ export default function ImageCarousel({ theme = 'light', items, onSelect }) {
         spaceBetween={16}
         slidesPerView={2}
         navigation={{
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev',
+          nextEl: `.${nextClass}`,
+          prevEl: `.${prevClass}`,
         }}
         modules={[Navigation]}
         loop

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useId } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
 import { Play, ChevronLeft, ChevronRight } from 'lucide-react';
@@ -34,6 +34,10 @@ const fallbackSlides = [
 export default function HeroCarousel({ slides, onSelect, theme = 'light' }) {
   const isDark = theme === 'dark';
   const data = slides?.length ? slides : fallbackSlides;
+  const rawId = useId();
+  const sliderId = rawId.replace(/[^a-zA-Z0-9_-]/g, '');
+  const prevClass = `hero-carousel-prev-${sliderId}`;
+  const nextClass = `hero-carousel-next-${sliderId}`;
   const panelClasses = isDark
     ? 'border-white/10 bg-slate-900/60 text-white shadow-[0_40px_120px_rgba(2,6,23,0.7)]'
     : 'border-white/70 bg-white/70 text-slate-900 shadow-[0_40px_90px_rgba(15,23,42,0.16)]';
@@ -52,7 +56,7 @@ export default function HeroCarousel({ slides, onSelect, theme = 'light' }) {
       <div className="absolute inset-y-0 left-4 z-20 hidden items-center lg:flex">
         <button
           type="button"
-          className={`hero-swiper-prev flex h-10 w-10 items-center justify-center rounded-full border backdrop-blur-xl ${
+          className={`${prevClass} flex h-10 w-10 items-center justify-center rounded-full border backdrop-blur-xl ${
             isDark
               ? 'border-white/15 bg-white/10 text-white hover:bg-white/20'
               : 'border-white/70 bg-white/80 text-slate-900 hover:bg-white'
@@ -65,7 +69,7 @@ export default function HeroCarousel({ slides, onSelect, theme = 'light' }) {
       <div className="absolute inset-y-0 right-4 z-20 hidden items-center lg:flex">
         <button
           type="button"
-          className={`hero-swiper-next flex h-10 w-10 items-center justify-center rounded-full border backdrop-blur-xl ${
+          className={`${nextClass} flex h-10 w-10 items-center justify-center rounded-full border backdrop-blur-xl ${
             isDark
               ? 'border-white/15 bg-white/10 text-white hover:bg-white/20'
               : 'border-white/70 bg-white/80 text-slate-900 hover:bg-white'
@@ -80,8 +84,8 @@ export default function HeroCarousel({ slides, onSelect, theme = 'light' }) {
         className="hero-swiper"
         modules={[Navigation, Pagination]}
         navigation={{
-          nextEl: '.hero-swiper-next',
-          prevEl: '.hero-swiper-prev',
+          nextEl: `.${nextClass}`,
+          prevEl: `.${prevClass}`,
         }}
         pagination={{ clickable: true }}
         loop
