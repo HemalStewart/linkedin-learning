@@ -19,6 +19,7 @@ import SolutionsBar from '@/components/SolutionsBar';
 import MainSidebar from '@/components/MainSidebar';
 import SidebarNavContent from '@/components/SidebarNavContent';
 import CourseContentsSidebar from '@/components/CourseContentsSidebar';
+import HeroCarousel from '@/components/HeroCarousel';
 import ImageCarousel from '@/components/ImageCarousel';
 import { allCourses } from '../Data/data';
 
@@ -27,7 +28,7 @@ export default function BrowsePage({ courseId = 1 }) {
   const [isNavCollapsed, setIsNavCollapsed] = useState(true);
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   const [isDesktop, setIsDesktop] = useState(false);
-  const [isContentsOpen, setIsContentsOpen] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   const router = useRouter();
   const course = allCourses[courseId];
@@ -102,6 +103,14 @@ export default function BrowsePage({ courseId = 1 }) {
     return () => mediaQuery.removeListener(update);
   }, []);
 
+  useEffect(() => {
+    if (isDesktop) {
+      setIsSidebarOpen(true);
+    } else {
+      setIsSidebarOpen(false);
+    }
+  }, [isDesktop]);
+
   const lessons = useMemo(() => {
     if (!course?.chapters) return [];
     return course.chapters.flatMap((chapter) => chapter.lessons || []);
@@ -132,9 +141,11 @@ export default function BrowsePage({ courseId = 1 }) {
     ? 'bg-white/5 backdrop-blur-2xl'
     : 'bg-white/80 backdrop-blur-2xl';
 
-  const gridShell = isDark
-    ? 'bg-slate-950/50'
-    : 'bg-white/70';
+  const layoutClasses = `relative flex flex-1 min-h-0 flex-col ${
+    isDark ? 'bg-slate-950/50' : 'bg-white/70'
+  } backdrop-blur-2xl transition-all duration-300 lg:grid lg:h-[calc(100vh-5rem)] ${
+    isSidebarOpen ? 'lg:grid-cols-[340px_minmax(0,1fr)]' : 'lg:grid-cols-[0_minmax(0,1fr)]'
+  }`;
 
   return (
     <div className={`flex h-screen flex-col overflow-hidden ${isDark ? 'bg-slate-950' : 'bg-slate-50'}`}>
@@ -176,47 +187,99 @@ export default function BrowsePage({ courseId = 1 }) {
         />
 
         <div className={`flex min-h-0 flex-1 flex-col overflow-hidden ${sectionShell}`}>
-          <div className={`flex-1 overflow-y-auto ${gridShell}`}>
-            <div className={`grid min-h-full gap-6 p-6 lg:grid-cols-[320px_minmax(0,1fr)]`}>
-              <div
-                className={`hidden lg:flex lg:h-[calc(100vh-7rem)] lg:flex-col lg:overflow-hidden ${
-                  isDark ? 'bg-white/5' : 'bg-white/70'
-                } rounded-3xl`}
-              >
-                {isContentsOpen && (
-                  <CourseContentsSidebar
-                    course={course}
-                    currentLessonId={lessons[0]?.id}
-                    onSelectLesson={handleSelectLesson}
-                    onClose={() => setIsContentsOpen(false)}
-                    showCloseButton={false}
-                    theme={theme}
-                  />
-                )}
-              </div>
-
-              <div className="flex flex-col gap-6">
-                {!isDesktop && (
-                  <section className={`rounded-3xl p-4 ${sectionShell}`}>
+          <div className="flex-1 overflow-hidden">
+            <div className={layoutClasses}>
+              {isDesktop && (
+                <div
+                  className={`hidden lg:sticky lg:top-20 lg:flex lg:h-[calc(100vh-5rem)] lg:flex-col lg:overflow-hidden ${
+                    isDark ? 'bg-white/5 backdrop-blur-2xl' : 'bg-white/70 backdrop-blur-2xl'
+                  }`}
+                >
+                  {isSidebarOpen && (
                     <CourseContentsSidebar
                       course={course}
                       currentLessonId={lessons[0]?.id}
                       onSelectLesson={handleSelectLesson}
-                      showCloseButton={false}
+                      onClose={() => setIsSidebarOpen(false)}
                       theme={theme}
                     />
-                  </section>
-                )}
+                  )}
+                </div>
+              )}
 
-                {Array.from({ length: 4 }).map((_, index) => (
-                  <section key={`carousel-${index}`} className={`rounded-3xl p-6 ${sectionShell}`}>
-                    <ImageCarousel
+              {!isDesktop && (
+                <>
+                  <div
+                    className={`fixed inset-0 z-60 bg-black/60 transition-opacity duration-300 lg:hidden ${
+                      isSidebarOpen ? 'opacity-100 pointer-events-auto' : 'pointer-events-none opacity-0'
+                    }`}
+                    onClick={() => setIsSidebarOpen(false)}
+                  />
+                  <div
+                    className={`fixed top-0 bottom-0 left-0 z-70 w-72 max-w-[85%] transform transition-all duration-300 lg:hidden ${
+                      isSidebarOpen ? 'translate-x-0 ease-out' : '-translate-x-full ease-in'
+                    }`}
+                  >
+                    <CourseContentsSidebar
+                      course={course}
+                      currentLessonId={lessons[0]?.id}
+                      onSelectLesson={(lessonId) => {
+                        handleSelectLesson(lessonId);
+                        setIsSidebarOpen(false);
+                      }}
+                      onClose={() => setIsSidebarOpen(false)}
                       theme={theme}
-                      items={carouselItems}
-                      onSelect={(item) => handleSelectLesson(item.lessonId ?? item.id)}
                     />
-                  </section>
-                ))}
+                  </div>
+                </>
+              )}
+
+              <div className="flex min-h-0 min-w-0 flex-1 flex-col lg:col-start-2">
+                <div className="flex-1 overflow-y-auto">
+                  <div className="flex flex-col gap-6 p-6">
+                    {!isDesktop && (
+                      <div className="flex justify-end">
+                        <button
+                          type="button"
+                          onClick={() => setIsSidebarOpen(true)}
+                          className={`rounded-full px-4 py-2 text-sm font-semibold ${
+                            isDark
+                              ? 'bg-white/10 text-white hover:bg-white/20'
+                              : 'bg-white text-slate-900 hover:bg-slate-50'
+                          }`}
+                        >
+                          Contents
+                        </button>
+                      </div>
+                    )}
+
+                    {Array.from({ length: 4 }).map((_, index) => (
+                      <section key={`hero-${index}`} className={`rounded-3xl p-6 ${sectionShell}`}>
+                        <HeroCarousel
+                          slides={carouselItems.slice(0, 3).map((item) => ({
+                            id: item.id,
+                            title: item.title,
+                            description: item.subtitle || 'Tap to start learning.',
+                            image: item.src,
+                            duration: item.duration,
+                          }))}
+                          onSelect={(lessonId) => handleSelectLesson(lessonId)}
+                          theme={theme}
+                        />
+                      </section>
+                    ))}
+
+                    {Array.from({ length: 4 }).map((_, index) => (
+                      <section key={`carousel-${index}`} className={`rounded-3xl p-6 ${sectionShell}`}>
+                        <ImageCarousel
+                          theme={theme}
+                          items={carouselItems}
+                          onSelect={(item) => handleSelectLesson(item.lessonId ?? item.id)}
+                        />
+                      </section>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
