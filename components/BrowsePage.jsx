@@ -19,10 +19,7 @@ import SolutionsBar from '@/components/SolutionsBar';
 import MainSidebar from '@/components/MainSidebar';
 import SidebarNavContent from '@/components/SidebarNavContent';
 import CourseContentsSidebar from '@/components/CourseContentsSidebar';
-import HeroCarousel from '@/components/HeroCarousel';
 import ImageCarousel from '@/components/ImageCarousel';
-import PosterShowcase from '@/components/PosterShowcase';
-import PMICertificate from '@/components/PMICertificate';
 import { allCourses } from '../Data/data';
 
 export default function BrowsePage({ courseId = 1 }) {
@@ -109,16 +106,6 @@ export default function BrowsePage({ courseId = 1 }) {
     if (!course?.chapters) return [];
     return course.chapters.flatMap((chapter) => chapter.lessons || []);
   }, [course]);
-
-  const heroSlides = useMemo(() => {
-    return lessons.slice(0, 3).map((lesson, idx) => ({
-      id: lesson.id ?? idx + 1,
-      title: lesson.title,
-      description: lesson.description || 'Tap to continue learning.',
-      image: lesson.studyMaterials?.[0] || `/images/Poster${(idx + 1) * 2}.jpg`,
-      duration: lesson.duration,
-    }));
-  }, [lessons]);
 
   const carouselItems = useMemo(() => {
     return lessons.map((lesson, idx) => ({
@@ -220,46 +207,16 @@ export default function BrowsePage({ courseId = 1 }) {
                     />
                   </section>
                 )}
-                <HeroCarousel slides={heroSlides} onSelect={handleSelectLesson} theme={theme} />
 
-                <section className={`rounded-3xl p-6 ${sectionShell}`}>
-                  <div className="mb-4 flex items-center justify-between">
-                    <div>
-                      <p className={`text-xs uppercase tracking-[0.3em] ${isDark ? 'text-slate-300' : 'text-slate-500'}`}>
-                        Continue watching
-                      </p>
-                      <h3 className="text-xl font-semibold">Pick up where you left off</h3>
-                    </div>
-                    <span className={`text-sm ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
-                      {lessons.length} lessons
-                    </span>
-                  </div>
-                  <ImageCarousel
-                    theme={theme}
-                    items={carouselItems}
-                    onSelect={(item) => handleSelectLesson(item.lessonId ?? item.id)}
-                  />
-                </section>
-
-                <section className={`rounded-3xl p-6 ${sectionShell}`}>
-                  <div className="mb-4">
-                    <p className={`text-xs uppercase tracking-[0.3em] ${isDark ? 'text-slate-300' : 'text-slate-500'}`}>
-                      Spotlight
-                    </p>
-                    <h3 className="text-xl font-semibold">Editor&apos;s picks</h3>
-                  </div>
-                  <PosterShowcase theme={theme} />
-                </section>
-
-                <section className={`rounded-3xl p-6 ${sectionShell}`}>
-                  <div className="mb-4">
-                    <p className={`text-xs uppercase tracking-[0.3em] ${isDark ? 'text-slate-300' : 'text-slate-500'}`}>
-                      Certificates
-                    </p>
-                    <h3 className="text-xl font-semibold">Keep your momentum</h3>
-                  </div>
-                  <PMICertificate theme={theme} />
-                </section>
+                {Array.from({ length: 4 }).map((_, index) => (
+                  <section key={`carousel-${index}`} className={`rounded-3xl p-6 ${sectionShell}`}>
+                    <ImageCarousel
+                      theme={theme}
+                      items={carouselItems}
+                      onSelect={(item) => handleSelectLesson(item.lessonId ?? item.id)}
+                    />
+                  </section>
+                ))}
               </div>
             </div>
           </div>
