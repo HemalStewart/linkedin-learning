@@ -72,7 +72,7 @@ export default function VideoPlayerPage({ courseId }) {
       title: 'Learn',
       items: [
         { icon: BookmarkSquare, label: 'My Library', href: '/browse' },
-        { icon: Stack, label: 'Content' },
+        { icon: Stack, label: 'Content', href: '/content' },
         { icon: AcademicCap, label: 'Learning Paths' }
       ]
     },
