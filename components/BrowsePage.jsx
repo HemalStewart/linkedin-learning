@@ -40,14 +40,14 @@ export default function BrowsePage({ courseId = 1 }) {
     {
       title: null,
       items: [
-        { icon: Home, label: 'Home', active: true },
+        { icon: Home, label: 'Home', active: false, href: '/' },
         { icon: Briefcase, label: 'My Career Journey' },
       ],
     },
     {
       title: 'Learn',
       items: [
-        { icon: BookmarkSquare, label: 'My Library' },
+        { icon: BookmarkSquare, label: 'My Library', href: '/browse', active: true },
         { icon: Stack, label: 'Content' },
         { icon: AcademicCap, label: 'Learning Paths' },
       ],
@@ -136,6 +136,11 @@ export default function BrowsePage({ courseId = 1 }) {
     router.push(`/?lesson=${lessonId}`);
   };
 
+  const handleNavigate = (href) => {
+    if (!href) return;
+    router.push(href);
+  };
+
   const sectionShell = isDark
     ? 'bg-white/5 backdrop-blur-2xl'
     : 'bg-white/80 backdrop-blur-2xl';
@@ -169,7 +174,7 @@ export default function BrowsePage({ courseId = 1 }) {
                 <XMark className="h-5 w-5" />
               </button>
             </div>
-            <SidebarNavContent navSections={navSections} collapsed={false} theme={theme} />
+            <SidebarNavContent navSections={navSections} collapsed={false} theme={theme} onNavigate={handleNavigate} />
           </aside>
         </>
       )}
@@ -180,6 +185,7 @@ export default function BrowsePage({ courseId = 1 }) {
           isCollapsed={isNavCollapsed}
           onToggleCollapse={() => setIsNavCollapsed((prev) => !prev)}
           theme={theme}
+          onNavigate={handleNavigate}
         />
 
         <div className={`flex min-h-0 flex-1 flex-col overflow-hidden ${sectionShell}`}>

@@ -1,7 +1,12 @@
 import React from 'react';
 import { QuestionMarkCircleIcon as HelpCircle } from '@heroicons/react/24/solid';
 
-export default function SidebarNavContent({ navSections, collapsed = false, theme = 'light' }) {
+export default function SidebarNavContent({
+  navSections,
+  collapsed = false,
+  theme = 'light',
+  onNavigate,
+}) {
   const isDark = theme === 'dark';
   const sectionTitleClasses = isDark ? 'text-gray-400' : 'text-gray-500';
   const activeClasses = isDark ? 'bg-gray-800 text-white' : 'bg-gray-200 text-gray-900';
@@ -30,6 +35,19 @@ export default function SidebarNavContent({ navSections, collapsed = false, them
                 <li key={itemIndex}>
                   <button
                     type="button"
+                    onClick={() => {
+                      if (typeof item.onClick === 'function') {
+                        item.onClick();
+                        return;
+                      }
+                      if (item.href) {
+                        if (onNavigate) {
+                          onNavigate(item.href);
+                        } else if (typeof window !== 'undefined') {
+                          window.location.href = item.href;
+                        }
+                      }
+                    }}
                     className={`flex w-full items-center ${
                       collapsed ? 'justify-center' : 'gap-3'
                     } rounded-md px-3 py-2 text-sm font-medium transition-colors duration-200 ${

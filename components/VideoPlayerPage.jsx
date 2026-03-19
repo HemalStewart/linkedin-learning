@@ -64,14 +64,14 @@ export default function VideoPlayerPage({ courseId }) {
     {
       title: null,
       items: [
-        { icon: Home, label: 'Home', active: true },
+        { icon: Home, label: 'Home', active: true, href: '/' },
         { icon: Briefcase, label: 'My Career Journey' }
       ]
     },
     {
       title: 'Learn',
       items: [
-        { icon: BookmarkSquare, label: 'My Library' },
+        { icon: BookmarkSquare, label: 'My Library', href: '/browse' },
         { icon: Stack, label: 'Content' },
         { icon: AcademicCap, label: 'Learning Paths' }
       ]
@@ -719,7 +719,12 @@ export default function VideoPlayerPage({ courseId }) {
                 <XMark className="h-5 w-5" />
               </button>
             </div>
-            <SidebarNavContent navSections={navSections} collapsed={false} theme={theme} />
+            <SidebarNavContent
+              navSections={navSections}
+              collapsed={false}
+              theme={theme}
+              onNavigate={(href) => router.push(href)}
+            />
           </aside>
         </>
       )}
@@ -730,6 +735,7 @@ export default function VideoPlayerPage({ courseId }) {
           isCollapsed={isNavCollapsed}
           onToggleCollapse={() => setIsNavCollapsed((prev) => !prev)}
           theme={theme}
+          onNavigate={(href) => router.push(href)}
         />
 
         <div className={`flex min-h-0 flex-1 flex-col overflow-hidden ${contentShellClasses}`}>

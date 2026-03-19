@@ -2,7 +2,13 @@ import React from 'react';
 import { ChevronLeftIcon as ChevronLeft } from '@heroicons/react/24/solid';
 import SidebarNavContent from '@/components/SidebarNavContent';
 
-export default function MainSidebar({ navSections, isCollapsed, onToggleCollapse, theme = 'light' }) {
+export default function MainSidebar({
+  navSections,
+  isCollapsed,
+  onToggleCollapse,
+  theme = 'light',
+  onNavigate,
+}) {
   const isDark = theme === 'dark';
   const sidebarClasses = isDark
     ? 'border-white/10 bg-slate-900/70 text-gray-100 backdrop-blur-2xl shadow-[0_20px_50px_rgba(2,6,23,0.65)]'
@@ -28,7 +34,7 @@ export default function MainSidebar({ navSections, isCollapsed, onToggleCollapse
           />
         </button>
       </div>
-      <SidebarNavContent navSections={navSections} collapsed={isCollapsed} theme={theme} />
+      <SidebarNavContent navSections={navSections} collapsed={isCollapsed} theme={theme} onNavigate={onNavigate} />
     </aside>
   );
 }
