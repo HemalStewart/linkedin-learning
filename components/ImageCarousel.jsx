@@ -36,26 +36,26 @@ export default function ImageCarousel({ theme = 'light', items, onSelect }) {
 
   return (
     <div className="relative z-0 w-full">
-      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 hidden items-center lg:flex lg:-translate-x-6">
+      <div className="pointer-events-none absolute left-3 top-1/2 z-10 hidden -translate-y-1/2 items-center lg:flex">
         <div
-          className={`swiper-button-prev pointer-events-auto flex h-10 w-10 items-center justify-center rounded-full border ${
+          className={`swiper-button-prev pointer-events-auto flex h-9 w-9 items-center justify-center rounded-full border ${
             isDark
-              ? 'border-white/10 bg-white/10 text-white shadow-[0_20px_45px_rgba(0,0,0,0.45)] hover:bg-white/20'
-              : 'border-white/50 bg-white/70 text-slate-900 shadow-[0_20px_45px_rgba(15,23,42,0.15)] hover:bg-white'
-          } transition-colors backdrop-blur-xl`}
+              ? 'border-white/20 bg-slate-900/80 text-white shadow-[0_12px_24px_rgba(0,0,0,0.35)] hover:bg-slate-900'
+              : 'border-slate-200 bg-white text-slate-900 shadow-[0_12px_24px_rgba(15,23,42,0.12)] hover:bg-slate-50'
+          } transition-colors`}
         >
-          <ChevronLeft size={20} />
+          <ChevronLeft size={18} />
         </div>
       </div>
-      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 hidden items-center lg:flex lg:translate-x-6">
+      <div className="pointer-events-none absolute right-3 top-1/2 z-10 hidden -translate-y-1/2 items-center lg:flex">
         <div
-          className={`swiper-button-next pointer-events-auto flex h-10 w-10 items-center justify-center rounded-full border ${
+          className={`swiper-button-next pointer-events-auto flex h-9 w-9 items-center justify-center rounded-full border ${
             isDark
-              ? 'border-white/10 bg-white/10 text-white shadow-[0_20px_45px_rgba(0,0,0,0.45)] hover:bg-white/20'
-              : 'border-white/50 bg-white/70 text-slate-900 shadow-[0_20px_45px_rgba(15,23,42,0.15)] hover:bg-white'
-          } transition-colors backdrop-blur-xl`}
+              ? 'border-white/20 bg-slate-900/80 text-white shadow-[0_12px_24px_rgba(0,0,0,0.35)] hover:bg-slate-900'
+              : 'border-slate-200 bg-white text-slate-900 shadow-[0_12px_24px_rgba(15,23,42,0.12)] hover:bg-slate-50'
+          } transition-colors`}
         >
-          <ChevronRight size={20} />
+          <ChevronRight size={18} />
         </div>
       </div>
 
@@ -132,6 +132,10 @@ export default function ImageCarousel({ theme = 'light', items, onSelect }) {
           overflow: hidden;
           display: flex;
           justify-content: center;
+        }
+        .liquid-swiper .swiper-button-prev::after,
+        .liquid-swiper .swiper-button-next::after {
+          display: none;
         }
       `}</style>
     </div>
